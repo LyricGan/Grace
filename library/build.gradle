@@ -20,5 +20,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    Map<String, String> dependencies = rootProject.ext.dependencies;
+    testCompile dependencies.jUnit
+    compile dependencies.recyclerView
+    compile dependencies.supportv4
+    compile dependencies.gson
 }

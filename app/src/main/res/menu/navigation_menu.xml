@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@mipmap/ic_delete"
+            android:title="@string/menu_item_login"/>
+        <item
+            android:id="@+id/nav_loading"
+            android:icon="@mipmap/ic_delete"
+            android:title="@string/menu_item_loading"/>
+        <item
+            android:id="@+id/nav_progress"
+            android:icon="@mipmap/ic_delete"
+            android:title="@string/menu_item_progress_bar"/>
+        <item
+            android:id="@+id/nav_web"
+            android:icon="@mipmap/ic_delete"
+            android:title="@string/menu_item_webview"/>
+    </group>
+
+    <item android:title="@string/item_others">
+        <menu>
+            <item
+                android:id="@+id/menu_item_about"
+                android:icon="@mipmap/ic_delete"
+                android:title="@string/menu_item_about"/>
+            <item
+                android:id="@+id/menu_item_exit"
+                android:icon="@mipmap/ic_delete"
+                android:title="@string/menu_item_exit"/>
+        </menu>
+    </item>
+
+</menu>

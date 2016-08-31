@@ -1,11 +1,5 @@
 package com.lyric.grace.library.utils;
 
-/**
- * @author lyricgan
- * @description
- * @time 2016/8/30 19:30
- */
-
 import android.os.Handler;
 import android.os.Looper;
 

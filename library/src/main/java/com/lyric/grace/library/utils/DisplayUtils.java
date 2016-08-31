@@ -11,11 +11,11 @@ import android.view.WindowManager;
 import java.lang.reflect.Method;
 
 /**
- * @author lyricgan
+ * @author lyric
  * @description
- * @time 2016/8/30 19:33
+ * @time 2016/3/12 15:04
  */
-public class DimenUtils {
+public class DisplayUtils {
 
     public static int dip2px(Context context, float dpValue) {
         float scale = getDensity(context);
@@ -28,18 +28,22 @@ public class DimenUtils {
     }
 
     private static float getDensity(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().density;
     }
 
     public static int getDensityDpi(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
     public static float getScaledDensity(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().scaledDensity;
     }
 
     public static int[] getScreenDisplay(Context context) {
+        CheckUtils.checkContext(context);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         int[] display = new int[2];
         display[0] = metrics.widthPixels;
@@ -49,18 +53,22 @@ public class DimenUtils {
     }
 
     public static int getScreenWidth(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
     public static int getScreenHeight(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     public static float getXdpi(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().xdpi;
     }
 
     public static float getYdpi(Context context) {
+        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().ydpi;
     }
 
@@ -72,6 +80,7 @@ public class DimenUtils {
      * @return a pair to return the width and height
      */
     public static Pair<Integer, Integer> getResolution(Context context) {
+        CheckUtils.checkContext(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return getRealResolution(context);
         } else {
