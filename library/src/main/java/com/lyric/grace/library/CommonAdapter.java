@@ -33,6 +33,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.mLayoutId = layoutId;
     }
 
+    public Context getContext() {
+        return this.mContext;
+    }
+
     @Override
     public int getCount() {
         return mDataList != null ? mDataList.size() : 0;
@@ -50,10 +54,20 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return convert(position, convertView, parent);
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = View.inflate(getContext(), mLayoutId, parent);
+            viewHolder = new ViewHolder();
+            viewHolder.itemView = convertView;
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        convert(position, viewHolder.itemView, parent);
+        return convertView;
     }
 
-    public abstract View convert(int position, View convertView, ViewGroup parent);
+    public abstract void convert(int position, View convertView, ViewGroup parent);
 
     public void setDataList(List<T> dataList) {
         this.mDataList = dataList;
@@ -109,5 +123,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     public void clear() {
         this.mDataList.clear();
         this.notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        private View itemView;
     }
 }
