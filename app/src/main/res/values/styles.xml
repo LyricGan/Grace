@@ -8,6 +8,14 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="AppMainTheme" parent="AppTheme">
+        <item name="android:fitsSystemWindows">false</item>
+    </style>
+
     <style name="popup_style">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
@@ -25,11 +33,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="AppMainTheme" parent="AppTheme">
-        <item name="android:fitsSystemWindows">false</item>
-    </style>
-
-    <!-- 默认popupwindow动画 -->
+    <!-- 默认PopupWindow动画 -->
     <style name="PopupWindowAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/base_slide_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/base_slide_bottom_out</item>
