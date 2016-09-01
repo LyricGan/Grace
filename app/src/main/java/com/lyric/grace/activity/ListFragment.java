@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lyric.grace.R;
+import com.lyric.grace.adapter.RecyclerViewAdapter;
 
 public class ListFragment extends Fragment {
     private RecyclerView mRecyclerView;

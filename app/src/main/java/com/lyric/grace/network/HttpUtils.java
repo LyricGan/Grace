@@ -36,11 +36,11 @@ public class HttpUtils {
         ResponseEntity responseEntity = new ResponseEntity();
         if (TextUtils.isEmpty(url)) {
             LogUtils.e(HttpConstants.HTTP_TAG, "Request url can not be null.");
-            responseEntity.responseCode = HttpConstants.URL_NULL;
+            responseEntity.setResponseCode(HttpConstants.URL_NULL);
             return responseEntity;
         }
         url = ParamsUtils.buildGetUrl(url, params, encode);
-        responseEntity.url = url;
+        responseEntity.setUrl(url);
         HttpURLConnection urlConnection = null;
         try {
             URL requestUrl = new URL(url);
@@ -53,11 +53,11 @@ public class HttpUtils {
             } else {
                 response = "Request failed.";
             }
-            responseEntity.responseCode = urlConnection.getResponseCode();
-            responseEntity.response = response;
+            responseEntity.setResponseCode(urlConnection.getResponseCode());
+            responseEntity.setResponse(response);
         } catch (IOException e) {
-            responseEntity.responseCode = HttpConstants.EXCEPTION;
-            responseEntity.response = e.getMessage();
+            responseEntity.setResponseCode(HttpConstants.EXCEPTION);
+            responseEntity.setResponse(e.getMessage());
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -74,12 +74,12 @@ public class HttpUtils {
         ResponseEntity responseEntity = new ResponseEntity();
         if (TextUtils.isEmpty(url)) {
             LogUtils.e(HttpConstants.HTTP_TAG, "Request url can not be null.");
-            responseEntity.responseCode = HttpConstants.URL_NULL;
+            responseEntity.setResponseCode(HttpConstants.URL_NULL);
             return responseEntity;
         }
         String requestParams = ParamsUtils.encodeParams(params, encode);
-        responseEntity.url = url;
-        responseEntity.params = requestParams;
+        responseEntity.setUrl(url);
+        responseEntity.setParams(requestParams);
         HttpURLConnection urlConnection = null;
         Writer writer = null;
         try {
@@ -100,11 +100,11 @@ public class HttpUtils {
             } else {
                 response = "Request failed.";
             }
-            responseEntity.responseCode = urlConnection.getResponseCode();
-            responseEntity.response = response;
+            responseEntity.setResponseCode(urlConnection.getResponseCode());
+            responseEntity.setResponse(response);
         } catch (IOException e) {
-            responseEntity.responseCode = HttpConstants.EXCEPTION;
-            responseEntity.response = e.getMessage();
+            responseEntity.setResponseCode(HttpConstants.EXCEPTION);
+            responseEntity.setResponse(e.getMessage());
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -126,8 +126,8 @@ public class HttpUtils {
         String PREFIX = "--";
         String LINE_END = "\r\n";
         ResponseEntity responseEntity = new ResponseEntity();
-        responseEntity.url = url;
-        responseEntity.params = ParamsUtils.encodeParams(params, HttpConstants.UTF_8);
+        responseEntity.setUrl(url);
+        responseEntity.setParams(ParamsUtils.encodeParams(params, HttpConstants.UTF_8));
         try {
             URL requestUrl = new URL(url);
             HttpURLConnection connection = createConnection(requestUrl);
@@ -201,14 +201,14 @@ public class HttpUtils {
                 while ((len = inputStream.read()) != -1) {
                     responseBuilder.append((char) len);
                 }
-                responseEntity.response = responseBuilder.toString();
+                responseEntity.setResponse(responseBuilder.toString());
             }
-            responseEntity.responseCode = responseCode;
+            responseEntity.setResponseCode(responseCode);
             dataOutputStream.close();
             connection.disconnect();
         } catch (IOException e) {
-            responseEntity.responseCode = HttpConstants.EXCEPTION;
-            responseEntity.response = e.getMessage();
+            responseEntity.setResponseCode(HttpConstants.EXCEPTION);
+            responseEntity.setResponse(e.getMessage());
         }
         return responseEntity;
     }

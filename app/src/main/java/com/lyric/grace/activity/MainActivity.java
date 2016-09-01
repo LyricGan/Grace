@@ -147,19 +147,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                         break;
                     case R.id.nav_loading: {// LoadingTest
-                        ActivityUtils.jumpActivity(MainActivity.this, LoadingActivity.class);
+                        ActivityUtils.toActivity(MainActivity.this, LoadingActivity.class);
                     }
                         break;
                     case R.id.nav_progress: {// CircleProgressBar
-                        ActivityUtils.jumpActivity(MainActivity.this, CircleProgressBarActivity.class);
+                        ActivityUtils.toActivity(MainActivity.this, CircleProgressBarActivity.class);
                     }
                         break;
                     case R.id.nav_web: {// WebActivity
-                        ActivityUtils.jumpActivity(MainActivity.this, SwipeMenuSimpleActivity.class);
+                        ActivityUtils.toActivity(MainActivity.this, SwipeMenuSimpleActivity.class);
                     }
                         break;
                     case R.id.menu_item_about: {// 关于
-                        ActivityUtils.jumpActivity(MainActivity.this, SwipeMenuActivity.class);
+                        ActivityUtils.toActivity(MainActivity.this, SwipeMenuActivity.class);
                     }
                         break;
                     case R.id.menu_item_exit: {// 退出

@@ -62,7 +62,7 @@ public class Request<T> implements HttpHandler.OnMessageCallback {
 
     protected void processResponse(ResponseEntity responseEntity) {
         if (responseEntity.isSuccess()) {
-            String response = responseEntity.response;
+            String response = responseEntity.getResponse();
             T result = GsonConverter.getInstance().convert(response, mType);
             if (result != null) {
                 Message msg = mHandler.obtainMessage(MESSAGE_SUCCESS);
@@ -87,13 +87,18 @@ public class Request<T> implements HttpHandler.OnMessageCallback {
             mCallback.onSuccess(object);
         } else if (MESSAGE_FAILED == msg.what) {// 请求失败
             ResponseEntity responseEntity = (ResponseEntity) msg.obj;
-            ResponseError error = new ResponseError();
-            error.url = responseEntity.url;
-            error.params = responseEntity.params;
-            error.code = responseEntity.responseCode;
-            error.message = responseEntity.response;
-            mCallback.onFailed(error);
+            mCallback.onFailed(getResponseError(responseEntity));
         }
+    }
+
+    private ResponseError getResponseError(ResponseEntity responseEntity) {
+        ResponseError responseError = new ResponseError();
+        responseError.setUrl(responseEntity.getUrl());
+        responseError.setParams(responseEntity.getParams());
+        responseError.setCode(responseEntity.getResponseCode());
+        responseError.setMessage(responseEntity.getResponse());
+
+        return responseError;
     }
 
     public void cancel() {

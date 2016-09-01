@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         HandlerUtils.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ActivityUtils.jumpActivity(SplashActivity.this, MainActivity.class);
+                ActivityUtils.toActivity(SplashActivity.this, HomeActivity.class);
                 finish();
             }
         }, 1000);

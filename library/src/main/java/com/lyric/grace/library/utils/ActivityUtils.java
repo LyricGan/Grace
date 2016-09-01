@@ -18,23 +18,23 @@ public class ActivityUtils {
     private ActivityUtils() {
     }
 
-    public static void jumpActivity(Context context, Class<? extends Activity> cls) {
-        jumpActivity(context, cls, null);
+    public static void toActivity(Context context, Class<? extends Activity> cls) {
+        toActivity(context, cls, null);
     }
 
-    public static void jumpActivity(Context context, Class<? extends Activity> cls, Bundle bundle) {
-        jumpActivity(context, cls, bundle, -1);
+    public static void toActivity(Context context, Class<? extends Activity> cls, Bundle bundle) {
+        toActivity(context, cls, bundle, -1);
     }
 
-    public static void jumpActivityForResult(Context context, Class<? extends Activity> cls, int requestCode) {
-        jumpActivity(context, cls, null, requestCode);
+    public static void toActivityForResult(Context context, Class<? extends Activity> cls, int requestCode) {
+        toActivity(context, cls, null, requestCode);
     }
 
-    public static void jumpActivityForResult(Context context, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
-        jumpActivity(context, cls, bundle, requestCode);
+    public static void toActivityForResult(Context context, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
+        toActivity(context, cls, bundle, requestCode);
     }
 
-    private static void jumpActivity(Context context, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
+    private static void toActivity(Context context, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
         Intent intent = new Intent(context, cls);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -49,11 +49,13 @@ public class ActivityUtils {
                 ((FragmentActivity) context).startActivityForResult(intent, requestCode);
             } else if (context instanceof Activity) {
                 ((Activity) context).startActivityForResult(intent, requestCode);
+            } else {
+                throw new IllegalArgumentException("context must be Activity instance.");
             }
         }
     }
 
-    public static void jumpActivityForResult(Fragment fragment, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
+    public static void toActivityForResult(Fragment fragment, Class<? extends Activity> cls, Bundle bundle, int requestCode) {
         Intent intent = new Intent(fragment.getContext(), cls);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -61,7 +63,7 @@ public class ActivityUtils {
         fragment.startActivityForResult(intent, requestCode, bundle);
     }
 
-    public static void jumpActivity(Context context, String action) {
+    public static void toActivity(Context context, String action) {
         Intent intent = new Intent(action);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -69,7 +71,7 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void jumpActivity(Context context, String action, Uri uri) {
+    public static void toActivity(Context context, String action, Uri uri) {
         Intent intent = new Intent(action, uri);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -77,7 +79,7 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void jumpActivity(Context context, String action, Bundle bundle) {
+    public static void toActivity(Context context, String action, Bundle bundle) {
         Intent intent = new Intent(action);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -88,14 +90,14 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void jumpActivity(Context context, Intent intent) {
+    public static void toActivity(Context context, Intent intent) {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
     }
 
-    public static void jumpMainActivity(Context context, Class<? extends Activity> cls, Bundle bundle) {
+    public static void toMainActivity(Context context, Class<? extends Activity> cls, Bundle bundle) {
         Intent intent = new Intent(context, cls);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

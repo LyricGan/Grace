@@ -41,6 +41,7 @@ class HttpHandler<T> extends Handler {
     }
 
     public interface OnMessageCallback {
+
         void callback(Message msg);
     }
 }
