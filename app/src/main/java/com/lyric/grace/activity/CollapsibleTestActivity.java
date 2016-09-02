@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.lyric.grace.R;
 import com.lyric.grace.base.BaseCompatActivity;
 import com.lyric.grace.view.TitleBar;
-import com.lyric.grace.widget.text.ExpandableTextView;
+import com.lyric.grace.widget.ExpandableTextView;
 
 import java.util.ArrayList;
 import java.util.List;

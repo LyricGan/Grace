@@ -1,4 +1,4 @@
-package com.lyric.grace.widget.text;
+package com.lyric.grace.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;

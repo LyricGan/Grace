@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 
 import com.lyric.grace.base.BaseCompatActivity;
 import com.lyric.grace.view.TitleBar;
-import com.lyric.grace.widget.MovedCircleView;
+import com.lyric.grace.widget.test.MovedCircleView;
 
 /**
  * @author lyric

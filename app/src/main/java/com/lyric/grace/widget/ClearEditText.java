@@ -1,7 +1,8 @@
-package com.lyric.grace.widget.text;
+package com.lyric.grace.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -80,11 +81,15 @@ public class ClearEditText extends AutoCompleteTextView implements View.OnFocusC
 
     /**
      * 设置清除图标的显示与隐藏
-     * @param visible View.VISIBLE,View.GONE
+     * @param visible true or false
      */
     protected void setClearIconVisible(boolean visible) {
         Drawable right = visible ? mClearDrawable : null;
-        setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            setCompoundDrawablesRelative(getCompoundDrawables()[0], getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        } else {
+            setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        }
     }
 
     @Override

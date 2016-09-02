@@ -1,4 +1,4 @@
-package com.lyric.grace.widget.text;
+package com.lyric.grace.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * @author lyric
+ * @author lyricgan
  * @description 自定义TextView，保持文本左右对齐
  * @time 2016/1/7 0:03
  */
@@ -109,5 +109,4 @@ public class AlignedTextView extends TextView {
             x += charsWidth + dis;
         }
     }
-
 }

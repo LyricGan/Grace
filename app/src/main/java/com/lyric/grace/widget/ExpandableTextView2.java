@@ -1,4 +1,4 @@
-package com.lyric.grace.widget.text;
+package com.lyric.grace.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,12 +10,12 @@ import android.widget.TextView;
 import com.lyric.grace.R;
 
 /**
- * @author lyric
+ * @author lyricgan
  * @description 可折叠显示文字，全文、收起
  * @time 2016/2/23 15:45
  */
-public class CollapsibleTextView extends RelativeLayout implements View.OnClickListener {
-    private static final String TAG = CollapsibleTextView.class.getSimpleName();
+public class ExpandableTextView2 extends RelativeLayout implements View.OnClickListener {
+    private static final String TAG = ExpandableTextView2.class.getSimpleName();
     // 默认最大行数
     private static final int DEFAULT_MAX_LINE_COUNT = 3;
     // 默认不显示
@@ -45,17 +45,17 @@ public class CollapsibleTextView extends RelativeLayout implements View.OnClickL
         void onChanged(int status);
     }
 
-    public CollapsibleTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ExpandableTextView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize(context);
     }
 
-    public CollapsibleTextView(Context context, AttributeSet attrs) {
+    public ExpandableTextView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(context);
     }
 
-    public CollapsibleTextView(Context context) {
+    public ExpandableTextView2(Context context) {
         super(context);
         initialize(context);
     }
@@ -155,5 +155,4 @@ public class CollapsibleTextView extends RelativeLayout implements View.OnClickL
             setStatus(STATE_OPEN);
         }
     }
-
 }

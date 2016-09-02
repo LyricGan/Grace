@@ -1,4 +1,4 @@
-package com.lyric.grace.widget;
+package com.lyric.grace.widget.test;
 
 import android.content.Context;
 import android.graphics.Canvas;
