@@ -24,10 +24,8 @@ import android.widget.PopupWindow;
 import com.lyric.grace.R;
 import com.lyric.grace.adapter.FragmentAdapter;
 import com.lyric.grace.base.BaseApp;
-import com.lyric.grace.base.Constants;
 import com.lyric.grace.library.utils.ActivityUtils;
 import com.lyric.grace.library.utils.DisplayUtils;
-import com.lyric.grace.library.utils.LogUtils;
 import com.lyric.grace.utils.AddPictureUtils;
 import com.lyric.grace.view.AddPicturePopup;
 
@@ -35,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ganyu
+ * @author lyricgan
  * @description
  * @time 2016/1/19 17:47
  */
@@ -212,7 +210,5 @@ public class MainActivity extends AppCompatActivity {
     protected void finalize() throws Throwable {
         // 当GC准备回收一个Java Object（所有Java对象都是Object的子类）的时候，GC会调用这个Object的finalize方法。
         super.finalize();
-        // 可用来测试内存泄漏
-        LogUtils.d(Constants.TAG_DEFAULT, "Activity has been recycled.");
     }
 }
