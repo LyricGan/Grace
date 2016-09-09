@@ -22,11 +22,11 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public void setInterceptVisibleHint(boolean interceptVisibleHint) {
-        this.mInterceptVisibleHint = interceptVisibleHint;
+    public void setInterceptVisibleHint(boolean visibleHint) {
+        this.mInterceptVisibleHint = visibleHint;
     }
 
-    public boolean isActivityDestroyed() {
-        return getActivity() == null;
+    public boolean isFinishing() {
+        return (getActivity() == null) || getActivity().isFinishing();
     }
 }

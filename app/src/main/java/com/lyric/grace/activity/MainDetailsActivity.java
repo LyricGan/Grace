@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.lyric.grace.R;
 
-public class DetailActivity extends AppCompatActivity {
+public class MainDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

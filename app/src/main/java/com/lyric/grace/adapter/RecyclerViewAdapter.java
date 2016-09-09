@@ -3,17 +3,15 @@ package com.lyric.grace.adapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lyric.grace.R;
-import com.lyric.grace.activity.DetailActivity;
+import com.lyric.grace.activity.MainDetailsActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Context mContext;
@@ -28,10 +26,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(view);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(final RecyclerViewAdapter.ViewHolder holder, int position) {
-        final View view = holder.mView;
+        final View view = holder.itemView;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 animator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mContext.startActivity(new Intent(mContext, DetailActivity.class));
+                        mContext.startActivity(new Intent(mContext, MainDetailsActivity.class));
                     }
                 });
                 animator.start();
@@ -52,12 +49,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return 10;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
         }
     }
 }
