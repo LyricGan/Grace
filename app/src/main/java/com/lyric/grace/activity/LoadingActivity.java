@@ -15,7 +15,7 @@ public class LoadingActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText("Loading");
+        titleBar.setText(LoadingActivity.class.getSimpleName());
     }
 
     @Override

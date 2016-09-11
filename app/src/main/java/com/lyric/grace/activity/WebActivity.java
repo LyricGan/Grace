@@ -13,10 +13,12 @@ import com.lyric.grace.widget.webview.DefaultWebLayout;
  * @time 2016/6/23 11:38
  */
 public class WebActivity extends BaseCompatActivity {
-    DefaultWebLayout layout_web;
+    private static final String URL = "https://github.com/";
+    private DefaultWebLayout layout_web;
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
+        titleBar.setText(WebActivity.class.getSimpleName());
     }
 
     @Override
@@ -24,9 +26,7 @@ public class WebActivity extends BaseCompatActivity {
         setContentView(R.layout.activity_web);
         layout_web = (DefaultWebLayout) findViewById(R.id.layout_web);
 
-        String testUrl = "http://www.baidu.com";
-
-        layout_web.loadUrl(testUrl);
+        layout_web.loadUrl(URL);
     }
 
     @Override

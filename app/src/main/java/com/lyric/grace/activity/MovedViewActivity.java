@@ -13,7 +13,7 @@ import com.lyric.grace.widget.test.MovedCircleView;
  * @description
  * @time 2016/3/15 15:12
  */
-public class ViewTestActivity extends BaseCompatActivity {
+public class MovedViewActivity extends BaseCompatActivity {
 
     @Override
     public void onViewCreate(Bundle savedInstanceState) {
@@ -35,6 +35,6 @@ public class ViewTestActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText("ViewTest");
+        titleBar.setText(MovedViewActivity.class.getSimpleName());
     }
 }

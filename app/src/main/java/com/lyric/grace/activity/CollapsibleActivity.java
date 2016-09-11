@@ -15,12 +15,12 @@ import com.lyric.grace.widget.ExpandableTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollapsibleTestActivity extends BaseCompatActivity {
+public class CollapsibleActivity extends BaseCompatActivity {
     private List<String> mStringList;
 
     @Override
     public void onViewCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_collapsible_test);
+        setContentView(R.layout.activity_collapsible);
 
         ListView lv_text_list = (ListView) findViewById(R.id.lv_text_list);
         mStringList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class CollapsibleTestActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText("CollapsibleTest");
+        titleBar.setText(CollapsibleActivity.class.getSimpleName());
     }
 
     class TextAdapter extends BaseAdapter {
@@ -72,7 +72,7 @@ public class CollapsibleTestActivity extends BaseCompatActivity {
             ViewHolder viewHolder;
             if (convertView == null) {
                 viewHolder = new ViewHolder();
-                convertView = View.inflate(CollapsibleTestActivity.this, R.layout.view_item_text_list, null);
+                convertView = View.inflate(CollapsibleActivity.this, R.layout.view_item_text_list, null);
                 viewHolder.view_expandable = (ExpandableTextView) convertView.findViewById(R.id.view_expandable);
                 convertView.setTag(viewHolder);
             } else {

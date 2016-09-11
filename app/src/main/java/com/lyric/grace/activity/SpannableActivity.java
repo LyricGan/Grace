@@ -28,11 +28,11 @@ import com.lyric.grace.library.utils.KeywordUtils;
 import com.lyric.grace.view.TitleBar;
 import com.lyric.grace.widget.span.SpanTextUtils;
 
-public class SpannableTestActivity extends BaseCompatActivity {
+public class SpannableActivity extends BaseCompatActivity {
 
     @Override
     public void onViewCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_spannable_test);
+        setContentView(R.layout.activity_spannable);
         TextView tv_spannable = (TextView) findViewById(R.id.tv_spannable);
         TextView tv_spannable_keywords = (TextView) findViewById(R.id.tv_spannable_keywords);
         TextView tv_spannable_keywords2 = (TextView) findViewById(R.id.tv_spannable_keywords2);
@@ -108,6 +108,6 @@ public class SpannableTestActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText("SpannableTest");
+        titleBar.setText(SpannableActivity.class.getSimpleName());
     }
 }

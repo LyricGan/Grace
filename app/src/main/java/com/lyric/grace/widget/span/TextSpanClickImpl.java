@@ -2,7 +2,7 @@ package com.lyric.grace.widget.span;
 
 import android.content.Context;
 
-import com.lyric.grace.activity.SpannableTestActivity;
+import com.lyric.grace.activity.SpannableActivity;
 import com.lyric.grace.library.utils.ActivityUtils;
 
 /**
@@ -22,7 +22,7 @@ public class TextSpanClickImpl implements ITextSpanClickListener {
     @Override
     public void onClick(int position) {
         if (1 == mType) {
-            ActivityUtils.toActivity(mContext, SpannableTestActivity.class);
+            ActivityUtils.toActivity(mContext, SpannableActivity.class);
         }
     }
 }

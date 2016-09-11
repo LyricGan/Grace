@@ -25,7 +25,7 @@ public class CircleProgressBarActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText("CircleProgressBar");
+        titleBar.setText(CircleProgressBarActivity.class.getSimpleName());
     }
 
     @Override

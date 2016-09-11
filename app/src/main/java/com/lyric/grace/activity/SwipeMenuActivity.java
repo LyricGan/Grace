@@ -148,7 +148,7 @@ public class SwipeMenuActivity extends BaseCompatActivity {
 
     @Override
     public void onTitleCreated(TitleBar titleBar) {
-
+        titleBar.setText(SwipeMenuActivity.class.getSimpleName());
     }
 
     class AppAdapter extends BaseAdapter {
