@@ -7,7 +7,7 @@ package com.lyric.grace.entity;
  */
 public class BaseListEntity<T> {
     private int errorCode;
-    private int errorMessage;
+    private String errorMessage;
     private BaseListWrapperEntity<T> result;
 
     public int getErrorCode() {
@@ -18,11 +18,11 @@ public class BaseListEntity<T> {
         this.errorCode = errorCode;
     }
 
-    public int getErrorMessage() {
+    public String getErrorMessage() {
         return errorMessage;
     }
 
-    public void setErrorMessage(int errorMessage) {
+    public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

@@ -24,4 +24,5 @@
     <string name="cancel">取消</string>
     <string name="item_take_photo">相机获取</string>
     <string name="item_photo_album">相册获取</string>
+    <string name="network_not_connected_tips">网络连接失败，请稍后再试</string>
 </resources>

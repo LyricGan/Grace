@@ -858,4 +858,16 @@ public class FileUtils {
         File file = new File(path);
         return (file.exists() && file.isFile() ? file.length() : -1);
     }
+
+    public static String getRootDirectory() {
+        File sdCardDirectory = null;
+        if (existsSdcard()) {
+            sdCardDirectory = Environment.getExternalStorageDirectory();
+        }
+        if (sdCardDirectory != null) {
+            return sdCardDirectory.toString();
+        } else {
+            return "";
+        }
+    }
 }

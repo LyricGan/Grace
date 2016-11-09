@@ -361,7 +361,7 @@ final class LoggerImpl implements ILogger {
         for (int i = MIN_STACK_OFFSET; i < trace.length; i++) {
             StackTraceElement e = trace[i];
             String name = e.getClassName();
-            if (!name.equals(LoggerImpl.class.getName()) && !name.equals(LoggerHelper.class.getName())) {
+            if (!name.equals(LoggerImpl.class.getName()) && !name.equals(Loggers.class.getName())) {
                 return --i;
             }
         }

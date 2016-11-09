@@ -42,6 +42,7 @@ import com.lyric.grace.widget.loadingindicator.indicator.SemiCircleSpinIndicator
 import com.lyric.grace.widget.loadingindicator.indicator.SquareSpinIndicator;
 import com.lyric.grace.widget.loadingindicator.indicator.TriangleSkewSpinIndicator;
 
+
 /**
  * Created by Jack on 2015/10/15
  * <p>

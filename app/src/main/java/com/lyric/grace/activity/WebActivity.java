@@ -3,7 +3,7 @@ package com.lyric.grace.activity;
 import android.os.Bundle;
 
 import com.lyric.grace.R;
-import com.lyric.grace.base.BaseCompatActivity;
+import com.lyric.grace.frame.BaseCompatActivity;
 import com.lyric.grace.view.TitleBar;
 import com.lyric.grace.widget.webview.DefaultWebLayout;
 

@@ -36,4 +36,12 @@ public class BaseListWrapperEntity<T> {
     public void setData(List<T> data) {
         this.data = data;
     }
+
+    public boolean hasMore() {
+        return (1 == more);
+    }
+
+    public boolean hasList() {
+        return (this.data != null && this.data.size() > 0);
+    }
 }

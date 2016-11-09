@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lyric.grace.R;
-import com.lyric.grace.base.BaseCompatActivity;
+import com.lyric.grace.frame.BaseCompatActivity;
 import com.lyric.grace.entity.HomeItemEntity;
 import com.lyric.grace.library.adapter.BaseRecyclerAdapter;
 import com.lyric.grace.library.utils.ActivityUtils;
@@ -24,9 +24,9 @@ import java.util.ArrayList;
  * @time 2016/9/1 15:47
  */
 public class MainActivity extends BaseCompatActivity {
-    private static final Class<?>[] ACTIVITY = { CircleProgressBarActivity.class, CollapsibleActivity.class, LoadingActivity.class, SpannableActivity.class, SwipeMenuActivity.class, SwipeMenuSimpleActivity.class, MovedViewActivity.class, WebActivity.class};
-    private static final String[] TITLE = { "CircleProgressBarActivity", "CollapsibleActivity", "LoadingActivity", "SpannableActivity", "SwipeMenuActivity", "SwipeMenuSimpleActivity", "MovedViewActivity", "WebActivity"};
-    private static final String[] COLOR_STR = {"#0dddb8", "#0bd4c3", "#03cdcd", "#00b1c5", "#04b2d1", "#04b2d1", "#04b2d1", "#04b2d1"};
+    private static final Class<?>[] ACTIVITY = { WebActivity.class, WebActivity.class, WebActivity.class, WebActivity.class};
+    private static final String[] TITLE = { "WebActivity", "WebActivity", "WebActivity", "WebActivity"};
+    private static final String[] COLOR_STR = {"#0dddb8", "#0bd4c3", "#03cdcd", "#00b1c5"};
     private ArrayList<HomeItemEntity> mDataList;
     private RecyclerView mRecyclerView;
 
@@ -58,7 +58,7 @@ public class MainActivity extends BaseCompatActivity {
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener<HomeItemEntity>() {
             @Override
             public void onItemClick(int position, HomeItemEntity item, View view) {
-                ActivityUtils.toActivity(MainActivity.this, (Class<? extends Activity>) item.getClazz());
+                ActivityUtils.startActivity(MainActivity.this, (Class<? extends Activity>) item.getClazz());
             }
         });
         mRecyclerView.setAdapter(adapter);

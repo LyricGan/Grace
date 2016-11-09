@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.lyric.grace.R;
 
 /**
- * @author ganyu
+ * @author lyricgan
  * @description title bar
  * @time 2016/1/20 14:21
  */

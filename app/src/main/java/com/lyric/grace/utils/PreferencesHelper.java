@@ -3,7 +3,7 @@ package com.lyric.grace.utils;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.lyric.grace.base.BaseApp;
+import com.lyric.grace.Grace;
 import com.lyric.grace.library.utils.PreferencesUtils;
 
 /**
@@ -19,7 +19,7 @@ public class PreferencesHelper {
     }
 
     public static Context getContext() {
-        return BaseApp.getContext();
+        return Grace.getContext();
     }
 
     public static <T> T get(String key, Class<T> clazz) {
