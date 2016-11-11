@@ -84,4 +84,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!-- 默认列表样式 -->
+    <style name="default_listView_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:divider">@color/bg_color_divider</item>
+        <item name="android:dividerHeight">0.5dp</item>
+        <item name="android:cacheColorHint">#00000000</item>
+    </style>
+
 </resources>
