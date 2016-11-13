@@ -6,20 +6,21 @@ import java.util.Stack;
 
 /**
  * Activity管理类：用于Activity管理和应用程序退出
- * 
- * @author ganyu
+ * @author lyricgan
  * @created 2014-8-6
- * 
  */
 public class ActivityStackUtils {
 	private static Stack<Activity> mActivityStack;
-	private static final ActivityStackUtils mInstance = new ActivityStackUtils();
 
 	private ActivityStackUtils() {
 	}
 
+    private static final class Holder {
+        private static final ActivityStackUtils mInstance = new ActivityStackUtils();
+    }
+
 	public static ActivityStackUtils getInstance() {
-		return mInstance;
+		return Holder.mInstance;
 	}
 
 	/**
@@ -53,9 +54,9 @@ public class ActivityStackUtils {
 	 */
 	public Activity findActivity(Class<?> cls) {
 		Activity activity = null;
-		for (Activity aty : mActivityStack) {
-			if (aty.getClass().equals(cls)) {
-				activity = aty;
+		for (Activity item : mActivityStack) {
+			if (item.getClass().equals(cls)) {
+				activity = item;
 				break;
 			}
 		}

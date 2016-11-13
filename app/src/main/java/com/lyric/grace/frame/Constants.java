@@ -9,5 +9,6 @@ import com.lyric.grace.BuildConfig;
  * @created 2015-4-20
  */
 public interface Constants {
+
     boolean DEBUG = BuildConfig.LOG_DEBUG;
 }

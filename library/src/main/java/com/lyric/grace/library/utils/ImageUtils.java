@@ -29,9 +29,7 @@ import java.io.FileNotFoundException;
 
 /**
  * 图片工具类
- * 
- * @author ganyu
- * 
+ * @author lyricgan
  */
 public class ImageUtils {
 	

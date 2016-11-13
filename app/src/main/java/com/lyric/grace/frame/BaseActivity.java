@@ -92,11 +92,15 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
         ViewUtils.setStatusBarColor(this, ContextCompat.getColor(Grace.getContext(), R.color.color_title_bar_bg));
     }
 
+    protected boolean isHideKeyboard() {
+        return false;
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (MotionEvent.ACTION_DOWN == ev.getAction()) {
             View v = getCurrentFocus();
-            if (isShouldHideKeyboard(v, ev)) {
+            if (isHideKeyboard() && isShouldHideKeyboard(v, ev)) {
                 hideKeyboard(v.getWindowToken());
             }
         }
