@@ -52,5 +52,10 @@ public abstract class BaseCompatActivity extends BaseActivity {
         return super.isInject();
     }
 
+    @Override
+    protected boolean isHideKeyboard() {
+        return super.isHideKeyboard();
+    }
+
     public abstract void onTitleCreated(TitleBar titleBar);
 }
