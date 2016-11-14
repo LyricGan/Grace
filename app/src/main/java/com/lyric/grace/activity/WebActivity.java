@@ -17,16 +17,20 @@ public class WebActivity extends BaseCompatActivity {
     private DefaultWebLayout layout_web;
 
     @Override
-    public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setText(WebActivity.class.getSimpleName());
+    public int getLayoutId() {
+        return R.layout.activity_web;
     }
 
     @Override
-    public void onViewCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_web);
+    public void onLayoutCreated(Bundle savedInstanceState) {
         layout_web = (DefaultWebLayout) findViewById(R.id.layout_web);
 
         layout_web.loadUrl(URL);
+    }
+
+    @Override
+    public void onTitleCreated(TitleBar titleBar) {
+        titleBar.setText(WebActivity.class.getSimpleName());
     }
 
     @Override

@@ -31,8 +31,12 @@ public class MainActivity extends BaseCompatActivity {
     private RecyclerView mRecyclerView;
 
     @Override
-    public void onViewCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void onLayoutCreated(Bundle savedInstanceState) {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

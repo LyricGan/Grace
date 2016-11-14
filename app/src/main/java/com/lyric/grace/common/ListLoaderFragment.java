@@ -2,10 +2,7 @@ package com.lyric.grace.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.aspsine.irecyclerview.OnItemClickListener;
 import com.aspsine.irecyclerview.view.RecyclerAdapter;
@@ -20,21 +17,21 @@ import retrofit2.Call;
  * @description 列表加载Fragment基类
  * @time 2016/11/3 15:05
  */
-public abstract class ListLoaderFragment<T> extends Fragment {
-    private RefreshListView refreshListView;
+public abstract class ListLoaderFragment<T> extends BaseFragment {
     private ListLoader<T> mLoader;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_base_list, container, false);
-        refreshListView = (RefreshListView) view.findViewById(R.id.refresh_list_view);
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_base_list;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onLayoutCreated(Bundle savedInstanceState) {
+        View layoutView = getView();
+        if (layoutView == null) {
+            return;
+        }
+        RefreshListView refreshListView = (RefreshListView) layoutView.findViewById(R.id.refresh_list_view);
         RecyclerAdapter<T> adapter = getAdapter();
         if (adapter != null) {
             adapter.setOnItemClickListener(new OnItemClickListener<T>() {
@@ -51,7 +48,7 @@ public abstract class ListLoaderFragment<T> extends Fragment {
                 loader.load(getCall(pageIndex, pageSize));
             }
         });
-        onActivityLoad(savedInstanceState);
+        onLayoutLoad(savedInstanceState);
     }
 
     protected void load() {
@@ -70,5 +67,5 @@ public abstract class ListLoaderFragment<T> extends Fragment {
 
     protected abstract Call<BaseListEntity<T>> getCall(int pageIndex, int pageSize);
 
-    protected abstract void onActivityLoad(@Nullable Bundle savedInstanceState);
+    protected abstract void onLayoutLoad(@Nullable Bundle savedInstanceState);
 }

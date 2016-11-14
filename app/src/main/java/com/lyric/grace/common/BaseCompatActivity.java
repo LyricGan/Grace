@@ -8,15 +8,16 @@ import com.lyric.grace.R;
 import com.lyric.grace.view.TitleBar;
 
 /**
- * @author lyric
- * @description
+ * @author lyricgan
+ * @description 带自定义标题栏的BaseActivity
  * @time 2016/5/26 13:59
  */
 public abstract class BaseCompatActivity extends BaseActivity {
     private TitleBar mTitleBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onPrepareCreate(Bundle savedInstanceState) {
+        super.onPrepareCreate(savedInstanceState);
         mTitleBar = new TitleBar(this);
         mTitleBar.setLeftDrawable(R.drawable.icon_back);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
@@ -26,7 +27,6 @@ public abstract class BaseCompatActivity extends BaseActivity {
             }
         });
         initialize(mTitleBar);
-        super.onCreate(savedInstanceState);
     }
 
     @Override

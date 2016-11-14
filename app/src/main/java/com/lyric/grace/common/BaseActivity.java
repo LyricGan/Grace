@@ -17,6 +17,11 @@ import com.lyric.grace.utils.BuildVersionUtils;
 import com.lyric.grace.utils.ViewUtils;
 import com.lyric.grace.widget.dialog.LoadingDialog;
 
+/**
+ * @author lyricgan
+ * @description BaseActivity，继承于FragmentActivity，基类
+ * @time 2016/5/26 10:25
+ */
 public abstract class BaseActivity extends FragmentActivity implements OnClickListener, IBaseListener {
     private boolean mDestroy = false;
     private LoadingDialog mLoadingDialog;
@@ -25,14 +30,18 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         onPrepareCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        onViewCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        onLayoutCreated(savedInstanceState);
         if (isInject()) {
             injectStatusBar();
         }
     }
 
     @Override
-    public abstract void onViewCreate(Bundle savedInstanceState);
+    public abstract int getLayoutId();
+
+    @Override
+    public abstract void onLayoutCreated(Bundle savedInstanceState);
 
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
@@ -64,6 +73,11 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
             return isDestroyed();
         }
         return mDestroy;
+    }
+
+    @Override
+    public boolean isFinishing() {
+        return super.isFinishing();
     }
 
     protected void showLoadingDialog() {

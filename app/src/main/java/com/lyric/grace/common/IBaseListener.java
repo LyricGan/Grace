@@ -1,6 +1,7 @@
 package com.lyric.grace.common;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 /**
@@ -16,11 +17,17 @@ public interface IBaseListener {
      */
     void onPrepareCreate(Bundle savedInstanceState);
 
+    /**
+     * 获取布局文件ID
+     * @return 布局文件ID
+     */
+    @LayoutRes int getLayoutId();
+
 	/**
 	 * 初始化布局界面
 	 * @param savedInstanceState bundles
 	 */
-	void onViewCreate(Bundle savedInstanceState);
+	void onLayoutCreated(Bundle savedInstanceState);
 
 	/**
 	 * 组件点击事件处理

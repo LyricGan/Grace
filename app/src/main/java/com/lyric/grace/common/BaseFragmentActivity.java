@@ -22,12 +22,12 @@ public class BaseFragmentActivity extends BaseActivity {
     }
 
     @Override
-    public void onViewCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_base_fragment);
-        setupViews();
+    public int getLayoutId() {
+        return R.layout.activity_base_fragment;
     }
 
-    private void setupViews() {
+    @Override
+    public void onLayoutCreated(Bundle savedInstanceState) {
         Bundle bundle = getIntent().getExtras();
         String fragmentName = bundle.getString(EXTRA_FRAGMENT_NAME);
         getSupportFragmentManager().beginTransaction()
