@@ -3,7 +3,7 @@ package com.lyric.grace.api.interceptor;
 import android.text.TextUtils;
 
 import com.lyric.grace.Grace;
-import com.lyric.grace.library.utils.NetworkUtils;
+import com.lyric.grace.utils.NetworkUtils;
 
 import java.io.IOException;
 

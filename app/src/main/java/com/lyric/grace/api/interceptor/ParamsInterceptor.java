@@ -4,7 +4,7 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import com.lyric.grace.Grace;
-import com.lyric.grace.library.utils.PackageUtils;
+import com.lyric.grace.utils.PackageUtils;
 
 import java.io.IOException;
 

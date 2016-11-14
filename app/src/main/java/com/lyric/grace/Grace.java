@@ -2,8 +2,8 @@ package com.lyric.grace;
 
 import android.app.Application;
 
-import com.lyric.grace.frame.Constants;
-import com.lyric.grace.library.utils.LogUtils;
+import com.lyric.grace.common.Constants;
+import com.lyric.grace.utils.LogUtils;
 
 /**
  * @author lyricgan

@@ -1,6 +1,6 @@
 package com.lyric.grace.api;
 
-import com.lyric.grace.frame.Constants;
+import com.lyric.grace.common.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;

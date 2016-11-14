@@ -3,7 +3,7 @@ package com.lyric.grace.activity;
 import android.os.Bundle;
 
 import com.lyric.grace.R;
-import com.lyric.grace.frame.BaseCompatActivity;
+import com.lyric.grace.common.BaseCompatActivity;
 import com.lyric.grace.view.TitleBar;
 import com.lyric.grace.widget.webview.DefaultWebLayout;
 
@@ -13,7 +13,7 @@ import com.lyric.grace.widget.webview.DefaultWebLayout;
  * @time 2016/6/23 11:38
  */
 public class WebActivity extends BaseCompatActivity {
-    private static final String URL = "https://github.com/";
+    private static final String URL = "https://github.com/lyricgan";
     private DefaultWebLayout layout_web;
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.lyric.grace.Grace;
-import com.lyric.grace.library.utils.PreferencesUtils;
 
 /**
  * @author lyricgan

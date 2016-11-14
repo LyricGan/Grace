@@ -3,8 +3,8 @@ package com.lyric.grace.api;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lyric.grace.api.interceptor.InterceptorHelper;
 import com.lyric.grace.api.interceptor.OkHttpLogInterceptor;
-import com.lyric.grace.frame.Constants;
-import com.lyric.grace.library.utils.FileUtils;
+import com.lyric.grace.common.Constants;
+import com.lyric.grace.utils.FileUtils;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

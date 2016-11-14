@@ -3,7 +3,7 @@ package com.lyric.grace.api;
 import android.text.TextUtils;
 
 import com.lyric.grace.Grace;
-import com.lyric.grace.library.utils.ToastUtils;
+import com.lyric.grace.utils.ToastUtils;
 
 /**
  * @author lyricgan

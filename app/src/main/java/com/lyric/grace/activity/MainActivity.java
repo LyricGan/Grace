@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lyric.grace.R;
-import com.lyric.grace.frame.BaseCompatActivity;
+import com.lyric.grace.common.BaseCompatActivity;
 import com.lyric.grace.entity.HomeItemEntity;
-import com.lyric.grace.library.adapter.BaseRecyclerAdapter;
-import com.lyric.grace.library.utils.ActivityUtils;
+import com.lyric.grace.common.BaseRecyclerAdapter;
+import com.lyric.grace.utils.ActivityUtils;
 import com.lyric.grace.view.TitleBar;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class MainActivity extends BaseCompatActivity {
     @Override
     public void onViewCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         initialize();
