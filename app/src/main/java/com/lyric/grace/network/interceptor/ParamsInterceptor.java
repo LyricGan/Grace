@@ -14,9 +14,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author <a href="mailto:ganyu@medlinker.com">ganyu</a>
- * @version 1.0
- * @description 默认网络请求参数拦截器
+ * 默认网络请求参数拦截器
+ * @author lyricgan
  * @time 2016/10/24 15:50
  */
 public class ParamsInterceptor implements Interceptor {

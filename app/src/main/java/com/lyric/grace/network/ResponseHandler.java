@@ -30,7 +30,7 @@ public class ResponseHandler {
      */
     public static void process(int errorCode, String errorMessage) {
         if (TextUtils.isEmpty(errorMessage)) {
-            errorMessage = StatusCode.getErrorMessage(errorCode);
+            errorMessage = ResponseCode.getErrorMessage(errorCode);
         }
         ToastUtils.showShort(GraceApplication.getContext(), errorMessage);
     }

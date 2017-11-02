@@ -37,14 +37,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     @Override
+    public void onPrepareCreate(Bundle savedInstanceState) {
+    }
+
+    @Override
     public abstract int getLayoutId();
 
     @Override
     public abstract void onLayoutCreated(Bundle savedInstanceState);
-
-    @Override
-    public void onPrepareCreate(Bundle savedInstanceState) {
-    }
 
     @Override
     public void onClick(View v) {
@@ -67,29 +67,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
             return isDestroyed();
         }
         return mDestroy;
-    }
-
-    @Override
-    public boolean isFinishing() {
-        return super.isFinishing();
-    }
-
-    protected void showLoadingDialog() {
-        showLoadingDialog("");
-    }
-
-    protected void showLoadingDialog(CharSequence message) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new LoadingDialog(this);
-        }
-        mLoadingDialog.setMessage(message);
-        mLoadingDialog.show();
-    }
-
-    protected void hideLoadingDialog() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
-        }
     }
 
     protected boolean isInject() {
@@ -134,6 +111,30 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
             return;
         }
         InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        if (im != null) {
+            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    protected <T extends View> T findViewWithId(int id) {
+        return (T) super.findViewById(id);
+    }
+
+    protected void showLoading() {
+        showLoading("");
+    }
+
+    protected void showLoading(CharSequence message) {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(this);
+        }
+        mLoadingDialog.setMessage(message);
+        mLoadingDialog.show();
+    }
+
+    protected void hideLoading() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.dismiss();
+        }
     }
 }

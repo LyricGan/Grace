@@ -2,7 +2,7 @@ package com.lyric.grace.network.interceptor;
 
 import android.text.TextUtils;
 
-import com.lyric.grace.logger.Loggers;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,26 +46,26 @@ public class OkHttpLogInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (isShowFullLog) {
-            Loggers.e("---> REQUEST " + request.method() + " " + request.url());
+            Logger.e("---> REQUEST " + request.method() + " " + request.url());
             logHeaders(request.headers());
             // copy original request for logging request body
             Request copy = request.newBuilder().build();
             RequestBody requestBody = copy.body();
             if (requestBody == null) {
-                Loggers.e("Body - no body");
+                Logger.e("Body - no body");
             } else {
                 Buffer buffer = new Buffer();
                 requestBody.writeTo(buffer);
-                Loggers.e("Body - " + buffer.readString(requestBody.contentType().charset()));
+                Logger.e("Body - " + buffer.readString(requestBody.contentType().charset()));
             }
-            Loggers.e("---> END");
+            Logger.e("---> END");
         }
         long t1 = System.nanoTime();
         Response response = chain.proceed(request);
         long t2 = System.nanoTime();
 
         if (isShowFullLog) {
-            Loggers.e("<--- RESPONSE " + response.code() + " " + response.request().url());
+            Logger.e("<--- RESPONSE " + response.code() + " " + response.request().url());
             logHeaders(response.headers());
         }
         ResponseBody body = response.body();
@@ -78,15 +78,15 @@ public class OkHttpLogInterceptor implements Interceptor {
         try {
             JSONObject json = new JSONObject(responseBody);
             if (TextUtils.isEmpty(responseBody)) {
-                Loggers.e(request.method() + " " + request.url() + "Body - no body");
+                Logger.e(request.method() + " " + request.url() + "Body - no body");
             } else {
-                Loggers.e(request.method() + " " + request.url() + "Body - " + " \n" + json.toString(2));
+                Logger.e(request.method() + " " + request.url() + "Body - " + " \n" + json.toString(2));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if (body != null) {
-            Loggers.e("<--- END " + "(Size: " + body.contentLength() + " bytes - " + "Network time: " + (t2 - t1)
+            Logger.e("<--- END " + "(Size: " + body.contentLength() + " bytes - " + "Network time: " + (t2 - t1)
                     / MILLI_AS_NANO + " ms)");
         }
         if (responseStream != null) {
@@ -125,7 +125,7 @@ public class OkHttpLogInterceptor implements Interceptor {
     private static void logHeaders(Headers headers) {
         for (String headerName : headers.names()) {
             for (String headerValue : headers.values(headerName)) {
-                Loggers.e("Header - [" + headerName + ": " + headerValue + "]");
+                Logger.e("Header - [" + headerName + ": " + headerValue + "]");
             }
         }
     }

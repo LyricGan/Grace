@@ -1,11 +1,9 @@
 package com.lyric.grace.ui;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.lyric.grace.R;
 import com.lyric.grace.common.BaseCompatActivity;
-import com.lyric.grace.widget.TitleBar;
 
 /**
  * @author lyricgan
@@ -20,10 +18,5 @@ public class MainActivity extends BaseCompatActivity {
 
     @Override
     public void onLayoutCreated(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onTitleCreated(TitleBar titleBar) {
-        titleBar.setLeftVisibility(View.GONE);
     }
 }

@@ -3,8 +3,8 @@ package com.lyric.grace.network.interceptor;
 import okhttp3.Interceptor;
 
 /**
+ * 缓存拦截器帮助类
  * @author lyricgan
- * @description 缓存拦截器帮助类
  * @time 2016/8/2 17:54
  */
 public class InterceptorHelper {

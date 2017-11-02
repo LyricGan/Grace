@@ -8,8 +8,8 @@ import com.lyric.grace.R;
 import com.lyric.grace.widget.TitleBar;
 
 /**
+ * 带自定义标题栏的基类activity
  * @author lyricgan
- * @description 带自定义标题栏的BaseActivity
  * @time 2016/5/26 13:59
  */
 public abstract class BaseCompatActivity extends BaseActivity {
@@ -18,15 +18,17 @@ public abstract class BaseCompatActivity extends BaseActivity {
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
         super.onPrepareCreate(savedInstanceState);
-        mTitleBar = new TitleBar(this);
-        mTitleBar.setLeftDrawable(R.drawable.icon_back);
-        mTitleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        initialize(mTitleBar);
+        if (isUseTitleBar()) {
+            mTitleBar = new TitleBar(this);
+            mTitleBar.setLeftDrawable(R.drawable.icon_back);
+            mTitleBar.setLeftClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onTitleBarLeftClick();
+                }
+            });
+            onTitleBarCreated(mTitleBar);
+        }
     }
 
     @Override
@@ -36,6 +38,10 @@ public abstract class BaseCompatActivity extends BaseActivity {
 
     @Override
     public void setContentView(View view) {
+        if (mTitleBar == null) {
+            super.setContentView(view);
+            return;
+        }
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(mTitleBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -43,23 +49,18 @@ public abstract class BaseCompatActivity extends BaseActivity {
         super.setContentView(layout);
     }
 
-    private void initialize(TitleBar titleBar) {
-        onTitleCreated(titleBar);
+    protected boolean isUseTitleBar() {
+        return true;
     }
 
-    @Override
-    protected boolean isInject() {
-        return super.isInject();
+    protected void onTitleBarCreated(TitleBar titleBar) {
     }
 
-    @Override
-    protected boolean isHideKeyboard() {
-        return super.isHideKeyboard();
-    }
-
-    public abstract void onTitleCreated(TitleBar titleBar);
-
-    public TitleBar getTitleBar() {
+    protected TitleBar getTitleBar() {
         return mTitleBar;
+    }
+
+    protected void onTitleBarLeftClick() {
+        super.onBackPressed();
     }
 }

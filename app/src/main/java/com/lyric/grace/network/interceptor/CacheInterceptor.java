@@ -13,9 +13,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author <a href="mailto:ganyu@medlinker.com">ganyu</a>
- * @version 1.0
- * @description 网络缓存拦截器
+ * 网络缓存拦截器
+ * @author lyricgan
  * @time 2016/10/24 15:50
  * 配置Cache-Control同时配置{@link #HEADER_USER_CACHE_TYPE}，若只配置Cache-Control则默认使用{@link #TYPE_NETWORK_WITH_CACHE}
  */
