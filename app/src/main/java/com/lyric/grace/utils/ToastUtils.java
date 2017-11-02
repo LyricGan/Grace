@@ -2,7 +2,6 @@ package com.lyric.grace.utils;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
 import android.widget.Toast;
 
 /**
@@ -13,9 +12,9 @@ import android.widget.Toast;
  * 
  */
 public class ToastUtils {
-	private static Handler mHandler = new Handler(Looper.getMainLooper());
+	private static Handler mHandler = new Handler();
     private static Toast mToast = null;
-    private static final Object mSynObject = new Object();
+    private static final Object mObject = new Object();
 
     private ToastUtils() {
     }
@@ -73,33 +72,20 @@ public class ToastUtils {
      * @param duration 持续时间
      */
     private static void showMessage(final Context context, final String message, final int duration) {
-        new Thread(new Runnable() {
+        mHandler.post(new Runnable() {
+
+            @Override
             public void run() {
-                mHandler.post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        synchronized (mSynObject) {
-                            if (mToast != null) {
-                                mToast.setText(message);
-                                mToast.setDuration(duration);
-                            } else {
-                                mToast = Toast.makeText(context, message, duration);
-                            }
-                            mToast.show();
-                        }
+                synchronized (mObject) {
+                    if (mToast != null) {
+                        mToast.setText(message);
+                        mToast.setDuration(duration);
+                    } else {
+                        mToast = Toast.makeText(context, message, duration);
                     }
-                });
+                    mToast.show();
+                }
             }
-        }).start();
-    }
-
-    /**
-     * 关闭当前Toast
-     */
-    public static void cancel() {
-        if (mToast != null) {
-            mToast.cancel();
-        }
+        });
     }
 }

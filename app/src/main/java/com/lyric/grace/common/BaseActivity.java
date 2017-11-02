@@ -1,28 +1,27 @@
 package com.lyric.grace.common;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.lyric.grace.Grace;
+import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
-import com.lyric.grace.utils.BuildVersionUtils;
 import com.lyric.grace.utils.ViewUtils;
 import com.lyric.grace.widget.dialog.LoadingDialog;
 
 /**
+ * BaseActivity，继承于FragmentActivity，基类
  * @author lyricgan
- * @description BaseActivity，继承于FragmentActivity，基类
  * @time 2016/5/26 10:25
  */
-public abstract class BaseActivity extends FragmentActivity implements OnClickListener, IBaseListener {
+public abstract class BaseActivity extends FragmentActivity implements IBaseListener {
     private boolean mDestroy = false;
     private LoadingDialog mLoadingDialog;
 
@@ -48,12 +47,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     }
 
     @Override
-    public void onViewClick(View v) {
-    }
-
-    @Override
     public void onClick(View v) {
-        onViewClick(v);
     }
 
     @Override
@@ -69,7 +63,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     }
 
     protected boolean isDestroy() {
-        if (BuildVersionUtils.hasJellyBean()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return isDestroyed();
         }
         return mDestroy;
@@ -103,7 +97,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     }
 
     protected void injectStatusBar() {
-        ViewUtils.setStatusBarColor(this, ContextCompat.getColor(Grace.getContext(), R.color.color_title_bar_bg));
+        ViewUtils.setStatusBarColor(this, ContextCompat.getColor(GraceApplication.getContext(), R.color.color_title_bar_bg));
     }
 
     protected boolean isHideKeyboard() {

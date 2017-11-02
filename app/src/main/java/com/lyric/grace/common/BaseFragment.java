@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener, IBaseListener {
+public abstract class BaseFragment extends Fragment implements IBaseListener {
     private boolean mInterceptVisibleHint;
 
     @Override
@@ -51,15 +51,10 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        onViewClick(v);
     }
 
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onViewClick(View v) {
     }
 
     @Override

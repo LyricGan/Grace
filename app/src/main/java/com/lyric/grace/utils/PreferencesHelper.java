@@ -3,7 +3,7 @@ package com.lyric.grace.utils;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.lyric.grace.Grace;
+import com.lyric.grace.GraceApplication;
 
 /**
  * @author lyricgan
@@ -18,7 +18,7 @@ public class PreferencesHelper {
     }
 
     public static Context getContext() {
-        return Grace.getContext();
+        return GraceApplication.getContext();
     }
 
     public static <T> T get(String key, Class<T> clazz) {

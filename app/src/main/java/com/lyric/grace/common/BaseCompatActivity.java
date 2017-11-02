@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.lyric.grace.R;
-import com.lyric.grace.view.TitleBar;
+import com.lyric.grace.widget.TitleBar;
 
 /**
  * @author lyricgan
@@ -58,4 +58,8 @@ public abstract class BaseCompatActivity extends BaseActivity {
     }
 
     public abstract void onTitleCreated(TitleBar titleBar);
+
+    public TitleBar getTitleBar() {
+        return mTitleBar;
+    }
 }
