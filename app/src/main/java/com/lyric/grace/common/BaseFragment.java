@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 
 import com.lyric.grace.widget.LoadingDialog;
 
+import org.greenrobot.eventbus.Subscribe;
+
 /**
- * fragment基类
+ * fragment基类，继承于support v4包下的Fragment
  * @author lyricgan
- * @time 2017/10/26 10:25
+ * @date 2017/10/26 10:25
  */
 public abstract class BaseFragment extends Fragment implements IBaseListener, ILoadingListener, IMessageProcessor {
     /** 是否对用户可见 */
@@ -45,6 +47,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
         mHandler = new BaseHandler(this);
+        EventBusUtils.register(this);
     }
 
     @Override
@@ -55,6 +58,40 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusUtils.unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(BaseEvent event) {
+        onEventCallback(event);
+    }
+
+    protected void onEventCallback(BaseEvent event) {
     }
 
     public boolean isActivityFinishing() {
