@@ -5,7 +5,7 @@ import android.os.Message;
 import android.view.View;
 
 import com.lyric.grace.R;
-import com.lyric.grace.common.BaseCompatActivity;
+import com.lyric.grace.common.BaseActivity;
 import com.lyric.grace.widget.TitleBar;
 
 /**
@@ -13,7 +13,7 @@ import com.lyric.grace.widget.TitleBar;
  * @author lyricgan
  * @date 2016/9/1 15:47
  */
-public class MainActivity extends BaseCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onTitleBarCreated(TitleBar titleBar) {

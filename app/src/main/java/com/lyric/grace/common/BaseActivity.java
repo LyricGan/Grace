@@ -12,28 +12,35 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
 import com.lyric.grace.utils.ViewUtils;
 import com.lyric.grace.widget.LoadingDialog;
+import com.lyric.grace.widget.TitleBar;
+
+import org.greenrobot.eventbus.Subscribe;
 
 /**
- * BaseActivity，继承于FragmentActivity，基类
+ * 基类Activity，继承于FragmentActivity
  * @author lyricgan
- * @time 2016/5/26 10:25
+ * @date 2016/5/26 10:25
  */
 public abstract class BaseActivity extends FragmentActivity implements IBaseListener, ILoadingListener, IMessageProcessor {
+    private Context mParent;
     private boolean mDestroy = false;
+    private TitleBar mTitleBar;
     private LoadingDialog mLoadingDialog;
     private BaseHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onPrepareCreate(savedInstanceState);
+        adjustTitleBar();
         super.onCreate(savedInstanceState);
+        mParent = this;
         setContentView(getLayoutId());
-
         if (isInject()) {
             injectStatusBar();
         }
@@ -41,8 +48,56 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     @Override
+    public void setContentView(int layoutResID) {
+        setContentView(getLayoutInflater().inflate(layoutResID, null));
+    }
+
+    @Override
+    public void setContentView(View view) {
+        if (isUseTitleBar()) {
+            LinearLayout rootLayout = new LinearLayout(this);
+            rootLayout.setOrientation(LinearLayout.VERTICAL);
+            rootLayout.addView(mTitleBar, mTitleBar.getLayoutParams());
+            rootLayout.addView(view, view.getLayoutParams());
+            super.setContentView(rootLayout);
+        } else {
+            super.setContentView(view);
+        }
+    }
+
+    @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
         mHandler = new BaseHandler(this);
+        EventBusUtils.register(this);
+    }
+
+    private void adjustTitleBar() {
+        if (isUseTitleBar()) {
+            mTitleBar = new TitleBar(this);
+            mTitleBar.setLeftDrawable(R.drawable.icon_back);
+            mTitleBar.setLeftClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onTitleBarLeftClick();
+                }
+            });
+            onTitleBarCreated(mTitleBar);
+        }
+    }
+
+    protected boolean isUseTitleBar() {
+        return true;
+    }
+
+    protected void onTitleBarCreated(TitleBar titleBar) {
+    }
+
+    protected TitleBar getTitleBar() {
+        return mTitleBar;
+    }
+
+    protected void onTitleBarLeftClick() {
+        super.onBackPressed();
     }
 
     @Override
@@ -56,15 +111,48 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
     protected void onResume() {
         mDestroy = false;
         super.onResume();
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         mDestroy = true;
         super.onDestroy();
+        EventBusUtils.unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(BaseEvent event) {
+        onEventCallback(event);
+    }
+
+    protected void onEventCallback(BaseEvent event) {
+    }
+
+    public Context getParentContext() {
+        return mParent;
     }
 
     protected boolean isDestroy() {
