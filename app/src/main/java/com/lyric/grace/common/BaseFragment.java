@@ -91,7 +91,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     }
 
     @Override
-    public void showLoading(CharSequence message) {
+    public void showLoading(CharSequence message, boolean isCancelable) {
         if (isActivityFinishing()) {
             return;
         }
@@ -99,6 +99,8 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
             mLoadingDialog = new LoadingDialog(getActivity());
         }
         mLoadingDialog.setMessage(message);
+        mLoadingDialog.setCancelable(isCancelable);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.show();
     }
 
@@ -109,8 +111,8 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
         }
     }
 
-    protected void showLoading() {
-        showLoading("");
+    protected void showLoading(CharSequence message) {
+        showLoading(message, true);
     }
 
     protected View getRootView() {

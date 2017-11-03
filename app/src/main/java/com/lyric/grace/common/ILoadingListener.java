@@ -7,7 +7,7 @@ package com.lyric.grace.common;
  */
 public interface ILoadingListener {
 
-    void showLoading(CharSequence charSequence);
+    void showLoading(CharSequence charSequence, boolean isCancelable);
 
     void hideLoading();
 }

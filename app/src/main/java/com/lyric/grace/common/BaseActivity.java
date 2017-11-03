@@ -79,7 +79,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     protected void injectStatusBar() {
-        ViewUtils.setStatusBarColor(this, ContextCompat.getColor(GraceApplication.getContext(), R.color.color_title_bar_bg));
+        ViewUtils.setStatusBarColor(this, ContextCompat.getColor(GraceApplication.getContext(), R.color.title_bar_bg));
     }
 
     protected boolean isHideKeyboard() {
@@ -126,11 +126,13 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     @Override
-    public void showLoading(CharSequence message) {
+    public void showLoading(CharSequence message, boolean isCancelable) {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(this);
         }
         mLoadingDialog.setMessage(message);
+        mLoadingDialog.setCancelable(isCancelable);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.show();
     }
 
@@ -141,8 +143,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         }
     }
 
-    protected void showLoading() {
-        showLoading("");
+    protected void showLoading(CharSequence message) {
+        showLoading(message, true);
     }
 
     @Override
