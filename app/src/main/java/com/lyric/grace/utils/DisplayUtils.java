@@ -11,9 +11,9 @@ import android.view.WindowManager;
 import java.lang.reflect.Method;
 
 /**
- * @author lyric
- * @description
- * @time 2016/3/12 15:04
+ * 视图显示工具类
+ * @author lyricgan
+ * @date 2017/11/3 9:56
  */
 public class DisplayUtils {
 
@@ -28,22 +28,18 @@ public class DisplayUtils {
     }
 
     private static float getDensity(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().density;
     }
 
     public static int getDensityDpi(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
     public static float getScaledDensity(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().scaledDensity;
     }
 
     public static int[] getScreenDisplay(Context context) {
-        CheckUtils.checkContext(context);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         int[] display = new int[2];
         display[0] = metrics.widthPixels;
@@ -53,22 +49,18 @@ public class DisplayUtils {
     }
 
     public static int getScreenWidth(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
     public static int getScreenHeight(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     public static float getXdpi(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().xdpi;
     }
 
     public static float getYdpi(Context context) {
-        CheckUtils.checkContext(context);
         return context.getResources().getDisplayMetrics().ydpi;
     }
 
@@ -80,7 +72,6 @@ public class DisplayUtils {
      * @return a pair to return the width and height
      */
     public static Pair<Integer, Integer> getResolution(Context context) {
-        CheckUtils.checkContext(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return getRealResolution(context);
         } else {
@@ -96,16 +87,19 @@ public class DisplayUtils {
     private static Pair<Integer, Integer> getRealResolutionOnOldDevice(Context context) {
         try {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Method mGetRawWidth = Display.class.getMethod("getRawWidth");
-            Method mGetRawHeight = Display.class.getMethod("getRawHeight");
-            Integer realWidth = (Integer) mGetRawWidth.invoke(display);
-            Integer realHeight = (Integer) mGetRawHeight.invoke(display);
-            return new Pair<>(realWidth, realHeight);
+            if (wm != null) {
+                Display display = wm.getDefaultDisplay();
+                Method mGetRawWidth = Display.class.getMethod("getRawWidth");
+                Method mGetRawHeight = Display.class.getMethod("getRawHeight");
+                Integer realWidth = (Integer) mGetRawWidth.invoke(display);
+                Integer realHeight = (Integer) mGetRawHeight.invoke(display);
+                return new Pair<>(realWidth, realHeight);
+            }
         } catch (Exception e) {
-            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-            return new Pair<>(metrics.widthPixels, metrics.heightPixels);
+            e.printStackTrace();
         }
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return new Pair<>(metrics.widthPixels, metrics.heightPixels);
     }
 
     /**
@@ -114,9 +108,24 @@ public class DisplayUtils {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private static Pair<Integer, Integer> getRealResolution(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getRealMetrics(metrics);
-        return new Pair<>(metrics.widthPixels, metrics.heightPixels);
+        if (wm != null) {
+            Display display = wm.getDefaultDisplay();
+            DisplayMetrics metrics = new DisplayMetrics();
+            display.getRealMetrics(metrics);
+            return new Pair<>(metrics.widthPixels, metrics.heightPixels);
+        }
+        return null;
+    }
+
+    public static int getColor(Context context, int colorId) {
+        return context.getResources().getColor(colorId);
+    }
+
+    public static String getString(Context context, int stringId) {
+        return context.getResources().getString(stringId);
+    }
+
+    public static String getString(Context context, int stringId, Object... formatArgs) {
+        return context.getResources().getString(stringId, formatArgs);
     }
 }

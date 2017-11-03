@@ -10,10 +10,8 @@ import java.util.Locale;
 
 /**
  * 时间工具类
- * 
- * @author ganyu
- * @created 2014-3-7
- * 
+ * @author lyricgan
+ * @date 2017/11/3 9:56
  */
 public class TimeUtils {
 	/** 一分钟的毫秒值 */
@@ -67,39 +65,6 @@ public class TimeUtils {
 		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat(template, Locale.getDefault());
 		return dateFormat.format(new Date(milliseconds));
-	}
-	
-	/**
-	 * 获取指定时间
-	 * @param milliseconds 时间戳
-	 * @param template 时间格式
-	 * @return String
-	 */
-	public static String getSpecificTime(long milliseconds, String template) {
-		if (TextUtils.isEmpty(template)) {
-			template = TEMPLATE_DEFAULT;
-		}
-		String time = null;
-		long currentTime = System.currentTimeMillis();
-		long deltaTime = currentTime - milliseconds;
-		long timeNumber = 0;
-		if (deltaTime < 0) {
-			time = "";
-		} else if (deltaTime < ONE_MINUTE) {
-			time = "刚刚";
-		} else if (deltaTime < ONE_HOUR) {
-			timeNumber = deltaTime / ONE_MINUTE;
-			time = timeNumber + "分钟前";
-		} else if (deltaTime < ONE_DAY) {
-			timeNumber = deltaTime / ONE_HOUR;
-			time = timeNumber + "小时前";
-		} else if (deltaTime < (ONE_DAY * 10)) {
-			timeNumber = deltaTime / ONE_DAY;
-			time = timeNumber + "天前";
-		} else {
-			time = getTime(milliseconds, template);
-		}
-		return time;
 	}
 	
 	/**

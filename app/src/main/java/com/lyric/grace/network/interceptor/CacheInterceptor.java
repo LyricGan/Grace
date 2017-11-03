@@ -14,9 +14,9 @@ import okhttp3.Response;
 
 /**
  * 网络缓存拦截器
+ * 配置Cache-Control同时配置{@link #HEADER_USER_CACHE_TYPE}，若只配置Cache-Control则默认使用{@link #TYPE_NETWORK_WITH_CACHE}
  * @author lyricgan
  * @time 2016/10/24 15:50
- * 配置Cache-Control同时配置{@link #HEADER_USER_CACHE_TYPE}，若只配置Cache-Control则默认使用{@link #TYPE_NETWORK_WITH_CACHE}
  */
 public class CacheInterceptor implements Interceptor {
     private static final String HEADER_CACHE_CONTROL = "Cache-Control";

@@ -1,24 +1,27 @@
 package com.lyric.grace.common;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyric.grace.widget.dialog.LoadingDialog;
+import com.lyric.grace.widget.LoadingDialog;
 
 /**
  * fragment基类
  * @author lyricgan
  * @time 2017/10/26 10:25
  */
-public abstract class BaseFragment extends Fragment implements IBaseListener {
+public abstract class BaseFragment extends Fragment implements IBaseListener, ILoadingListener, IMessageProcessor {
     /** 是否对用户可见 */
     private boolean mIsVisibleToUser;
     private LoadingDialog mLoadingDialog;
     private View mRootView;
+    private BaseHandler mHandler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener {
 
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
+        mHandler = new BaseHandler(this);
     }
 
     @Override
@@ -86,7 +90,8 @@ public abstract class BaseFragment extends Fragment implements IBaseListener {
         return this.mIsVisibleToUser;
     }
 
-    protected void showLoading(CharSequence message) {
+    @Override
+    public void showLoading(CharSequence message) {
         if (isActivityFinishing()) {
             return;
         }
@@ -97,10 +102,15 @@ public abstract class BaseFragment extends Fragment implements IBaseListener {
         mLoadingDialog.show();
     }
 
-    protected void hideLoading() {
+    @Override
+    public void hideLoading() {
         if (mLoadingDialog != null) {
             mLoadingDialog.dismiss();
         }
+    }
+
+    protected void showLoading() {
+        showLoading("");
     }
 
     protected View getRootView() {
@@ -113,5 +123,14 @@ public abstract class BaseFragment extends Fragment implements IBaseListener {
             view = (T) mRootView.findViewById(id);
         }
         return view;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+    }
+
+    @Override
+    public Handler getHandler() {
+        return mHandler;
     }
 }

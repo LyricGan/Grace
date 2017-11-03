@@ -1,9 +1,9 @@
 package com.lyric.grace.network;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.lyric.grace.common.Constants;
 import com.lyric.grace.network.interceptor.InterceptorHelper;
 import com.lyric.grace.network.interceptor.OkHttpLogInterceptor;
-import com.lyric.grace.common.Constants;
 import com.lyric.grace.utils.FileUtils;
 
 import java.io.File;

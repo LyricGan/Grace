@@ -3,7 +3,9 @@ package com.lyric.grace.common;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -14,30 +16,33 @@ import android.widget.EditText;
 import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
 import com.lyric.grace.utils.ViewUtils;
-import com.lyric.grace.widget.dialog.LoadingDialog;
+import com.lyric.grace.widget.LoadingDialog;
 
 /**
  * BaseActivity，继承于FragmentActivity，基类
  * @author lyricgan
  * @time 2016/5/26 10:25
  */
-public abstract class BaseActivity extends FragmentActivity implements IBaseListener {
+public abstract class BaseActivity extends FragmentActivity implements IBaseListener, ILoadingListener, IMessageProcessor {
     private boolean mDestroy = false;
     private LoadingDialog mLoadingDialog;
+    private BaseHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onPrepareCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        onLayoutCreated(savedInstanceState);
+
         if (isInject()) {
             injectStatusBar();
         }
+        onLayoutCreated(savedInstanceState);
     }
 
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
+        mHandler = new BaseHandler(this);
     }
 
     @Override
@@ -120,11 +125,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         return (T) super.findViewById(id);
     }
 
-    protected void showLoading() {
-        showLoading("");
-    }
-
-    protected void showLoading(CharSequence message) {
+    @Override
+    public void showLoading(CharSequence message) {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(this);
         }
@@ -132,9 +134,23 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         mLoadingDialog.show();
     }
 
-    protected void hideLoading() {
+    @Override
+    public void hideLoading() {
         if (mLoadingDialog != null) {
             mLoadingDialog.dismiss();
         }
+    }
+
+    protected void showLoading() {
+        showLoading("");
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+    }
+
+    @Override
+    public Handler getHandler() {
+        return mHandler;
     }
 }

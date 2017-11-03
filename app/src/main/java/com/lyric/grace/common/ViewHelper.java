@@ -26,8 +26,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
+ * 视图辅助类
  * @author lyricgan
- * @description view helper
  * @time 16/3/10
  */
 public class ViewHelper {

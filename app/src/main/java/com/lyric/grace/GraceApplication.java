@@ -2,9 +2,6 @@ package com.lyric.grace;
 
 import android.app.Application;
 
-import com.lyric.grace.common.Constants;
-import com.lyric.grace.utils.LogUtils;
-
 /**
  * 应用入口
  * @author lyricgan
@@ -17,8 +14,6 @@ public class GraceApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
         mInstance = this;
-
-        LogUtils.setDebug(Constants.DEBUG);
 	}
 
 	public static GraceApplication getContext() {
