@@ -1,5 +1,6 @@
 package com.lyric.grace.common;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,10 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.lyric.grace.R;
 import com.lyric.grace.widget.LoadingDialog;
-
-import org.greenrobot.eventbus.Subscribe;
+import com.lyric.grace.widget.TitleBar;
 
 /**
  * fragment基类，继承于support v4包下的Fragment
@@ -23,6 +25,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     private boolean mIsVisibleToUser;
     private LoadingDialog mLoadingDialog;
     private View mRootView;
+    private TitleBar mTitleBar;
     private BaseHandler mHandler;
 
     @Override
@@ -35,7 +38,21 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
+        if (isUseTitleBar()) {
+            Context context = mRootView.getContext();
+            adjustTitleBar(context);
+            LinearLayout rootLayout = new LinearLayout(context);
+            rootLayout.setOrientation(LinearLayout.VERTICAL);
+            rootLayout.addView(mTitleBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            rootLayout.addView(mRootView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            mRootView = rootLayout;
+        }
         return mRootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -47,7 +64,40 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
         mHandler = new BaseHandler(this);
-        EventBusUtils.register(this);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            initExtras(arguments);
+        }
+    }
+
+    protected void initExtras(Bundle bundle) {
+    }
+
+    private void adjustTitleBar(Context context) {
+        mTitleBar = new TitleBar(context);
+        onTitleBarCreated(mTitleBar);
+    }
+
+    protected boolean isUseTitleBar() {
+        return true;
+    }
+
+    protected void onTitleBarCreated(TitleBar titleBar) {
+        titleBar.setLeftDrawable(R.drawable.icon_back);
+        titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTitleBarLeftClick();
+            }
+        });
+    }
+
+    protected TitleBar getTitleBar() {
+        return mTitleBar;
+    }
+
+    protected void onTitleBarLeftClick() {
+        onBackPressed();
     }
 
     @Override
@@ -83,15 +133,6 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBusUtils.unregister(this);
-    }
-
-    @Subscribe
-    public void onEventMainThread(BaseEvent event) {
-        onEventCallback(event);
-    }
-
-    protected void onEventCallback(BaseEvent event) {
     }
 
     public boolean isActivityFinishing() {

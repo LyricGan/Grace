@@ -1,6 +1,7 @@
 package com.lyric.grace.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +21,6 @@ import com.lyric.grace.utils.ViewUtils;
 import com.lyric.grace.widget.LoadingDialog;
 import com.lyric.grace.widget.TitleBar;
 
-import org.greenrobot.eventbus.Subscribe;
-
 /**
  * 基类Activity，继承于FragmentActivity
  * @author lyricgan
@@ -37,7 +36,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onPrepareCreate(savedInstanceState);
-        adjustTitleBar();
+        adjustTitleBar(this);
         super.onCreate(savedInstanceState);
         mParent = this;
         setContentView(getLayoutId());
@@ -57,8 +56,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         if (isUseTitleBar()) {
             LinearLayout rootLayout = new LinearLayout(this);
             rootLayout.setOrientation(LinearLayout.VERTICAL);
-            rootLayout.addView(mTitleBar, mTitleBar.getLayoutParams());
-            rootLayout.addView(view, view.getLayoutParams());
+            rootLayout.addView(mTitleBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            rootLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             super.setContentView(rootLayout);
         } else {
             super.setContentView(view);
@@ -68,19 +67,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     @Override
     public void onPrepareCreate(Bundle savedInstanceState) {
         mHandler = new BaseHandler(this);
-        EventBusUtils.register(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            initExtras(intent);
+        }
     }
 
-    private void adjustTitleBar() {
+    private void adjustTitleBar(Context context) {
         if (isUseTitleBar()) {
-            mTitleBar = new TitleBar(this);
-            mTitleBar.setLeftDrawable(R.drawable.icon_back);
-            mTitleBar.setLeftClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onTitleBarLeftClick();
-                }
-            });
+            mTitleBar = new TitleBar(context);
             onTitleBarCreated(mTitleBar);
         }
     }
@@ -90,6 +85,13 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     protected void onTitleBarCreated(TitleBar titleBar) {
+        titleBar.setLeftDrawable(R.drawable.icon_back);
+        titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTitleBarLeftClick();
+            }
+        });
     }
 
     protected TitleBar getTitleBar() {
@@ -98,6 +100,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
 
     protected void onTitleBarLeftClick() {
         super.onBackPressed();
+    }
+
+    protected void initExtras(Intent intent) {
     }
 
     @Override
@@ -140,15 +145,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     protected void onDestroy() {
         mDestroy = true;
         super.onDestroy();
-        EventBusUtils.unregister(this);
-    }
-
-    @Subscribe
-    public void onEventMainThread(BaseEvent event) {
-        onEventCallback(event);
-    }
-
-    protected void onEventCallback(BaseEvent event) {
     }
 
     public Context getParentContext() {
