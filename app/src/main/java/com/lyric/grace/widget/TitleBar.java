@@ -10,13 +10,14 @@ import android.widget.TextView;
 import com.lyric.grace.R;
 
 /**
+ * 自定义标题栏
  * @author lyricgan
- * @description title bar
  * @time 2016/1/20 14:21
  */
 public class TitleBar extends FrameLayout {
     private ImageView ivTitleBarLeft;
     private TextView tvTitle;
+    private TextView tvTitleBarRight;
 
     public TitleBar(Context context) {
         this(context, null);
@@ -35,9 +36,10 @@ public class TitleBar extends FrameLayout {
         View rootView = View.inflate(context, R.layout.view_title_bar, this);
         ivTitleBarLeft = (ImageView) rootView.findViewById(R.id.iv_title_bar_left);
         tvTitle = (TextView) rootView.findViewById(R.id.tv_title);
+        tvTitleBarRight = (TextView) rootView.findViewById(R.id.tv_title_bar_right);
 
-        tvTitle.setText(R.string.app_name);
         ivTitleBarLeft.setVisibility(View.GONE);
+        tvTitleBarRight.setVisibility(View.GONE);
     }
 
     public void setText(CharSequence title) {
@@ -45,7 +47,7 @@ public class TitleBar extends FrameLayout {
     }
 
     public void setText(int textId) {
-        setText(getContext().getResources().getText(textId));
+        tvTitle.setText(textId);
     }
 
     public void setLeftDrawable(int resId) {
@@ -59,5 +61,23 @@ public class TitleBar extends FrameLayout {
 
     public void setLeftVisibility(int visibility) {
         ivTitleBarLeft.setVisibility(visibility);
+    }
+
+    public void setRightText(CharSequence text) {
+        tvTitleBarRight.setText(text);
+        tvTitleBarRight.setVisibility(View.VISIBLE);
+    }
+
+    public void setRightText(int textId) {
+        tvTitleBarRight.setText(textId);
+        tvTitleBarRight.setVisibility(View.VISIBLE);
+    }
+
+    public void setRightClickListener(OnClickListener listener) {
+        tvTitleBarRight.setOnClickListener(listener);
+    }
+
+    public void setRightVisibility(int visibility) {
+        tvTitleBarRight.setVisibility(visibility);
     }
 }

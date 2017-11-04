@@ -19,9 +19,22 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tv_title_bar_right"
+        android:layout_toRightOf="@+id/iv_title_bar_left"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="18sp"/>
 
+    <TextView
+        android:id="@+id/tv_title_bar_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
 </RelativeLayout>
