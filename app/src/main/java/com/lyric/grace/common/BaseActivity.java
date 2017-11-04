@@ -36,7 +36,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onPrepareCreate(savedInstanceState);
-        adjustTitleBar(this);
         super.onCreate(savedInstanceState);
         mParent = this;
         setContentView(getLayoutId());
@@ -54,6 +53,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     @Override
     public void setContentView(View view) {
         if (isUseTitleBar()) {
+            createTitleBar(this);
             LinearLayout rootLayout = new LinearLayout(this);
             rootLayout.setOrientation(LinearLayout.VERTICAL);
             rootLayout.addView(mTitleBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -73,11 +73,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         }
     }
 
-    private void adjustTitleBar(Context context) {
-        if (isUseTitleBar()) {
-            mTitleBar = new TitleBar(context);
-            onTitleBarCreated(mTitleBar);
-        }
+    private void createTitleBar(Context context) {
+        mTitleBar = new TitleBar(context);
+        onTitleBarCreated(mTitleBar);
     }
 
     protected boolean isUseTitleBar() {

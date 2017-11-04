@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
         mRootView = inflater.inflate(getLayoutId(), container, false);
         if (isUseTitleBar()) {
             Context context = mRootView.getContext();
-            adjustTitleBar(context);
+            createTitleBar(context);
             LinearLayout rootLayout = new LinearLayout(context);
             rootLayout.setOrientation(LinearLayout.VERTICAL);
             rootLayout.addView(mTitleBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -73,7 +73,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     protected void initExtras(Bundle bundle) {
     }
 
-    private void adjustTitleBar(Context context) {
+    private void createTitleBar(Context context) {
         mTitleBar = new TitleBar(context);
         onTitleBarCreated(mTitleBar);
     }
