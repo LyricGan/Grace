@@ -79,7 +79,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IL
     }
 
     protected boolean isUseTitleBar() {
-        return true;
+        return false;
     }
 
     protected void onTitleBarCreated(TitleBar titleBar) {

@@ -1,12 +1,19 @@
 package com.lyric.grace.ui;
 
 import android.os.Bundle;
-import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
+import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
 import com.lyric.grace.common.BaseActivity;
+import com.lyric.grace.ui.adapter.MainTabPagerAdapter;
 import com.lyric.grace.widget.TitleBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 应用主页面
@@ -14,6 +21,7 @@ import com.lyric.grace.widget.TitleBar;
  * @date 2016/9/1 15:47
  */
 public class MainActivity extends BaseActivity {
+    private ViewPager mViewPager;
 
     @Override
     protected void onTitleBarCreated(TitleBar titleBar) {
@@ -29,26 +37,37 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onLayoutCreated(Bundle savedInstanceState) {
-        findViewWithId(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getHandler().sendEmptyMessage(0);
+        mViewPager = findViewWithId(R.id.view_pager);
 
-                getHandler().sendEmptyMessageDelayed(1, 3000L);
-            }
-        });
+        init();
     }
 
-    @Override
-    public void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        switch (msg.what) {
-            case 0:
-                showLoading("加载中...");
-                break;
-            case 1:
-                hideLoading();
-                break;
-        }
+    private void init() {
+        List<Fragment> fragments = new ArrayList<>();
+        MainTabFragment tabFragment = new MainTabFragment();
+        fragments.add(tabFragment);
+        tabFragment = new MainTabFragment();
+        fragments.add(tabFragment);
+        tabFragment = new MainTabFragment();
+        fragments.add(tabFragment);
+        tabFragment = new MainTabFragment();
+        fragments.add(tabFragment);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(GraceApplication.getContext(), "第" + (position + 1) + "页", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        MainTabPagerAdapter tabPagerAdapter = new MainTabPagerAdapter(getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(tabPagerAdapter);
     }
 }
