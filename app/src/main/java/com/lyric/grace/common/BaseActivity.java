@@ -25,7 +25,7 @@ import com.lyric.grace.widget.TitleBar;
  */
 public abstract class BaseActivity extends FragmentActivity implements IBaseListener, ILoadingListener, IMessageProcessor {
     private Context mParent;
-    private boolean mDestroy = false;
+    private boolean mDestroyed = false;
     private TitleBar mTitleBar;
     private LoadingDialog mLoadingDialog;
     private BaseHandler mHandler;
@@ -40,6 +40,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
             injectStatusBar();
         }
         onLayoutCreated(savedInstanceState);
+        ActivityHelper.getInstance().add(this);
     }
 
     @Override
@@ -112,14 +113,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
 
     @Override
     protected void onResume() {
-        mDestroy = false;
+        mDestroyed = false;
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        mDestroy = true;
+        mDestroyed = true;
         super.onDestroy();
+        ActivityHelper.getInstance().remove(this);
     }
 
     public Context getParentContext() {
@@ -130,7 +132,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return isDestroyed();
         }
-        return mDestroy;
+        return mDestroyed;
     }
 
     protected boolean isInjectStatusBar() {

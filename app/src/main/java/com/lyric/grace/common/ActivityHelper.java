@@ -13,6 +13,9 @@ public class ActivityHelper {
 	private static Stack<Activity> mActivityStack;
 
 	private ActivityHelper() {
+        if (mActivityStack == null) {
+            mActivityStack = new Stack<>();
+        }
 	}
 
     private static final class Holder {
@@ -24,36 +27,27 @@ public class ActivityHelper {
 	}
 
 	public void add(Activity activity) {
-		if (mActivityStack == null) {
-			mActivityStack = new Stack<>();
-		}
 		mActivityStack.add(activity);
 	}
 
     public void remove(Activity activity) {
-        if (mActivityStack != null) {
-            mActivityStack.remove(activity);
-        }
+        mActivityStack.remove(activity);
     }
 
 	public Activity last() {
-		if (mActivityStack == null || mActivityStack.isEmpty()) {
-			return null;
-		}
 		return mActivityStack.lastElement();
 	}
 
 	public Activity find(Class<?> cls) {
 		Activity activity = null;
-		for (Activity item : mActivityStack) {
-			if (item.getClass().equals(cls)) {
-				activity = item;
+		for (Activity element : mActivityStack) {
+			if (element.getClass().equals(cls)) {
+				activity = element;
 				break;
 			}
 		}
 		return activity;
 	}
-
 
 	public void finish(Activity activity) {
 		if (activity != null) {
