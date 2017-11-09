@@ -1,15 +1,13 @@
 package com.lyric.grace.network;
 
-import com.lyric.grace.common.Constants;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 请求响应回调
  * @author lyricgan
- * @description 请求响应回调
- * @time 2016/7/26 17:55
+ * @date 2016/7/26 17:55
  */
 public abstract class ResponseCallback<T> implements Callback<T> {
 
@@ -33,15 +31,7 @@ public abstract class ResponseCallback<T> implements Callback<T> {
     }
 
     private void error(Call<T> call, String errorMessage) {
-        if (Constants.DEBUG) {
-            onError(call, errorMessage);
-        } else {
-            onError(call, getDefaultErrorMessage());
-        }
-    }
-
-    private String getDefaultErrorMessage() {
-        return "";
+        onError(call, errorMessage);
     }
 
     public abstract void onResponse(Call<T> call, T response);

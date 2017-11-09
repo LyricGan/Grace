@@ -8,16 +8,13 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
-import com.lyric.grace.utils.ViewUtils;
 import com.lyric.grace.widget.LoadingDialog;
 import com.lyric.grace.widget.TitleBar;
 
@@ -39,7 +36,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         super.onCreate(savedInstanceState);
         mParent = this;
         setContentView(getLayoutId());
-        if (isInject()) {
+        if (isInjectStatusBar()) {
             injectStatusBar();
         }
         onLayoutCreated(savedInstanceState);
@@ -114,29 +111,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
     protected void onResume() {
         mDestroy = false;
         super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -156,12 +133,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseList
         return mDestroy;
     }
 
-    protected boolean isInject() {
+    protected boolean isInjectStatusBar() {
         return false;
     }
 
     protected void injectStatusBar() {
-        ViewUtils.setStatusBarColor(this, ContextCompat.getColor(GraceApplication.getContext(), R.color.title_bar_bg));
     }
 
     protected boolean isHideKeyboard() {

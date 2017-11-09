@@ -21,7 +21,7 @@ public class FileUtils {
     }
 
     public static String getRootDirectory() {
-        return getRootDirectory(GraceApplication.getContext());
+        return getRootDirectory(GraceApplication.getApplication());
     }
 
     public static String getRootDirectory(Context context) {

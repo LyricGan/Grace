@@ -1,9 +1,5 @@
 package com.lyric.grace.network;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.lyric.grace.common.Constants;
-import com.lyric.grace.network.interceptor.InterceptorHelper;
-import com.lyric.grace.network.interceptor.OkHttpLogInterceptor;
 import com.lyric.grace.utils.FileUtils;
 
 import java.io.File;
@@ -16,28 +12,28 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * 网络请求工具类，封装Retrofit
  * @author lyricgan
- * @description 网络请求类
- * @time 2016/7/26 16:34
+ * @date 2016/7/26 16:34
  */
-public class Api {
+public class ApiHelper {
     private static final long CONNECT_TIMEOUT = 30L;
     private static final long READ_TIMEOUT = 30L;
     private static final long WRITE_TIMEOUT = 30L;
     private static final long MAX_CACHE_SIZE = 100 * 1024 * 1024L;
     private static final String CACHE_NAME = "cache_network";
     private static final String PACKAGE_NAME = "net.medlinker.crm";
-    private static Api mInstance;
     private static Retrofit mRetrofit;
 
-    private Api() {
+    private ApiHelper() {
     }
 
-    public static synchronized Api getInstance() {
-        if (mInstance == null) {
-            mInstance = new Api();
-        }
-        return mInstance;
+    private static class ApiHelperHolder {
+        private static final ApiHelper mInstance = new ApiHelper();
+    }
+
+    public static ApiHelper getInstance() {
+        return ApiHelperHolder.mInstance;
     }
 
     private OkHttpClient buildDefaultClient() {
@@ -47,28 +43,20 @@ public class Api {
         builder.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS);
         builder.cache(new Cache(new File(getDefaultCacheDir()), MAX_CACHE_SIZE));
         builder.retryOnConnectionFailure(true);
-        if (Constants.DEBUG) {
-            builder.addNetworkInterceptor(new StethoInterceptor());
-            builder.addNetworkInterceptor(new OkHttpLogInterceptor(false));
-        }
         builder.addInterceptor(InterceptorHelper.getInstance().getParamsInterceptor());
         builder.addInterceptor(InterceptorHelper.getInstance().getCacheInterceptor());
         builder.addNetworkInterceptor(InterceptorHelper.getInstance().getCacheInterceptor());
         return builder.build();
     }
 
-    private void buildRetrofit() {
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(ApiPath.BASE_URL)
-                .client(buildDefaultClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-    }
-
-    private Retrofit getRetrofit() {
+    private Retrofit buildDefaultRetrofit() {
         if (mRetrofit == null) {
-            buildRetrofit();
+            mRetrofit = new Retrofit.Builder()
+                    .baseUrl(ApiPath.BASE_URL)
+                    .client(buildDefaultClient())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
         }
         return mRetrofit;
     }
@@ -78,12 +66,12 @@ public class Api {
     }
 
     public <T> T build(Class<T> cls) {
-        return build(getRetrofit(), cls);
+        return build(buildDefaultRetrofit(), cls);
     }
 
     public <T> T build(Retrofit retrofit, Class<T> cls) {
         if (retrofit == null) {
-            throw new NullPointerException("retrofit is null");
+            retrofit = buildDefaultRetrofit();
         }
         return retrofit.create(cls);
     }

@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -16,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -28,7 +25,7 @@ import android.widget.TextView;
 /**
  * 视图辅助类
  * @author lyricgan
- * @time 16/3/10
+ * @date 2016/10/7 14:04
  */
 public class ViewHelper {
     private Context mContext;
@@ -207,12 +204,6 @@ public class ViewHelper {
         return this;
     }
 
-    public ViewHelper setImageUrl(int viewId, String imageUrl) {
-        ImageView imageView = getView(viewId);
-//        ImageLoader.load(getContext(), imageUrl, imageView);
-        return this;
-    }
-
     public ViewHelper setChecked(int viewId, boolean checked) {
         CheckBox checkBox = getView(viewId);
         checkBox.setChecked(checked);
@@ -332,16 +323,6 @@ public class ViewHelper {
 
     public ViewHelper addTextChangedListener(int viewId, TextWatcher watcher){
         ((TextView) getView(viewId)).addTextChangedListener(watcher);
-        return this;
-    }
-
-    public ViewHelper setAdapter(int viewId, Adapter adapter) {
-        ((AdapterView) getView(viewId)).setAdapter(adapter);
-        return this;
-    }
-
-    public ViewHelper setRecyclerAdapter(int viewId, RecyclerView.Adapter adapter) {
-        ((RecyclerView) getView(viewId)).setAdapter(adapter);
         return this;
     }
 }
