@@ -8,15 +8,15 @@ import android.app.Application;
  * @date 2015/10/7 14:04
  */
 public class GraceApplication extends Application {
-    private static GraceApplication mInstance;
+    private static GraceApplication sApplication;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-        mInstance = this;
+        sApplication = this;
 	}
 
 	public static GraceApplication getApplication() {
-		return mInstance;
+		return sApplication;
 	}
 }
