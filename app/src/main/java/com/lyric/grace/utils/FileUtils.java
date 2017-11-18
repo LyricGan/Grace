@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.lyric.grace.GraceApplication;
-
 /**
  * 文件工具类
  * @author lyricgan
@@ -18,10 +16,6 @@ public class FileUtils {
 
     public static boolean isSdcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-    }
-
-    public static String getRootDirectory() {
-        return getRootDirectory(GraceApplication.getApplication());
     }
 
     public static String getRootDirectory(Context context) {

@@ -5,6 +5,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.lyric.grace.GraceApplication;
@@ -12,6 +13,7 @@ import com.lyric.grace.R;
 import com.lyric.grace.common.BaseActivity;
 import com.lyric.grace.common.BaseFragment;
 import com.lyric.grace.common.BaseFragmentPagerAdapter;
+import com.lyric.grace.common.Common;
 import com.lyric.grace.widget.TitleBar;
 
 import java.util.ArrayList;
@@ -46,11 +48,11 @@ public class MainActivity extends BaseActivity {
 
     private void init() {
         List<Fragment> fragments = new ArrayList<>();
-        MainTabFragment tabFragment = new MainTabFragment();
+        BaseFragment tabFragment = MainTabFragment.newInstance(0);
         fragments.add(tabFragment);
-        tabFragment = new MainTabFragment();
+        tabFragment = MainTabFragment.newInstance(1);
         fragments.add(tabFragment);
-        tabFragment = new MainTabFragment();
+        tabFragment = MainTabFragment.newInstance(2);
         fragments.add(tabFragment);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -72,6 +74,20 @@ public class MainActivity extends BaseActivity {
     }
 
     public static class MainTabFragment extends BaseFragment {
+        private int mType;
+
+        public static MainTabFragment newInstance(int type) {
+            Bundle args = new Bundle();
+            args.putInt(Common.EXTRAS_TYPE, type);
+            MainTabFragment fragment = new MainTabFragment();
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        protected void initExtras(Bundle bundle) {
+            mType = bundle.getInt(Common.EXTRAS_TYPE);
+        }
 
         @Override
         public int getLayoutId() {
@@ -80,7 +96,9 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onLayoutCreated(Bundle savedInstanceState) {
-            findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            Button btnText = findViewById(R.id.button);
+            btnText.setText("第" + (mType + 1) + "个按钮");
+            btnText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getHandler().sendEmptyMessage(0);

@@ -1,4 +1,4 @@
-package com.lyric.grace.common;
+package com.lyric.grace.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,9 +9,9 @@ import android.preference.PreferenceManager;
  * @author lyricgan
  * @date 2017/11/3 9:56
  */
-public class GracePreferences {
+public class PreferencesUtils {
 
-    private GracePreferences() {
+    private PreferencesUtils() {
     }
     
     public static SharedPreferences.Editor getEditor(Context context, String name) {
@@ -22,7 +22,7 @@ public class GracePreferences {
         return getPreferences(context, name, mode).edit();
     }
     
-    public static SharedPreferences getDefaultPreferences(Context context) {
+    public static SharedPreferences getPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 

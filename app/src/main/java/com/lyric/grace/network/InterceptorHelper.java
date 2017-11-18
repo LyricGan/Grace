@@ -3,7 +3,7 @@ package com.lyric.grace.network;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.lyric.grace.GraceApplication;
+import com.lyric.grace.common.Common;
 import com.lyric.grace.utils.NetworkUtils;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class InterceptorHelper {
      * 网络缓存拦截器
      * 配置Cache-Control同时配置{@link #HEADER_USER_CACHE_TYPE}，若只配置Cache-Control则默认使用{@link #TYPE_NETWORK_WITH_CACHE}
      */
-    static class CacheInterceptor implements Interceptor {
+    private static class CacheInterceptor implements Interceptor {
         private static final String HEADER_CACHE_CONTROL = "Cache-Control";
         private static final String HEADER_PRAGMA = "Pragma";
         private static final String CACHE_CONTROL_ONLY_CACHE = "public, only-if-cached, max-age=2419200";
@@ -80,14 +80,14 @@ public class InterceptorHelper {
         }
 
         private boolean isNetworkConnected() {
-            return NetworkUtils.isNetworkAvailable(GraceApplication.getApplication());
+            return NetworkUtils.isNetworkAvailable(Common.getContext());
         }
     }
 
     /**
      * 网络请求参数拦截器
      */
-    static class ParamsInterceptor implements Interceptor {
+    private static class ParamsInterceptor implements Interceptor {
 
         @Override
         public Response intercept(Chain chain) throws IOException {

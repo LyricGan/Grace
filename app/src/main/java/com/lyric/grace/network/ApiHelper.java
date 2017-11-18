@@ -1,5 +1,6 @@
 package com.lyric.grace.network;
 
+import com.lyric.grace.common.Common;
 import com.lyric.grace.utils.FileUtils;
 
 import java.io.File;
@@ -62,7 +63,7 @@ public class ApiHelper {
     }
 
     private String getDefaultCacheDir() {
-        return FileUtils.getRootDirectory() + "/Android/data/" + PACKAGE_NAME + File.separator + CACHE_NAME;
+        return FileUtils.getRootDirectory(Common.getContext()) + "/Android/data/" + PACKAGE_NAME + File.separator + CACHE_NAME;
     }
 
     public <T> T build(Class<T> cls) {
