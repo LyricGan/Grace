@@ -16,5 +16,9 @@ public interface IMessageProcessor {
      */
     void handleMessage(Message msg);
 
+    /**
+     * 获取消息处理器
+     * @return 消息处理器
+     */
     Handler getHandler();
 }
