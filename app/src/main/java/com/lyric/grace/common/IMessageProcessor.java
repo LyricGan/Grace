@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 /**
- * 消息事件处理器
+ * 消息事件处理接口
  * @author lyricgan
  * @date 2017/11/3 9:56
  */

@@ -23,7 +23,6 @@ public class ApiHelper {
     private static final long WRITE_TIMEOUT = 30L;
     private static final long MAX_CACHE_SIZE = 100 * 1024 * 1024L;
     private static final String CACHE_NAME = "cache_network";
-    private static final String PACKAGE_NAME = "net.medlinker.crm";
     private static Retrofit mRetrofit;
 
     private ApiHelper() {
@@ -63,7 +62,7 @@ public class ApiHelper {
     }
 
     private String getDefaultCacheDir() {
-        return FileUtils.getRootDirectory(Common.getContext()) + "/Android/data/" + PACKAGE_NAME + File.separator + CACHE_NAME;
+        return FileUtils.getRootDirectory(Common.getContext()) + "/Android/data/" + Common.getContext().getPackageName() + File.separator + CACHE_NAME;
     }
 
     public <T> T build(Class<T> cls) {
