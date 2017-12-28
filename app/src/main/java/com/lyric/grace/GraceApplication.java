@@ -3,7 +3,6 @@ package com.lyric.grace;
 import android.app.Application;
 
 /**
- * 应用入口
  * @author lyricgan
  * @date 2015/10/7 14:04
  */

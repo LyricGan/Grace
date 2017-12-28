@@ -1,124 +1,52 @@
 package com.lyric.grace.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
-import com.lyric.grace.common.BaseActivity;
-import com.lyric.grace.common.BaseFragment;
-import com.lyric.grace.common.BaseFragmentPagerAdapter;
-import com.lyric.grace.common.Common;
-import com.lyric.grace.widget.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.lyric.grace.data.DataApi;
+import com.lyric.grace.network.ResponseCallback;
+import com.lyric.grace.network.ResponseError;
 
 /**
  * 应用主页面
  * @author lyricgan
  * @date 2016/9/1 15:47
  */
-public class MainActivity extends BaseActivity {
-    private ViewPager mViewPager;
+public class MainActivity extends Activity {
 
     @Override
-    protected void onTitleBarCreated(TitleBar titleBar) {
-        super.onTitleBarCreated(titleBar);
-        titleBar.setLeftVisibility(View.GONE);
-        titleBar.setText(R.string.app_name);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        final TextView tvMessage = (TextView) findViewById(R.id.tv_message);
+        tvMessage.setMovementMethod(new ScrollingMovementMethod());
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    public void onLayoutCreated(Bundle savedInstanceState) {
-        mViewPager = findViewWithId(R.id.view_pager);
-
-        init();
-    }
-
-    private void init() {
-        List<Fragment> fragments = new ArrayList<>();
-        BaseFragment tabFragment = MainTabFragment.newInstance(0);
-        fragments.add(tabFragment);
-        tabFragment = MainTabFragment.newInstance(1);
-        fragments.add(tabFragment);
-        tabFragment = MainTabFragment.newInstance(2);
-        fragments.add(tabFragment);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
 
-            @Override
-            public void onPageSelected(int position) {
-                Toast.makeText(GraceApplication.getApplication(), "第" + (position + 1) + "页", Toast.LENGTH_SHORT).show();
-            }
+                DataApi.getInstance().queryNews("top", new ResponseCallback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+                        progressBar.setVisibility(View.GONE);
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                        tvMessage.setText(response);
+                    }
+
+                    @Override
+                    public void onFailed(ResponseError error) {
+                        progressBar.setVisibility(View.GONE);
+                        tvMessage.setText(error.toString());
+                    }
+                });
             }
         });
-        BaseFragmentPagerAdapter tabPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(), fragments);
-        mViewPager.setAdapter(tabPagerAdapter);
-    }
-
-    public static class MainTabFragment extends BaseFragment {
-        private int mType;
-
-        public static MainTabFragment newInstance(int type) {
-            Bundle args = new Bundle();
-            args.putInt(Common.EXTRAS_TYPE, type);
-            MainTabFragment fragment = new MainTabFragment();
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        protected void initExtras(Bundle bundle) {
-            mType = bundle.getInt(Common.EXTRAS_TYPE);
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.fragment_main_tab;
-        }
-
-        @Override
-        public void onLayoutCreated(Bundle savedInstanceState) {
-            Button btnText = findViewById(R.id.button);
-            btnText.setText("第" + (mType + 1) + "个按钮");
-            btnText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getHandler().sendEmptyMessage(0);
-
-                    getHandler().sendEmptyMessageDelayed(1, 3000L);
-                }
-            });
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    showLoading("加载中...");
-                    break;
-                case 1:
-                    hideLoading();
-                    break;
-            }
-        }
     }
 }

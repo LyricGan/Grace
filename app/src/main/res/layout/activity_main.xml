@@ -4,9 +4,26 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <Button
+        android:id="@+id/btn_start"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="点击一下"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"/>
 </LinearLayout>
