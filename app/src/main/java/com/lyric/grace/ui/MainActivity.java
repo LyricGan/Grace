@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         final TextView tvMessage = (TextView) findViewById(R.id.tv_message);
-        tvMessage.setMovementMethod(new ScrollingMovementMethod());
+        tvMessage.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
             @Override
