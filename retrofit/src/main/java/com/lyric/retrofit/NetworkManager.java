@@ -13,6 +13,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * network manager with retrofit
+ * https://github.com/square/retrofit
  *
  * @author lyricgan
  */
