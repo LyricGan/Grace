@@ -8,27 +8,26 @@ import java.util.Map;
 
 /**
  * @author lyricgan
- * @time 2016/6/22 14:04
  */
 public class DataApi {
-    // 引用聚合测试数据
-    private static final String TEST_URL = "http://v.juhe.cn/toutiao/index";
+    // api path
+    private static final String API_URL = "http://v.juhe.cn/toutiao/index";
 
     private DataApi() {
     }
 
     private static final class Holder {
-        private static final DataApi DATA_API = new DataApi();
+        private static final DataApi INSTANCE = new DataApi();
     }
 
     public static DataApi getInstance() {
-        return Holder.DATA_API;
+        return Holder.INSTANCE;
     }
 
-    public Map<String, String> buildDefaultParams() {
+    private Map<String, String> buildDefaultParams() {
         Map<String, String> params = new HashMap<>();
         params.put("device", "android");
-        params.put("key", "f909a4cf8e87f8553c95f6d4989d1559");// 聚合数据APP KEY，用来测试
+        params.put("key", "f909a4cf8e87f8553c95f6d4989d1559");// 聚合数据APP KEY
         return params;
     }
 
@@ -41,8 +40,6 @@ public class DataApi {
     public DataLoader queryNews(String keys, ResponseCallback<String> callback) {
         Map<String, String> params = buildDefaultParams();
         params.put("type", keys);
-        DataLoader dataLoader = new DataLoader<>(TEST_URL, params, String.class, callback);
-        dataLoader.load();
-        return dataLoader;
+        return new DataLoader<>(API_URL, params, String.class, callback);
     }
 }

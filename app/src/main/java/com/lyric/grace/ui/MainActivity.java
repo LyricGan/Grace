@@ -12,11 +12,6 @@ import com.lyric.grace.data.DataApi;
 import com.lyric.grace.network.ResponseCallback;
 import com.lyric.grace.network.ResponseError;
 
-/**
- * 应用主页面
- * @author lyricgan
- * @date 2016/9/1 15:47
- */
 public class MainActivity extends Activity {
 
     @Override
@@ -32,7 +27,8 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                DataApi.getInstance().queryNews("top", new ResponseCallback<String>() {
+                final String keys = "top";
+                DataApi.getInstance().queryNews(keys, new ResponseCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
                         progressBar.setVisibility(View.GONE);
@@ -45,7 +41,7 @@ public class MainActivity extends Activity {
                         progressBar.setVisibility(View.GONE);
                         tvMessage.setText(error.toString());
                     }
-                });
+                }).load();
             }
         });
     }

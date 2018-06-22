@@ -3,7 +3,6 @@ package com.lyric.grace.network;
 /**
  * 网络请求回调接口
  * @author lyricgan
- * @time 2016/6/22 13:43
  */
 public interface ResponseCallback<T> {
 

@@ -1,21 +1,18 @@
 package com.lyric.grace;
 
 import android.app.Application;
+import android.content.Context;
 
-/**
- * @author lyricgan
- * @date 2015/10/7 14:04
- */
 public class GraceApplication extends Application {
-    private static GraceApplication sApplication;
+    private static GraceApplication sInstance;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-        sApplication = this;
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sInstance = this;
+    }
 
-	public static GraceApplication getApplication() {
-		return sApplication;
-	}
+    public static Context getContext() {
+        return sInstance.getApplicationContext();
+    }
 }
