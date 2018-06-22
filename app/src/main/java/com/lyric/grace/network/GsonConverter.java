@@ -8,7 +8,6 @@ import java.lang.reflect.Type;
 /**
  * converter for json
  * @author lyricgan
- * @time 2016/7/7 14:51
  */
 public class GsonConverter implements Converter {
     private final Gson mGson;
