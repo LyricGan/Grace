@@ -36,5 +36,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
 
-    implementation project(':retrofit')
+    implementation project(':library_retrofit')
+    implementation project(':library_utils')
+    implementation project(':library_widget')
+    implementation project(':library_imageloader')
 }
