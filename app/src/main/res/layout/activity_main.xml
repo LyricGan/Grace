@@ -5,25 +5,16 @@
               android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="点击一下"/>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:text="@string/display"/>
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"/>
+        android:textSize="15sp"/>
 </LinearLayout>

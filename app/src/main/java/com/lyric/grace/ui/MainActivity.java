@@ -2,47 +2,36 @@ package com.lyric.grace.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lyric.grace.R;
-import com.lyric.grace.data.DataApi;
-import com.lyric.grace.network.ResponseCallback;
-import com.lyric.grace.network.ResponseError;
+import com.lyric.utils.DisplayUtils;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
+    private TextView tvMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        final TextView tvMessage = (TextView) findViewById(R.id.tv_message);
-        tvMessage.setMovementMethod(ScrollingMovementMethod.getInstance());
+        tvMessage = findViewById(R.id.tv_message);
 
-        findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_display).setOnClickListener(this);
+    }
 
-                final String keys = "top";
-                DataApi.getInstance().queryNews(keys, new ResponseCallback<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        progressBar.setVisibility(View.GONE);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_display:
+                showDisplayString();
+                break;
+        }
+    }
 
-                        tvMessage.setText(response);
-                    }
+    private void showDisplayString() {
+        String displayString = DisplayUtils.toDisplayString();
 
-                    @Override
-                    public void onFailed(ResponseError error) {
-                        progressBar.setVisibility(View.GONE);
-                        tvMessage.setText(error.toString());
-                    }
-                }).load();
-            }
-        });
+        tvMessage.setText(displayString);
     }
 }
