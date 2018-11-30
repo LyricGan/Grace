@@ -1,7 +1,7 @@
 package com.lyric.grace.data;
 
-import com.lyric.grace.network.DataLoader;
-import com.lyric.grace.network.ResponseCallback;
+import com.lyric.network.DataLoader;
+import com.lyric.network.ResponseCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,6 @@ import java.util.Map;
  * @author lyricgan
  */
 public class DataApi {
-    // api path
     private static final String API_URL = "http://v.juhe.cn/toutiao/index";
 
     private DataApi() {

@@ -4,12 +4,18 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/btn_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/display"/>
+        android:text="@string/display"
+        android:textAllCaps="false"/>
 
     <TextView
         android:id="@+id/tv_message"
