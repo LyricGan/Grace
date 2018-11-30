@@ -1,6 +1,7 @@
 package com.lyric.arch;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +35,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         this.mLayoutId = layoutId;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(mLayoutId, parent, false);
         final RecyclerView.ViewHolder holder = new RecyclerViewHolder(itemView);
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +57,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         T object = null;
         if (mDataList != null && !mDataList.isEmpty()) {
             object = mDataList.get(position);
