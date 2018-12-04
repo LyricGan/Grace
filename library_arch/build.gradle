@@ -30,4 +30,5 @@ dependencies {
     api project(':library_utils')
     api project(':library_image')
     api project(':library_widget')
+    api 'com.android.support:appcompat-v7:27.1.1'
 }

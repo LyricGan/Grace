@@ -1,6 +1,6 @@
 package com.lyric.okhttp;
 
-import com.lyric.android.app.common.JsonParser;
+import com.lyric.utils.JsonParser;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -10,7 +10,6 @@ import okhttp3.ResponseBody;
 /**
  * Json数据请求回调接口
  * @author lyricgan
- * @date 2017/12/28 11:44
  */
 public abstract class OnJsonCallback<T> extends HttpResponseCallback<T> {
     private Type type;

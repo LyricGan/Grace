@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.lyric.utils.ViewHolderHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,14 +53,14 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-        BaseViewHolder holder = BaseViewHolder.get(convertView, parent, mLayoutId);
+        ViewHolderHelper holder = ViewHolderHelper.get(convertView, parent, mLayoutId);
         T object = getItem(position);
         holder.setAssociatedObject(object);
         convert(holder, position, object);
         return holder.getView();
     }
 
-    public abstract void convert(BaseViewHolder holder, int position, T item);
+    public abstract void convert(ViewHolderHelper holder, int position, T item);
 
     public void setDataList(List<T> dataList) {
         this.mDataList = dataList;

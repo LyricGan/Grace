@@ -74,5 +74,4 @@ public class ActivityStackManager {
             mActivityStack.remove(activity);
         }
     }
-
 }

@@ -11,7 +11,6 @@ import okhttp3.internal.Util;
 /**
  * Bitmap请求回调接口
  * @author lyricgan
- * @date 2017/12/28 11:36
  */
 public abstract class OnBitmapCallback extends HttpResponseCallback<Bitmap> {
 

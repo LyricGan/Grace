@@ -15,9 +15,9 @@ import java.util.Locale;
  * @author lyricgan
  * @time 2016/1/20 14:41
  */
-public class ActivityUtils {
+public class IntentUtils {
     
-    private ActivityUtils() {
+    private IntentUtils() {
     }
 
     public static void startActivity(Context context, Class<? extends Activity> cls) {

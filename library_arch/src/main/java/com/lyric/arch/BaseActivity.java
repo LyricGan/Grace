@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.lyric.utils.AbstractHandler;
+
 /**
  * base activity
  *
@@ -164,7 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
     public void handleMessage(Message msg) {
     }
 
-    private static class InnerHandler extends BaseHandler<IMessageProcessor> {
+    private static class InnerHandler extends AbstractHandler<IMessageProcessor> {
 
         InnerHandler(IMessageProcessor object) {
             super(object);

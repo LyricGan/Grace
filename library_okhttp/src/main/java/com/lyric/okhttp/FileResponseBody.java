@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 
-import com.lyric.android.app.common.BaseHandler;
+import com.lyric.utils.AbstractHandler;
 
 import java.io.IOException;
 
@@ -19,7 +19,6 @@ import okio.Source;
 /**
  * 文件响应类
  * @author lyricgan
- * @date 17/12/30 下午9:55
  */
 public class FileResponseBody extends ResponseBody {
     private ResponseBody responseBody;
@@ -98,7 +97,7 @@ public class FileResponseBody extends ResponseBody {
         }
     }
 
-    private static class InnerHandler extends BaseHandler<FileCallback> {
+    private static class InnerHandler extends AbstractHandler<FileCallback> {
 
         InnerHandler(FileCallback object) {
             super(object);

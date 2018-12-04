@@ -1,8 +1,8 @@
 package com.lyric.okhttp;
 
 /**
+ * 文件消息实体
  * @author lyricgan
- * @date 18/1/7 下午6:14
  */
 public class FileMessage {
     private long totalSize;

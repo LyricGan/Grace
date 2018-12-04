@@ -1,7 +1,5 @@
 package com.lyric.okhttp;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 /**
  * Http manager with OkHttp
@@ -37,19 +34,18 @@ public class HttpManager {
     }
 
     private OkHttpClient getDefaultHttpClient() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
+        return getHttpClientBuilder().build();
     }
 
     public void setHttpClient(OkHttpClient httpClient) {
-        if (httpClient == null) {
-            return;
-        }
         this.mHttpClient = httpClient;
+    }
+
+    public OkHttpClient.Builder getHttpClientBuilder() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS);
     }
 
     public void get(String url, Map<String, String> params, Object tag, boolean isUseCache, HttpCallback callback) {
@@ -57,8 +53,7 @@ public class HttpManager {
     }
 
     public void get(String url, Map<String, String> params, Map<String, String> headers, Object tag, boolean isUseCache, HttpCallback callback) {
-        Request request = HttpRequest.buildGetRequest(url, params, headers, tag, isUseCache);
-        new HttpRequest(request, mHttpClient).enqueue(callback);
+        new HttpRequest(HttpRequest.buildGetRequest(url, params, headers, tag, isUseCache), mHttpClient).enqueue(callback);
     }
 
     public void post(String url, Map<String, String> params, Object tag, HttpCallback callback) {
@@ -66,13 +61,11 @@ public class HttpManager {
     }
 
     public void post(String url, Map<String, String> params, Map<String, String> headers, Object tag, HttpCallback callback) {
-        Request request = HttpRequest.buildPostRequest(url, params, headers, tag);
-        new HttpRequest(request, mHttpClient).enqueue(callback);
+        new HttpRequest(HttpRequest.buildPostRequest(url, params, headers, tag), mHttpClient).enqueue(callback);
     }
 
     public void upload(String url, String name, List<File> files, Map<String, String> params, Map<String, String> headers, Object tag, HttpCallback callback, FileCallback fileCallback) {
-        Request request = HttpRequest.buildUploadRequest(url, name, files, params, headers, tag, fileCallback);
-        new HttpRequest(request, mHttpClient).enqueue(callback);
+        new HttpRequest(HttpRequest.buildUploadRequest(url, name, files, params, headers, tag, fileCallback), mHttpClient).enqueue(callback);
     }
 
     public void cancel(Object tag) {

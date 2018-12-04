@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 
+import com.lyric.utils.AbstractHandler;
+
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -17,7 +19,6 @@ import okio.Sink;
 /**
  * 文件请求类
  * @author lyricgan
- * @date 17/12/31 下午11:00
  */
 public class FileRequestBody extends RequestBody {
     private RequestBody requestBody;
@@ -70,7 +71,7 @@ public class FileRequestBody extends RequestBody {
         }
     }
 
-    private static class InnerHandler extends BaseHandler<FileCallback> {
+    private static class InnerHandler extends AbstractHandler<FileCallback> {
 
         InnerHandler(FileCallback object) {
             super(object);

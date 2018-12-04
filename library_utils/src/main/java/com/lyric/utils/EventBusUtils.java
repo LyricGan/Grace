@@ -1,4 +1,4 @@
-package com.lyric.arch;
+package com.lyric.utils;
 
 import org.greenrobot.eventbus.EventBus;
 

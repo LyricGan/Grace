@@ -10,8 +10,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 /**
+ * Cookie管理类
  * @author lyricgan
- * @since 2018/9/18 下午2:08
  */
 public class HttpCookieManager {
     private OkHttpClient mHttpClient;
@@ -60,9 +60,7 @@ public class HttpCookieManager {
         if (cookies == null || cookies.isEmpty()) {
             return;
         }
-        if (cookies.contains(cookie)) {
-            cookies.remove(cookie);
-        }
+        cookies.remove(cookie);
         cookies.add(cookie);
         cookieJar.saveFromResponse(httpUrl, cookies);
     }
