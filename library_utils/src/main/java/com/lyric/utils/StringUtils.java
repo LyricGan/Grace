@@ -2,6 +2,7 @@ package com.lyric.utils;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -24,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -243,10 +245,10 @@ public class StringUtils {
         return builder.toString();
     }
 
-    public static <K, V> String toString(Map<K, V> map) {
+    public static <K, V> String toString(Map<K, V> map, String split) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry item : map.entrySet()) {
-            builder.append(item.getKey()).append("=").append(item.getValue()).append("\n");
+            builder.append(item.getKey()).append(split).append(item.getValue()).append("\n");
         }
         return builder.toString();
     }
@@ -431,4 +433,23 @@ public class StringUtils {
             return source;
         }
     };
+
+    public static <K, V> String getParamsString(String url, Map<K, V> data, String split) {
+        StringBuilder builder = new StringBuilder();
+        if (!TextUtils.isEmpty(url)) {
+            Uri uri = Uri.parse(url);
+            Set<String> queryParameterNames = uri.getQueryParameterNames();
+            if (queryParameterNames != null && !queryParameterNames.isEmpty()) {
+                for (String key : queryParameterNames) {
+                    builder.append(key).append(split).append(uri.getQueryParameter(key));
+                }
+            }
+        }
+        if (data != null && !data.isEmpty()) {
+            for (Map.Entry<K, V> entry : data.entrySet()) {
+                builder.append(entry.getKey()).append(split).append(entry.getValue());
+            }
+        }
+        return builder.toString();
+    }
 }
