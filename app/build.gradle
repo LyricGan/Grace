@@ -10,14 +10,75 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+        flavorDimensions "default"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+
+        manifestPlaceholders = [
+                CHANNEL_VALUE: "common"
+        ]
     }
-    buildTypes {
+
+    signingConfigs {
         debug {
+            File propFile = file('signing.properties')
+            if (propFile.exists()) {
+                Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    android.signingConfigs.debug.storeFile = file(props['STORE_FILE'])
+                    android.signingConfigs.debug.storePassword = props['STORE_PASSWORD']
+                    android.signingConfigs.debug.keyAlias = props['KEY_ALIAS']
+                    android.signingConfigs.debug.keyPassword = props['KEY_PASSWORD']
+                } else {
+                    android.buildTypes.debug.signingConfig = null
+                }
+            } else {
+                android.buildTypes.debug.signingConfig = null
+            }
         }
         release {
-            minifyEnabled true
+            File propFile = file('signing.properties')
+            if (propFile.exists()) {
+                Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+                    android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+                    android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+                    android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+                } else {
+                    android.buildTypes.release.signingConfig = null
+                }
+            } else {
+                android.buildTypes.release.signingConfig = null
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            zipAlignEnabled true
+            // 移除无用的resource文件
             shrinkResources true
+
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        applicationVariants.all { variant ->
+            if (variant.buildType.name == 'release') {
+                variant.outputs.all {
+                    outputFileName = "Grace_${variant.productFlavors[0].name}_${defaultConfig.versionName}_${releaseTime()}.apk"
+                }
+            }
         }
     }
 
@@ -30,6 +91,28 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    // 渠道配置
+    productFlavors {
+        common {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        preDexLibraries false
+        javaMaxHeapSize "4g"
+    }
+}
+
+def static releaseTime() {
+    return new Date().format("yyyy-MM-dd-HHmmss", TimeZone.getTimeZone("GMT+08"))
 }
 
 dependencies {
