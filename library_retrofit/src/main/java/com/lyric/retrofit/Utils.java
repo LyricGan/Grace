@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 /**
  * @author lyricgan
  */
-public class Utils {
+public final class Utils {
 
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

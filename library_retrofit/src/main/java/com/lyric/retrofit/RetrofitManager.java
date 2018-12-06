@@ -17,7 +17,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  *
  * @author lyricgan
  */
-public class NetworkManager {
+public class RetrofitManager {
     /** default connect timeout */
     private static final long CONNECT_TIMEOUT = 30L;
     /** default read timeout */
@@ -27,14 +27,14 @@ public class NetworkManager {
 
     private Retrofit mRetrofit;
 
-    private NetworkManager() {
+    private RetrofitManager() {
     }
 
     private static final class NetworkManagerHolder {
-        private static final NetworkManager INSTANCE = new NetworkManager();
+        private static final RetrofitManager INSTANCE = new RetrofitManager();
     }
 
-    public static NetworkManager getInstance() {
+    public static RetrofitManager getInstance() {
         return NetworkManagerHolder.INSTANCE;
     }
 
