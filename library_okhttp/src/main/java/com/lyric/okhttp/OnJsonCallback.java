@@ -12,19 +12,16 @@ import okhttp3.ResponseBody;
  * @author lyricgan
  */
 public abstract class OnJsonCallback<T> extends HttpResponseCallback<T> {
-    private Type type;
-
-    public OnJsonCallback(Type type) {
-        this.type = type;
-    }
 
     @Override
     public T parseResponse(ResponseBody responseBody) {
         try {
-            return JsonParser.getInstance().getParser().fromJson(responseBody.string(), type);
+            return JsonParser.getInstance().getParser().fromJson(responseBody.string(), getType());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public abstract Type getType();
 }

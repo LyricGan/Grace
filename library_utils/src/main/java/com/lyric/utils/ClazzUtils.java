@@ -19,11 +19,7 @@ import java.util.List;
  */
 public class ClazzUtils {
 
-    public static ParameterizedType typeOf(Type rawType, final Type... actualTypeArguments) {
-        return typeOf(rawType, null, actualTypeArguments);
-    }
-
-    public static ParameterizedType typeOf(final Type rawType, final Type ownerType, final Type[] actualTypeArguments) {
+    public static ParameterizedType typeOf(final Type rawType, final Type ownerType, final Type... actualTypeArguments) {
         return new ParameterizedType() {
             @Override
             public Type[] getActualTypeArguments() {
