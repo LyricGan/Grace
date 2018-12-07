@@ -1,8 +1,5 @@
 package com.lyric.grace.data;
 
-import com.lyric.network.DataLoader;
-import com.lyric.network.ResponseCallback;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,12 +30,9 @@ public class DataApi {
     /**
      * 请求资讯数据
      * @param keys 类型：top(头条，默认),shehui(社会),guonei(国内),guoji(国际),yule(娱乐),tiyu(体育)junshi(军事),keji(科技),caijing(财经),shishang(时尚)
-     * @param callback ResponseCallback
-     * @return DataLoader
      */
-    public DataLoader queryNews(String keys, ResponseCallback<String> callback) {
+    public void queryNews(String keys) {
         Map<String, String> params = buildDefaultParams();
         params.put("type", keys);
-        return new DataLoader<>(API_URL, params, String.class, callback);
     }
 }

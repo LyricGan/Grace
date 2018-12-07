@@ -13,23 +13,31 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * 类管理工具类
  * @author lyricgan
  * @time 2016/6/24 10:56
  */
 public class ClazzUtils {
 
-    public static ParameterizedType type(final Class raw, final Type... args) {
+    public static ParameterizedType typeOf(Type rawType, final Type... actualTypeArguments) {
+        return typeOf(rawType, null, actualTypeArguments);
+    }
+
+    public static ParameterizedType typeOf(final Type rawType, final Type ownerType, final Type[] actualTypeArguments) {
         return new ParameterizedType() {
-            public Type getRawType() {
-                return raw;
-            }
-
+            @Override
             public Type[] getActualTypeArguments() {
-                return args;
+                return actualTypeArguments;
             }
 
+            @Override
+            public Type getRawType() {
+                return rawType;
+            }
+
+            @Override
             public Type getOwnerType() {
-                return null;
+                return ownerType;
             }
         };
     }

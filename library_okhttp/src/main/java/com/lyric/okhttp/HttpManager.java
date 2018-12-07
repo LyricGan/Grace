@@ -74,9 +74,6 @@ public class HttpManager {
             return;
         }
         Dispatcher dispatcher = httpClient.dispatcher();
-        if (dispatcher == null) {
-            return;
-        }
         List<Call> queuedCalls = dispatcher.queuedCalls();
         for (Call call : queuedCalls) {
             if (tag == null || tag.equals(call.request().tag())) {
