@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -193,6 +194,42 @@ public class CommonUtils {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 获取当前进程名称
+     * @param context 上下文
+     * @return 当前进程名称
+     */
+    public static String getCurrentProcessName(Context context) {
+        String processName = "";
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager == null) {
+            return processName;
+        }
+        List<ActivityManager.RunningAppProcessInfo> processInfoList = activityManager.getRunningAppProcesses();
+        if (processInfoList == null || processInfoList.isEmpty()) {
+            return processName;
+        }
+        int pid = Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo processInfo : processInfoList) {
+            if (processInfo.pid == pid) {
+                processName = processInfo.processName;
+                break;
+            }
+        }
+        return processName;
+    }
+
+    /**
+     * 判断是否为主进程
+     * @param context 上下文
+     * @param processName 进程名称
+     * @return true or false
+     */
+    public static boolean isMainProcess(Context context, String processName) {
+        String packageName = context.getPackageName();
+        return TextUtils.equals(packageName, processName);
     }
 
     public static String getDeviceId(Context context) {

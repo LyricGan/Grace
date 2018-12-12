@@ -27,7 +27,6 @@ public class FileResponseBody extends ResponseBody {
     private String filePath;
     /** 文件保存名称 */
     private String fileName;
-    private BufferedSource bufferedSource;
 
     public FileResponseBody(ResponseBody responseBody, FileCallback fileCallback) {
         this.responseBody = responseBody;
@@ -68,10 +67,7 @@ public class FileResponseBody extends ResponseBody {
 
     @Override
     public BufferedSource source() {
-        if (bufferedSource == null) {
-            bufferedSource = Okio.buffer(new InnerForwardingSource(responseBody.source(), contentLength(), handler));
-        }
-        return bufferedSource;
+        return Okio.buffer(new InnerForwardingSource(responseBody.source(), contentLength(), handler));
     }
 
     private static class InnerForwardingSource extends ForwardingSource {

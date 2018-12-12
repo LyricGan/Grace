@@ -19,6 +19,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private Context mContext;
     private List<T> mDataList;
     private int mLayoutId;
+    private LayoutInflater mInflater;
     private OnItemClickListener<T> mOnItemClickListener;
 
     public BaseRecyclerAdapter(Context context, int layoutId) {
@@ -33,12 +34,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         this.mContext = context;
         this.mDataList = dataList;
         this.mLayoutId = layoutId;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(mLayoutId, parent, false);
+        View itemView = mInflater.inflate(mLayoutId, parent, false);
         final RecyclerView.ViewHolder holder = new RecyclerViewHolder(itemView);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

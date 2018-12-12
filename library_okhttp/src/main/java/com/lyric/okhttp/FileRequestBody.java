@@ -22,7 +22,6 @@ import okio.Sink;
  */
 public class FileRequestBody extends RequestBody {
     private RequestBody requestBody;
-    private BufferedSink bufferedSink;
     private Handler handler;
 
     public FileRequestBody(RequestBody requestBody, FileCallback fileCallback) {
@@ -42,9 +41,7 @@ public class FileRequestBody extends RequestBody {
 
     @Override
     public void writeTo(@NonNull BufferedSink sink) throws IOException {
-        if (bufferedSink == null) {
-            bufferedSink = Okio.buffer(new InnerForwardingSink(sink, contentLength(), handler));
-        }
+        BufferedSink bufferedSink = Okio.buffer(new InnerForwardingSink(sink, contentLength(), handler));
         requestBody.writeTo(bufferedSink);
         bufferedSink.flush();
     }
