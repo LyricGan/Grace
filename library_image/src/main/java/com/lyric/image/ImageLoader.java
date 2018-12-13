@@ -81,8 +81,7 @@ public class ImageLoader {
     }
 
     private <ResourceType> RequestBuilder<ResourceType> getRequestBuilder(Context context, Object model, RequestOptions requestOptions, Class<ResourceType> clazz, TransitionOptions<?, ? super ResourceType> transitionOptions, RequestListener<ResourceType> listener) {
-        RequestManager requestManager = getManager(context);
-        RequestBuilder<ResourceType> requestBuilder = requestManager.as(clazz).load(model);
+        RequestBuilder<ResourceType> requestBuilder = Glide.with(context).as(clazz).load(model);
         if (requestOptions != null) {
             requestBuilder = requestBuilder.apply(requestOptions);
         }
@@ -90,6 +89,10 @@ public class ImageLoader {
             requestBuilder = requestBuilder.transition(transitionOptions);
         }
         return requestBuilder.listener(listener);
+    }
+
+    public Glide getGlide(Context context) {
+        return Glide.get(context);
     }
 
     public RequestManager getManager(Context context) {
@@ -111,5 +114,4 @@ public class ImageLoader {
     public File getPhotoCacheDir(Context context, String cacheName) {
         return Glide.getPhotoCacheDir(context, cacheName);
     }
-
 }
