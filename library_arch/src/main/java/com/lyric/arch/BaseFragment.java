@@ -16,8 +16,7 @@ import android.view.ViewGroup;
  *
  * @author lyricgan
  */
-public abstract class BaseFragment extends Fragment implements IBaseListener, IMessageProcessor, ILoadingListener, View.OnClickListener {
-    protected final String TAG = getClass().getName();
+public abstract class BaseFragment extends Fragment implements IBaseListener, View.OnClickListener {
     private View mRootView;
     private boolean mSelected;
 
@@ -25,15 +24,11 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IM
     public void onCreate(@Nullable Bundle savedInstanceState) {
         onCreatePrepare(savedInstanceState);
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            onCreateExtras(bundle);
-        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(getLayoutId(), null);
+        View rootView = inflater.inflate(getContentViewId(), null);
         mRootView = rootView;
         return rootView;
     }
@@ -42,33 +37,16 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, IM
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View titleView = view.findViewById(R.id.title_bar);
-        if (titleView != null) {
-            BaseTitleBar titleBar = new BaseTitleBar(titleView);
-            onCreateTitleBar(titleBar, savedInstanceState);
-        }
-        onCreateContentView(view, savedInstanceState);
+        onContentCreated(view, savedInstanceState, getArguments(), new BaseTitleBar(titleView));
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        onCreateData(savedInstanceState);
     }
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreateExtras(Bundle bundle) {
-    }
-
-    @Override
-    public void onCreateTitleBar(BaseTitleBar titleBar, Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreateData(Bundle savedInstanceState) {
     }
 
     @Override

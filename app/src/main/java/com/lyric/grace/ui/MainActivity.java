@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lyric.arch.BaseActivity;
+import com.lyric.arch.ITitleBar;
 import com.lyric.grace.R;
 import com.lyric.utils.DisplayUtils;
 
@@ -12,12 +13,12 @@ public class MainActivity extends BaseActivity {
     private TextView tvMessage;
 
     @Override
-    public int getLayoutId() {
+    public int getContentViewId() {
         return R.layout.activity_main;
     }
 
     @Override
-    public void onCreateContentView(View view, Bundle savedInstanceState) {
+    public void onContentCreated(View view, Bundle savedInstanceState, Bundle args, ITitleBar titleBar) {
         tvMessage = findViewById(R.id.tv_message);
 
         findViewById(R.id.btn_display).setOnClickListener(this);

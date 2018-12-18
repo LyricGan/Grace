@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,8 +19,7 @@ import com.lyric.utils.AbstractHandler;
  *
  * @author lyricgan
  */
-public abstract class BaseActivity extends AppCompatActivity implements IBaseListener, IMessageProcessor, ILoadingListener, View.OnClickListener {
-    protected final String TAG = getClass().getSimpleName();
+public abstract class BaseActivity extends AppCompatActivity implements IBaseListener, View.OnClickListener {
     private Handler mHandler;
 
     @Override
@@ -31,56 +29,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
         ActivityStackManager.getInstance().add(this);
         mHandler = new InnerHandler(this);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            onCreateExtras(bundle);
-        }
-        onCreateContentViewPrepare();
-        int layoutId = getLayoutId();
-        if (layoutId > 0) {
-            setContentView(layoutId);
-        } else {
-            setContentView(getContentView());
-        }
+        setContentView(getContentViewId());
         View decorView = getWindow().getDecorView();
         View titleView = decorView.findViewById(R.id.title_bar);
-        if (titleView != null) {
-            if (titleView instanceof Toolbar) {
-                onCreateTitleBar((Toolbar) titleView, savedInstanceState);
-            } else {
-                BaseTitleBar titleBar = new BaseTitleBar(titleView);
-                onCreateTitleBar(titleBar, savedInstanceState);
-            }
-        }
-        onCreateContentView(decorView, savedInstanceState);
-
-        onCreateData(savedInstanceState);
+        onContentCreated(decorView, savedInstanceState, getIntent().getExtras(), new BaseTitleBar(titleView));
     }
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreateExtras(Bundle bundle) {
-    }
-
-    @Override
-    public void onCreateTitleBar(BaseTitleBar titleBar, Bundle savedInstanceState) {
-    }
-
-    protected void onCreateTitleBar(Toolbar toolbar, Bundle savedInstanceState) {
-    }
-
-    protected void onCreateContentViewPrepare() {
-    }
-
-    protected View getContentView() {
-        return null;
-    }
-
-    @Override
-    public void onCreateData(Bundle savedInstanceState) {
     }
 
     @Override
@@ -166,16 +122,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
     public void handleMessage(Message msg) {
     }
 
-    private static class InnerHandler extends AbstractHandler<IMessageProcessor> {
+    private static class InnerHandler extends AbstractHandler<IBaseListener> {
 
-        InnerHandler(IMessageProcessor object) {
+        InnerHandler(IBaseListener object) {
             super(object);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            IMessageProcessor listener = get();
+            IBaseListener listener = get();
             if (listener != null) {
                 listener.handleMessage(msg);
             }

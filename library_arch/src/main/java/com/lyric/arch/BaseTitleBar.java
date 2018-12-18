@@ -7,7 +7,7 @@ import android.view.View;
  *
  * @author lyricgan
  */
-public class BaseTitleBar {
+public class BaseTitleBar implements ITitleBar {
     private View mTitleView;
 
     public BaseTitleBar(View titleView) {

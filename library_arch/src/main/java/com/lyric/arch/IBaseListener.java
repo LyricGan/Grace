@@ -1,6 +1,9 @@
 package com.lyric.arch;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 /**
@@ -12,14 +15,17 @@ public interface IBaseListener {
 
     void onCreatePrepare(Bundle savedInstanceState);
 
-    void onCreateExtras(Bundle bundle);
+    @LayoutRes int getContentViewId();
 
-    int getLayoutId();
+    void onContentCreated(View view, Bundle savedInstanceState, Bundle args, ITitleBar titleBar);
 
-    void onCreateTitleBar(BaseTitleBar titleBar, Bundle savedInstanceState);
+    Handler getHandler();
 
-	void onCreateContentView(View view, Bundle savedInstanceState);
+    void handleMessage(Message msg);
 
-    void onCreateData(Bundle savedInstanceState);
+    void showLoading(CharSequence message);
 
+    void showLoading(CharSequence message, boolean cancelable);
+
+    void hideLoading();
 }
