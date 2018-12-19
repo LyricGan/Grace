@@ -1,4 +1,4 @@
-package com.lyric.grace.ui;
+package com.lyric.grace.main;
 
 import android.os.Bundle;
 import android.view.View;

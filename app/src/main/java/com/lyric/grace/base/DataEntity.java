@@ -1,4 +1,4 @@
-package com.lyric.grace.data;
+package com.lyric.grace.base;
 
 /**
  * @author lyricgan
