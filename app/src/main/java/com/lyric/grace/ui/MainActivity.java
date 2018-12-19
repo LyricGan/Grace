@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lyric.arch.AppTitleBar;
 import com.lyric.arch.BaseActivity;
-import com.lyric.arch.ITitleBar;
 import com.lyric.grace.R;
 import com.lyric.utils.DisplayUtils;
 
@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onContentCreated(View view, Bundle savedInstanceState, Bundle args, ITitleBar titleBar) {
+    public void onCreateContentView(View view, Bundle savedInstanceState, Bundle args, AppTitleBar titleBar) {
         tvMessage = findViewById(R.id.tv_message);
 
         findViewById(R.id.btn_display).setOnClickListener(this);

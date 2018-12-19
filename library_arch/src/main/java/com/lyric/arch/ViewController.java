@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * controller for view
+ * Controller for view
+ * 
  * @author lyricgan
  */
 public abstract class ViewController<E> implements IControllerCallback<E> {
@@ -25,12 +26,11 @@ public abstract class ViewController<E> implements IControllerCallback<E> {
         this.mContext = context;
         this.mParent = parent;
 
-        init(view);
-
-        onCreateView(view);
+        onCreateView(view, parent);
     }
 
-    private void init(View view) {
+    @Override
+    public void onCreateView(View view, ViewGroup parent) {
         if (mParent != null) {
             ViewGroup.LayoutParams layoutParams = getLayoutParams();
             if (layoutParams != null) {
@@ -42,8 +42,8 @@ public abstract class ViewController<E> implements IControllerCallback<E> {
         mView = view;
     }
 
-    public ViewGroup.LayoutParams getLayoutParams() {
-        return null;
+    @Override
+    public void onUpdateView(E data) {
     }
 
     @Override
@@ -51,6 +51,10 @@ public abstract class ViewController<E> implements IControllerCallback<E> {
         if (mParent != null) {
             mParent.removeView(mView);
         }
+    }
+
+    public ViewGroup.LayoutParams getLayoutParams() {
+        return null;
     }
 
     public Context getContext() {

@@ -8,10 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.IBinder;
 import android.support.annotation.IdRes;
 import android.text.Selection;
 import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ import java.lang.reflect.Method;
  * 
  * @author lyricgan
  */
-public class ViewUtils {
+public class AppViewUtils {
     /** 上一次操作时间 */
     private static long sLastOperateTime;
 
@@ -120,9 +122,9 @@ public class ViewUtils {
 	/**
 	 * 隐藏软键盘
 	 * @param context Context
-	 * @param editText EditText
+	 * @param token EditText
 	 */
-	public static void hideSoftKeyboard(Context context, EditText editText) {
+	public static void hideSoftKeyboard(Context context, IBinder token) {
 		InputMethodManager imm = null;
 		try {
 			imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -130,7 +132,7 @@ public class ViewUtils {
 			t.printStackTrace();
 		}
 		if (imm != null) {
-			imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+			imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
 	
@@ -153,6 +155,23 @@ public class ViewUtils {
 			}
 		}
 	}
+
+    public static boolean isShouldHideKeyboard(View v, MotionEvent event) {
+        if (v instanceof EditText) {
+            int[] location = {0, 0};
+            v.getLocationInWindow(location);
+            int left = location[0];
+            int top = location[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+
+            float eventX = event.getX();
+            float eventY = event.getY();
+            return !(eventX > left && eventX < right && eventY > top && eventY < bottom);
+        }
+        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
+        return false;
+    }
 	
 	/**
 	 * 设置输入框光标停留在文字后面

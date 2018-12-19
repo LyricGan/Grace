@@ -17,7 +17,9 @@ public interface IBaseListener {
 
     @LayoutRes int getContentViewId();
 
-    void onContentCreated(View view, Bundle savedInstanceState, Bundle args, ITitleBar titleBar);
+    void onCreateContentView(View view, Bundle savedInstanceState, Bundle args, AppTitleBar titleBar);
+
+    void onCreateData(Bundle savedInstanceState);
 
     Handler getHandler();
 

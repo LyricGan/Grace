@@ -1,18 +1,17 @@
 package com.lyric.arch;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import com.lyric.utils.AbstractHandler;
+import com.lyric.utils.AppViewUtils;
+import com.lyric.utils.LogUtils;
+import com.lyric.utils.ToastUtils;
 
 /**
  * base activity
@@ -21,106 +20,7 @@ import com.lyric.utils.AbstractHandler;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseListener, View.OnClickListener {
     private Handler mHandler;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        onCreatePrepare(savedInstanceState);
-        super.onCreate(savedInstanceState);
-        ActivityStackManager.getInstance().add(this);
-        mHandler = new InnerHandler(this);
-
-        setContentView(getContentViewId());
-        View decorView = getWindow().getDecorView();
-        View titleView = decorView.findViewById(R.id.title_bar);
-        onContentCreated(decorView, savedInstanceState, getIntent().getExtras(), new BaseTitleBar(titleView));
-    }
-
-    @Override
-    public void onCreatePrepare(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onClick(View v) {
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityStackManager.getInstance().remove(this);
-    }
-
-    @Override
-    public void showLoading(CharSequence message) {
-        showLoading("", true);
-    }
-
-    @Override
-    public void showLoading(CharSequence message, boolean cancelable) {
-    }
-
-    @Override
-    public void hideLoading() {
-    }
-
-    public boolean isDestroy() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return isDestroyed();
-        }
-        return isFinishing();
-    }
-
-    protected boolean isAutoHideKeyboard() {
-        return false;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (isAutoHideKeyboard()) {
-            if (MotionEvent.ACTION_DOWN == ev.getAction()) {
-                View v = getCurrentFocus();
-                if (isShouldHideKeyboard(v, ev)) {
-                    hideKeyboard(v.getWindowToken());
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-        if (v instanceof EditText) {
-            int[] location = {0, 0};
-            v.getLocationInWindow(location);
-            int left = location[0];
-            int top = location[1];
-            int bottom = top + v.getHeight();
-            int right = left + v.getWidth();
-
-            float eventX = event.getX();
-            float eventY = event.getY();
-            return !(eventX > left && eventX < right && eventY > top && eventY < bottom);
-        }
-        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
-        return false;
-    }
-
-    private void hideKeyboard(IBinder token) {
-        if (token == null) {
-            return;
-        }
-        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (im != null) {
-            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
-    @Override
-    public Handler getHandler() {
-        return mHandler;
-    }
-
-    @Override
-    public void handleMessage(Message msg) {
-    }
+    private AppTitleBar titleBar;
 
     private static class InnerHandler extends AbstractHandler<IBaseListener> {
 
@@ -136,5 +36,136 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
                 listener.handleMessage(msg);
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        onCreatePrepare(savedInstanceState);
+        super.onCreate(savedInstanceState);
+        logMessage("onCreate()");
+        ActivityStackManager.getInstance().add(this);
+        mHandler = new InnerHandler(this);
+
+        setContentView(getContentViewId());
+        View decorView = getWindow().getDecorView();
+        View titleView = decorView.findViewById(R.id.title_bar);
+        if (titleBar == null) {
+            titleBar = new AppTitleBar(titleView);
+            titleBar.setOnClickListener(this);
+        }
+        onCreateContentView(decorView, savedInstanceState, getIntent().getExtras(), titleBar);
+
+        onCreateData(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        logMessage("onStart()");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        logMessage("onRestart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        logMessage("onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        logMessage("onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        logMessage("onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        logMessage("onDestroy()");
+        ActivityStackManager.getInstance().remove(this);
+    }
+
+    @Override
+    public void onCreatePrepare(Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onCreateData(Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        if (viewId == R.id.title_bar_left_text || viewId == R.id.title_bar_left_image) {
+            onBackPressed();
+        }
+    }
+
+    @Override
+    public void showLoading(CharSequence message) {
+        showLoading("", true);
+    }
+
+    @Override
+    public void showLoading(CharSequence message, boolean cancelable) {
+    }
+
+    @Override
+    public void hideLoading() {
+    }
+
+    @Override
+    public Handler getHandler() {
+        return mHandler;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (isAutoHideKeyboard()) {
+            if (MotionEvent.ACTION_DOWN == ev.getAction()) {
+                View v = getCurrentFocus();
+                if (AppViewUtils.isShouldHideKeyboard(v, ev)) {
+                    AppViewUtils.hideSoftKeyboard(this, v.getWindowToken());
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    protected boolean isAutoHideKeyboard() {
+        return false;
+    }
+
+    public boolean isDestroy() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return isDestroyed();
+        }
+        return isFinishing();
+    }
+
+    public void toast(int resId) {
+        ToastUtils.show(this, resId);
+    }
+
+    public void toast(CharSequence text) {
+        ToastUtils.show(this, text);
+    }
+
+    private void logMessage(String message) {
+        LogUtils.d(getClass().getName(), message);
     }
 }
