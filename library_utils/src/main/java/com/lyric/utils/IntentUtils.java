@@ -16,76 +16,81 @@ import java.util.Locale;
  * @time 2016/1/20 14:41
  */
 public class IntentUtils {
-    
-    private IntentUtils() {
+
+    public static void launch(Context context, Class<? extends Activity> cls) {
+        launch(context, cls, null);
     }
 
-    public static void startActivity(Context context, Class<? extends Activity> cls) {
-        startActivity(context, cls, null);
+    public static void launch(Context context, Class<? extends Activity> cls, Bundle extras) {
+        launch(context, cls, extras, 0);
     }
 
-    public static void startActivity(Context context, Class<? extends Activity> cls, Bundle bundle) {
+    public static void launch(Context context, Class<? extends Activity> cls, Bundle extras, int flags) {
+        if (context == null) {
+            return;
+        }
         Intent intent = new Intent(context, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
+        if (extras != null) {
+            intent.putExtras(extras);
         }
-        startActivity(context, intent);
-    }
-
-    public static void startActivity(Context context, String action) {
-        Intent intent = new Intent(action);
-        startActivity(context, intent);
-    }
-
-    public static void startActivity(Context context, String action, Uri uri) {
-        Intent intent = new Intent(action, uri);
-        startActivity(context, intent);
-    }
-
-    public static void startActivity(Context context, String action, Bundle bundle) {
-        Intent intent = new Intent(action);
-        if (bundle != null) {
-            intent.putExtras(bundle);
+        if (flags > 0) {
+            intent.setFlags(flags);
         }
-        startActivity(context, intent);
-    }
-
-    public static void startActivity(Context context, Intent intent) {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
     }
 
-    public static void startActivityForResult(Activity activity, Class<? extends Activity> cls, int requestCode) {
-        startActivityForResult(activity, cls, requestCode, null);
+    public static void launchForResult(Activity activity, Class<? extends Activity> cls) {
+        launchForResult(activity, cls, 0);
     }
 
-    public static void startActivityForResult(Activity activity, Class<? extends Activity> cls, int requestCode, Bundle bundle) {
-        Intent intent = new Intent(activity, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
+    public static void launchForResult(Activity activity, Class<? extends Activity> cls, int requestCode) {
+        launchForResult(activity, cls, requestCode, null);
+    }
+
+    public static void launchForResult(Activity activity, Class<? extends Activity> cls, int requestCode, Bundle extras) {
+        launchForResult(activity, cls, requestCode, extras, 0);
+    }
+
+    public static void launchForResult(Activity activity, Class<? extends Activity> cls, int requestCode, Bundle extras, int flags) {
+        if (activity == null) {
+            return;
         }
-        startActivityForResult(activity, intent, requestCode);
-    }
-
-    public static void startActivityForResult(Activity activity, Intent intent, int requestCode) {
+        Intent intent = new Intent(activity, cls);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+        if (flags > 0) {
+            intent.setFlags(flags);
+        }
         activity.startActivityForResult(intent, requestCode);
     }
 
-    public static void startActivityForResult(Fragment fragment, Class<? extends Activity> cls, int requestCode) {
-        startActivityForResult(fragment, cls, requestCode, null);
+    public static void launchForResult(Fragment fragment, Class<? extends Activity> cls) {
+        launchForResult(fragment, cls, 0);
     }
 
-    public static void startActivityForResult(Fragment fragment, Class<? extends Activity> cls, int requestCode, Bundle bundle) {
-        Intent intent = new Intent(fragment.getContext(), cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
+    public static void launchForResult(Fragment fragment, Class<? extends Activity> cls, int requestCode) {
+        launchForResult(fragment, cls, requestCode, null);
+    }
+
+    public static void launchForResult(Fragment fragment, Class<? extends Activity> cls, int requestCode, Bundle extras) {
+        launchForResult(fragment, cls, requestCode, extras, 0);
+    }
+
+    public static void launchForResult(Fragment fragment, Class<? extends Activity> cls, int requestCode, Bundle extras, int flags) {
+        if (fragment == null || fragment.getActivity() == null) {
+            return;
         }
-        startActivityForResult(fragment, intent, requestCode);
-    }
-
-    public static void startActivityForResult(Fragment fragment, Intent intent, int requestCode) {
+        Intent intent = new Intent(fragment.getActivity(), cls);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+        if (flags > 0) {
+            intent.setFlags(flags);
+        }
         fragment.startActivityForResult(intent, requestCode);
     }
 

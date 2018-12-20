@@ -3,7 +3,7 @@ package com.lyric.utils;
 import com.google.gson.Gson;
 
 /**
- * Json parse with gson
+ * Json parse with Gson
  *
  * @author lyricgan
  */
