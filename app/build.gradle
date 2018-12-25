@@ -112,7 +112,7 @@ android {
 }
 
 def static releaseTime() {
-    return new Date().format("yyyy-MM-dd-HHmmss", TimeZone.getTimeZone("GMT+08"))
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08"))
 }
 
 dependencies {
