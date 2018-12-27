@@ -9,6 +9,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.text.Selection;
 import android.text.Spannable;
@@ -46,6 +47,14 @@ public class AppViewUtils {
         }
         sLastOperateTime = time;
         return false;
+    }
+
+    private static final long[] TIME_ARRAY = new long[2];
+
+    public static boolean isOnDoubleClick(int duration) {
+        System.arraycopy(TIME_ARRAY, 1, TIME_ARRAY, 0, TIME_ARRAY.length - 1);
+        TIME_ARRAY[TIME_ARRAY.length - 1] = SystemClock.uptimeMillis();
+        return TIME_ARRAY[0] >= (SystemClock.uptimeMillis() - duration);
     }
 
     public static <T extends View> T findViewWithId(View view, @IdRes int id) {
