@@ -2,6 +2,7 @@ package com.lyric.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
@@ -988,5 +990,41 @@ public class FileUtils {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * 获取文件的uri，7.0版本及以上共享文件uri需要将file://转换为content://，可以通过FileProvider
+     *
+     * @param context 上下文
+     * @param file    文件
+     * @return 文件uri
+     */
+    public static Uri getFileUri(Context context, File file) {
+        if (file == null || !file.exists()) {
+            return null;
+        }
+        Uri fileUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // 注意：此处authority必须与AndroidManifest.xml文件配置的保持一致
+            final String authority = context.getPackageName() + ".fileprovider";
+            fileUri = FileProvider.getUriForFile(context, authority, file);
+        } else {
+            fileUri = Uri.fromFile(file);
+        }
+        return fileUri;
+    }
+
+    public static void installApk(Context context, File file) {
+        Uri uri = getFileUri(context, file);
+        if (uri == null) {
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        context.startActivity(intent);
     }
 }

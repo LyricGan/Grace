@@ -677,7 +677,7 @@ public class PackageUtils {
     }
 
     /**
-     * whether the app whost package's name is packageName is on the top of the
+     * whether the app whose package's name is packageName is on the top of the
      * stack
      * <ul>
      * <strong>Attentions:</strong>
@@ -695,6 +695,9 @@ public class PackageUtils {
             return false;
         }
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager == null) {
+            return false;
+        }
         List<RunningTaskInfo> tasksInfo = activityManager.getRunningTasks(1);
         if (tasksInfo == null || tasksInfo.size() == 0) {
             return false;
@@ -703,8 +706,8 @@ public class PackageUtils {
             return packageName.equals(tasksInfo.get(0).topActivity.getPackageName());
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     /**
@@ -912,5 +915,13 @@ public class PackageUtils {
     public static List<ApplicationInfo> getInstalledApplications(Context context, int flag) {
         PackageManager packageManager = context.getPackageManager();
         return packageManager.getInstalledApplications(flag);
+    }
+
+    public static boolean canRequestPackageInstalls(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            PackageManager packageManager = context.getPackageManager();
+            return packageManager.canRequestPackageInstalls();
+        }
+        return true;
     }
 }

@@ -123,7 +123,7 @@ public class ImageCompressor {
             quality = Math.max(0, quality - 10);// 图片质量每次减少10
             actualOutBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);// 将压缩后的图片保存到baos中
             baosLength = baos.toByteArray().length;
-            if (quality == 0) {// 如果图片的质量已降到最低则，不再进行压缩
+            if (quality == 0) {// 如果图片的质量已降到最低则不再进行压缩
                 break;
             }
         }
