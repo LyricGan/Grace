@@ -18,20 +18,20 @@ import com.lyric.utils.ToastUtils;
  *
  * @author lyricgan
  */
-public abstract class BaseActivity extends AppCompatActivity implements IBaseListener, View.OnClickListener {
+public abstract class AppActivity extends AppCompatActivity implements AppListener, View.OnClickListener {
     private Handler mHandler;
     private AppTitleBar titleBar;
 
-    private static class InnerHandler extends AbstractHandler<IBaseListener> {
+    private static class InnerHandler extends AbstractHandler<AppListener> {
 
-        InnerHandler(IBaseListener object) {
+        InnerHandler(AppListener object) {
             super(object);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            IBaseListener listener = get();
+            AppListener listener = get();
             if (listener != null) {
                 listener.handleMessage(msg);
             }
@@ -53,7 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
             titleBar = new AppTitleBar(titleView);
             titleBar.setOnClickListener(this);
         }
-        onCreateContentView(decorView, savedInstanceState, getIntent().getExtras(), titleBar);
+        onCreateTitleBar(titleBar);
+
+        onCreateContentView(decorView, savedInstanceState, getIntent().getExtras());
 
         onCreateData(savedInstanceState);
     }
@@ -97,6 +99,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseLis
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
+    }
+
+    protected void onCreateTitleBar(AppTitleBar titleBar) {
     }
 
     @Override

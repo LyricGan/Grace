@@ -15,22 +15,22 @@ import java.util.List;
  * RecyclerView适配器基类
  * @author lyricgan
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class AppRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<T> mDataList;
     private int mLayoutId;
     private LayoutInflater mInflater;
     private OnItemClickListener<T> mOnItemClickListener;
 
-    public BaseRecyclerAdapter(Context context, int layoutId) {
+    public AppRecyclerAdapter(Context context, int layoutId) {
         this(context, new ArrayList<T>(), layoutId);
     }
 
-    public BaseRecyclerAdapter(Context context, T[] arrays, int layoutId) {
+    public AppRecyclerAdapter(Context context, T[] arrays, int layoutId) {
         this(context, Arrays.asList(arrays), layoutId);
     }
 
-    public BaseRecyclerAdapter(Context context, List<T> dataList, int layoutId) {
+    public AppRecyclerAdapter(Context context, List<T> dataList, int layoutId) {
         this.mContext = context;
         this.mDataList = dataList;
         this.mLayoutId = layoutId;

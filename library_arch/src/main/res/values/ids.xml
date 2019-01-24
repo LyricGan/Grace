@@ -3,7 +3,8 @@
     <item name="title_bar" type="id"/>
     <item name="title_bar_left_text" type="id"/>
     <item name="title_bar_left_image" type="id"/>
-    <item name="title_bar_title" type="id"/>
+    <item name="title_bar_center_text" type="id"/>
+    <item name="title_bar_center_image" type="id"/>
     <item name="title_bar_right_text" type="id"/>
     <item name="title_bar_right_second_text" type="id"/>
     <item name="title_bar_right_image" type="id"/>

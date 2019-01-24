@@ -11,15 +11,15 @@ import java.util.List;
  *
  * @author lyricgan
  */
-public class BaseFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
+public class AppFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> mFragments;
     private List<String> mTitles;
 
-    public BaseFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public AppFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         this(fm, fragments, null);
     }
 
-    public BaseFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public AppFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.mFragments = fragments;
         this.mTitles = titles;

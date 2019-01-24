@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 /**
  * @author lyricgan
  */
-public interface IControllerCallback<E> {
+public interface AppControllerListener<E> {
 
     void onCreateView(View view, ViewGroup parent);
 

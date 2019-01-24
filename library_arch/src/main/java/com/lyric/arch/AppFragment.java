@@ -20,7 +20,7 @@ import com.lyric.utils.ToastUtils;
  *
  * @author lyricgan
  */
-public abstract class BaseFragment extends Fragment implements IBaseListener, View.OnClickListener {
+public abstract class AppFragment extends Fragment implements AppListener, View.OnClickListener {
     private View mRootView;
     private AppTitleBar titleBar;
     private boolean mSelected;
@@ -49,7 +49,9 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, Vi
             titleBar = new AppTitleBar(titleView);
             titleBar.setOnClickListener(this);
         }
-        onCreateContentView(view, savedInstanceState, getArguments(), titleBar);
+        onCreateTitleBar(titleBar);
+
+        onCreateContentView(view, savedInstanceState, getArguments());
     }
 
     @Override
@@ -105,6 +107,9 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, Vi
     public void onCreatePrepare(Bundle savedInstanceState) {
     }
 
+    protected void onCreateTitleBar(AppTitleBar titleBar) {
+    }
+
     @Override
     public void onCreateData(Bundle savedInstanceState) {
     }
@@ -124,7 +129,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, Vi
 
     @Override
     public void showLoading(CharSequence message, boolean cancelable) {
-        BaseActivity activity = (BaseActivity) getActivity();
+        AppActivity activity = (AppActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }
@@ -136,7 +141,7 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, Vi
 
     @Override
     public void hideLoading() {
-        BaseActivity activity = (BaseActivity) getActivity();
+        AppActivity activity = (AppActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }
@@ -149,8 +154,8 @@ public abstract class BaseFragment extends Fragment implements IBaseListener, Vi
     @Override
     public Handler getHandler() {
         Activity activity = getActivity();
-        if (activity instanceof BaseActivity) {
-            return ((BaseActivity) activity).getHandler();
+        if (activity instanceof AppActivity) {
+            return ((AppActivity) activity).getHandler();
         }
         return null;
     }

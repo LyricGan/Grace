@@ -23,7 +23,7 @@ import java.util.TreeSet;
  *
  * @author lyricgan
  */
-public class CrashHandler implements Thread.UncaughtExceptionHandler {
+public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String CRASH_REPORTER_EXTENSION = ".cr";
     private static final String VERSION_NAME = "version_name";
     private static final String VERSION_CODE = "version_code";
@@ -34,13 +34,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private Properties mCrashProperties = new Properties();
 
-    private CrashHandler(Context context) {
+    private AppCrashHandler(Context context) {
         this.mContext = context.getApplicationContext();
         this.mHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
     public static void init(Context context) {
-        CrashHandler handler = new CrashHandler(context);
+        AppCrashHandler handler = new AppCrashHandler(context);
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 

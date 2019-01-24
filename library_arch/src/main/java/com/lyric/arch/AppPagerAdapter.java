@@ -11,15 +11,15 @@ import java.util.List;
  * PagerAdapter基类
  * @author lyricgan
  */
-public abstract class BasePagerAdapter extends PagerAdapter {
+public abstract class AppPagerAdapter extends PagerAdapter {
     private List<View> mViews;
     private List<String> mTitles;
 
-    public BasePagerAdapter(List<View> views) {
+    public AppPagerAdapter(List<View> views) {
         this(views, null);
     }
 
-    public BasePagerAdapter(List<View> views, List<String> titles) {
+    public AppPagerAdapter(List<View> views, List<String> titles) {
         this.mViews = views;
         this.mTitles = titles;
     }

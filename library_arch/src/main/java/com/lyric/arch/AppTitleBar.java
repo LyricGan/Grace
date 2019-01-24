@@ -11,13 +11,13 @@ import android.widget.TextView;
  */
 public class AppTitleBar {
     private View mTitleView;
-    private TextView tvLeftText, tvTitleText, tvRightText, tvRightSecondText;
-    private ImageView ivLeftImage, ivRightImage, ivRightSecondImage;
+    private TextView tvLeftText, tvCenterText, tvRightText, tvRightSecondText;
+    private ImageView ivLeftImage, ivCenterImage, ivRightImage, ivRightSecondImage;
 
     public AppTitleBar(View titleView) {
         this.mTitleView = titleView;
 
-        bindViews();
+        bindViews(titleView);
     }
 
     public View getTitleView() {
@@ -26,35 +26,21 @@ public class AppTitleBar {
 
     public void setTitleView(View titleView) {
         this.mTitleView = titleView;
-
-        bindViews();
+        bindViews(titleView);
     }
 
-    private void bindViews() {
-        if (mTitleView == null) {
+    private void bindViews(View titleView) {
+        if (titleView == null) {
             return;
         }
-        tvLeftText = mTitleView.findViewById(R.id.title_bar_left_text);
-        ivLeftImage = mTitleView.findViewById(R.id.title_bar_left_image);
-        tvTitleText = mTitleView.findViewById(R.id.title_bar_title);
-        tvRightText = mTitleView.findViewById(R.id.title_bar_right_text);
-        tvRightSecondText = mTitleView.findViewById(R.id.title_bar_right_second_text);
-        ivRightImage = mTitleView.findViewById(R.id.title_bar_right_image);
-        ivRightSecondImage = mTitleView.findViewById(R.id.title_bar_right_second_image);
-    }
-
-    public void setTitle(int resId) {
-        if (tvTitleText == null) {
-            return;
-        }
-        tvTitleText.setText(resId);
-    }
-
-    public void setTitle(CharSequence text) {
-        if (tvTitleText == null) {
-            return;
-        }
-        tvTitleText.setText(text);
+        tvLeftText = titleView.findViewById(R.id.title_bar_left_text);
+        ivLeftImage = titleView.findViewById(R.id.title_bar_left_image);
+        tvCenterText = titleView.findViewById(R.id.title_bar_center_text);
+        ivCenterImage = titleView.findViewById(R.id.title_bar_center_image);
+        tvRightText = titleView.findViewById(R.id.title_bar_right_text);
+        tvRightSecondText = titleView.findViewById(R.id.title_bar_right_second_text);
+        ivRightImage = titleView.findViewById(R.id.title_bar_right_image);
+        ivRightSecondImage = titleView.findViewById(R.id.title_bar_right_second_image);
     }
 
     public void setLeftText(int resId) {
@@ -76,6 +62,27 @@ public class AppTitleBar {
             return;
         }
         ivLeftImage.setImageResource(resId);
+    }
+
+    public void setCenterText(int resId) {
+        if (tvCenterText == null) {
+            return;
+        }
+        tvCenterText.setText(resId);
+    }
+
+    public void setCenterText(CharSequence text) {
+        if (tvCenterText == null) {
+            return;
+        }
+        tvCenterText.setText(text);
+    }
+
+    public void setCenterImage(int redId) {
+        if (ivCenterImage == null) {
+            return;
+        }
+        ivCenterImage.setImageResource(redId);
     }
 
     public void setRightText(int resId) {
@@ -124,17 +131,20 @@ public class AppTitleBar {
         if (tvLeftText != null) {
             tvLeftText.setOnClickListener(listener);
         }
-        if (tvTitleText != null) {
-            tvTitleText.setOnClickListener(listener);
+        if (ivLeftImage != null) {
+            ivLeftImage.setOnClickListener(listener);
+        }
+        if (tvCenterText != null) {
+            tvCenterText.setOnClickListener(listener);
+        }
+        if (ivCenterImage != null) {
+            ivCenterImage.setOnClickListener(listener);
         }
         if (tvRightText != null) {
             tvRightText.setOnClickListener(listener);
         }
         if (tvRightSecondText != null) {
             tvRightSecondText.setOnClickListener(listener);
-        }
-        if (ivLeftImage != null) {
-            ivLeftImage.setOnClickListener(listener);
         }
         if (ivRightImage != null) {
             ivRightImage.setOnClickListener(listener);

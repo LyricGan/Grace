@@ -12,17 +12,17 @@ import android.view.ViewGroup;
  * 
  * @author lyricgan
  */
-public abstract class ViewController<E> implements IControllerCallback<E> {
+public abstract class AppViewController<E> implements AppControllerListener<E> {
     private Context mContext;
     private ViewGroup mParent;
     private View mView;
     private E mData;
 
-    public ViewController(Context context, @LayoutRes int layoutId, ViewGroup parent) {
+    public AppViewController(Context context, @LayoutRes int layoutId, ViewGroup parent) {
         this(context, LayoutInflater.from(context).inflate(layoutId, parent, false), parent);
     }
 
-    public ViewController(Context context, View view, ViewGroup parent) {
+    public AppViewController(Context context, View view, ViewGroup parent) {
         this.mContext = context;
         this.mParent = parent;
 

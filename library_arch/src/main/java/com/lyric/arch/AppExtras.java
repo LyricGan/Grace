@@ -5,9 +5,7 @@ package com.lyric.arch;
  * 
  * @author lyricgan
  */
-public interface Constants {
-    boolean DEBUG = BuildConfig.DEBUG;
-
+public interface AppExtras {
     String EXTRAS_ID = "_id";
     String EXTRAS_NAME = "_name";
     String EXTRAS_DATA = "_data";

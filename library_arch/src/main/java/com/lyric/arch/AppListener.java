@@ -11,13 +11,13 @@ import android.view.View;
  *
  * @author lyricgan
  */
-public interface IBaseListener {
+public interface AppListener {
 
     void onCreatePrepare(Bundle savedInstanceState);
 
     @LayoutRes int getContentViewId();
 
-    void onCreateContentView(View view, Bundle savedInstanceState, Bundle args, AppTitleBar titleBar);
+    void onCreateContentView(View view, Bundle savedInstanceState, Bundle args);
 
     void onCreateData(Bundle savedInstanceState);
 
