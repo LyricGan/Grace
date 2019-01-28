@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,9 +24,13 @@ public abstract class AppListAdapter<T> extends BaseAdapter {
         this(context, new ArrayList<T>());
     }
 
-    public AppListAdapter(Context context, List<T> dataList) {
+    public AppListAdapter(Context context, T[] arrays) {
+        this(context, Arrays.asList(arrays));
+    }
+
+    public AppListAdapter(Context context, List<T> itemList) {
         this.mContext = context;
-        this.mItemList = dataList;
+        this.mItemList = itemList;
         this.mInflater = LayoutInflater.from(context);
     }
 
@@ -71,25 +76,25 @@ public abstract class AppListAdapter<T> extends BaseAdapter {
         return mItemList;
     }
 
-    public void setItemList(List<T> mItemList) {
-        this.mItemList = mItemList;
+    public void setItemList(List<T> itemList) {
+        this.mItemList = itemList;
     }
 
     public boolean isEmpty() {
         return (mItemList == null || mItemList.isEmpty());
     }
 
-    public void add(T object) {
+    public void add(T item) {
         if (mItemList != null) {
-            mItemList.add(object);
+            mItemList.add(item);
         }
     }
 
-    public void add(int position, T object) {
+    public void add(int position, T item) {
         if (isPositionInvalid(position)) {
             return;
         }
-        mItemList.add(position, object);
+        mItemList.add(position, item);
     }
 
     public void add(List<T> itemList) {
@@ -101,9 +106,9 @@ public abstract class AppListAdapter<T> extends BaseAdapter {
         }
     }
 
-    public void remove(T object) {
+    public void remove(T item) {
         if (mItemList != null) {
-            mItemList.remove(object);
+            mItemList.remove(item);
         }
     }
 

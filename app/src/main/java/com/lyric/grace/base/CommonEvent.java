@@ -1,4 +1,4 @@
-package com.lyric.arch;
+package com.lyric.grace.base;
 
 /**
  * common event
@@ -6,7 +6,8 @@ package com.lyric.arch;
  * @author lyricgan
  */
 public class CommonEvent {
-    public @CommonEventType int type;
+    public @CommonEventType
+    int type;
     public String id;
     public Object object;
 

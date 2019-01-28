@@ -1,4 +1,4 @@
-package com.lyric.arch;
+package com.lyric.grace.base;
 
 import android.support.annotation.IntDef;
 

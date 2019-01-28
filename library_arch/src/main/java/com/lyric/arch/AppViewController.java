@@ -39,7 +39,7 @@ public abstract class AppViewController<E> implements AppControllerListener<E> {
                 mParent.addView(view);
             }
         }
-        mView = view;
+        this.mView = view;
     }
 
     @Override
@@ -55,6 +55,10 @@ public abstract class AppViewController<E> implements AppControllerListener<E> {
 
     public ViewGroup.LayoutParams getLayoutParams() {
         return null;
+    }
+
+    public void onDestroy() {
+        onDestroyView();
     }
 
     public Context getContext() {

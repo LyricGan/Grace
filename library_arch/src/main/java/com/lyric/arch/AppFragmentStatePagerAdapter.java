@@ -47,6 +47,6 @@ public class AppFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
                 return mTitles.get(position);
             }
         }
-        return null;
+        return super.getPageTitle(position);
     }
 }

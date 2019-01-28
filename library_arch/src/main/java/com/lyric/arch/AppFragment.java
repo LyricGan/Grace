@@ -3,17 +3,13 @@ package com.lyric.arch;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.lyric.utils.LogUtils;
-import com.lyric.utils.ToastUtils;
 
 /**
  * base fragment
@@ -27,7 +23,7 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        onCreatePrepare(savedInstanceState);
+        onCreatePrepare(savedInstanceState, getArguments());
         super.onCreate(savedInstanceState);
         logMessage("onCreate()");
     }
@@ -35,21 +31,19 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         logMessage("onCreateView()");
-        View rootView = inflater.inflate(getContentViewId(), null);
-        mRootView = rootView;
-        return rootView;
+        return inflater.inflate(getContentViewId(), null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         logMessage("onViewCreated()");
-        View titleView = view.findViewById(R.id.title_bar);
+        this.mRootView = view;
         if (titleBar == null) {
-            titleBar = new AppTitleBar(titleView);
+            titleBar = new AppTitleBar(view);
             titleBar.setOnClickListener(this);
         }
-        onCreateTitleBar(titleBar);
+        onCreateTitleBar(titleBar, getArguments());
 
         onCreateContentView(view, savedInstanceState, getArguments());
     }
@@ -58,7 +52,7 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         logMessage("onActivityCreated()");
-        onCreateData(savedInstanceState);
+        onCreateData(savedInstanceState, getArguments());
     }
 
     @Override
@@ -104,14 +98,14 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     @Override
-    public void onCreatePrepare(Bundle savedInstanceState) {
+    public void onCreatePrepare(Bundle savedInstanceState, Bundle args) {
     }
 
-    protected void onCreateTitleBar(AppTitleBar titleBar) {
+    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle args) {
     }
 
     @Override
-    public void onCreateData(Bundle savedInstanceState) {
+    public void onCreateData(Bundle savedInstanceState, Bundle args) {
     }
 
     @Override
@@ -123,12 +117,10 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     @Override
-    public void showLoading(CharSequence message) {
-        showLoading(message, true);
-    }
-
-    @Override
     public void showLoading(CharSequence message, boolean cancelable) {
+        if (!(getActivity() instanceof AppActivity)) {
+            return;
+        }
         AppActivity activity = (AppActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
@@ -141,6 +133,9 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
 
     @Override
     public void hideLoading() {
+        if (!(getActivity() instanceof AppActivity)) {
+            return;
+        }
         AppActivity activity = (AppActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
@@ -151,27 +146,14 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         activity.hideLoading();
     }
 
-    @Override
-    public Handler getHandler() {
-        Activity activity = getActivity();
-        if (activity instanceof AppActivity) {
-            return ((AppActivity) activity).getHandler();
-        }
-        return null;
-    }
-
-    @Override
-    public void handleMessage(Message msg) {
-    }
-
     public View getRootView() {
         return mRootView;
     }
 
     public <T extends View> T findViewById(int id) {
-        View rootView = getRootView();
-        if (rootView != null) {
-            return rootView.findViewById(id);
+        Activity activity = getActivity();
+        if (activity != null) {
+            return activity.findViewById(id);
         }
         return null;
     }
@@ -202,14 +184,12 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     public void toast(int resId) {
-        ToastUtils.show(getActivity(), resId);
     }
 
     public void toast(CharSequence text) {
-        ToastUtils.show(getActivity(), text);
     }
 
     private void logMessage(String message) {
-        LogUtils.d(getClass().getName(), message);
+        Log.d(getClass().getName(), message);
     }
 }

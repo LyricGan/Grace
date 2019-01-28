@@ -4,9 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 
-import com.lyric.utils.AbstractHandler;
-
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -68,16 +67,20 @@ public class FileRequestBody extends RequestBody {
         }
     }
 
-    private static class InnerHandler extends AbstractHandler<FileCallback> {
+    private static class InnerHandler extends Handler {
+        private WeakReference<FileCallback> mReference;
 
-        InnerHandler(FileCallback object) {
-            super(object);
+        InnerHandler(FileCallback callback) {
+            this.mReference = new WeakReference<>(callback);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            FileCallback fileCallback = get();
+            FileCallback fileCallback = null;
+            if (mReference != null) {
+                fileCallback = mReference.get();
+            }
             if (fileCallback != null) {
                 FileMessage fileMessage = (FileMessage) msg.obj;
                 if (fileMessage != null) {

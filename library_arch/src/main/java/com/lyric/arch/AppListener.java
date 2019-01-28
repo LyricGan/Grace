@@ -1,8 +1,6 @@
 package com.lyric.arch;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
@@ -13,19 +11,13 @@ import android.view.View;
  */
 public interface AppListener {
 
-    void onCreatePrepare(Bundle savedInstanceState);
+    void onCreatePrepare(Bundle savedInstanceState, Bundle args);
 
     @LayoutRes int getContentViewId();
 
     void onCreateContentView(View view, Bundle savedInstanceState, Bundle args);
 
-    void onCreateData(Bundle savedInstanceState);
-
-    Handler getHandler();
-
-    void handleMessage(Message msg);
-
-    void showLoading(CharSequence message);
+    void onCreateData(Bundle savedInstanceState, Bundle args);
 
     void showLoading(CharSequence message, boolean cancelable);
 

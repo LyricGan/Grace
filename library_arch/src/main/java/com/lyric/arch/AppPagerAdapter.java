@@ -55,7 +55,7 @@ public abstract class AppPagerAdapter extends PagerAdapter {
                 return mTitles.get(position);
             }
         }
-        return null;
+        return super.getPageTitle(position);
     }
 
     /**
@@ -64,5 +64,5 @@ public abstract class AppPagerAdapter extends PagerAdapter {
      * @param container 容器视图
      * @param position Item索引位置
      */
-    public abstract void instantiateItem(View itemView, ViewGroup container, int position);
+    protected abstract void instantiateItem(View itemView, ViewGroup container, int position);
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lyric.arch.AppTitleBar;
 import com.lyric.arch.AppActivity;
 import com.lyric.grace.R;
 import com.lyric.utils.DisplayUtils;
@@ -15,11 +14,6 @@ public class MainActivity extends AppActivity {
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onCreateTitleBar(AppTitleBar titleBar) {
-        super.onCreateTitleBar(titleBar);
     }
 
     @Override
