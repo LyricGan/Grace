@@ -17,14 +17,14 @@ public class MainActivity extends AppActivity {
     }
 
     @Override
-    public void onCreateContentView(View view, Bundle savedInstanceState, Bundle args) {
+    public void onCreateContentView(View view, Bundle savedInstanceState) {
         tvMessage = findViewById(R.id.tv_message);
-
         findViewById(R.id.btn_display).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_display:
                 tvMessage.setText(DisplayUtils.toDisplayString());

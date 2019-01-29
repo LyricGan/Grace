@@ -11,13 +11,15 @@ import android.view.View;
  */
 public interface AppListener {
 
-    void onCreatePrepare(Bundle savedInstanceState, Bundle args);
+    void onCreatePrepare(Bundle savedInstanceState);
+
+    void onCreateExtras(Bundle savedInstanceState, Bundle args);
 
     @LayoutRes int getContentViewId();
 
-    void onCreateContentView(View view, Bundle savedInstanceState, Bundle args);
+    void onCreateContentView(View view, Bundle savedInstanceState);
 
-    void onCreateData(Bundle savedInstanceState, Bundle args);
+    void onCreateData(Bundle savedInstanceState);
 
     void showLoading(CharSequence message, boolean cancelable);
 

@@ -2,6 +2,7 @@ package com.lyric.arch;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,22 +17,25 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Bundle args = getIntent().getExtras();
-        onCreatePrepare(savedInstanceState, args);
+        onCreatePrepare(savedInstanceState);
         super.onCreate(savedInstanceState);
         logMessage("onCreate()");
         ActivityStackManager.getInstance().add(this);
 
+        Bundle args = getIntent().getExtras();
+        if (args != null) {
+            onCreateExtras(savedInstanceState, args);
+        }
         setContentView(getContentViewId());
         View decorView = getWindow().getDecorView();
         if (titleBar == null) {
             titleBar = new AppTitleBar(decorView);
         }
-        onCreateTitleBar(titleBar, args);
+        onCreateTitleBar(titleBar, savedInstanceState);
 
-        onCreateContentView(decorView, savedInstanceState, args);
+        onCreateContentView(decorView, savedInstanceState);
 
-        onCreateData(savedInstanceState, args);
+        onCreateData(savedInstanceState);
     }
 
     @Override
@@ -72,16 +76,20 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
     }
 
     @Override
-    public void onCreatePrepare(Bundle savedInstanceState, Bundle args) {
+    public void onCreatePrepare(Bundle savedInstanceState) {
     }
 
-    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle args) {
+    @Override
+    public void onCreateExtras(Bundle savedInstanceState, @NonNull Bundle args) {
+    }
+
+    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
         titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
         titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
     }
 
     @Override
-    public void onCreateData(Bundle savedInstanceState, Bundle args) {
+    public void onCreateData(Bundle savedInstanceState) {
     }
 
     @Override

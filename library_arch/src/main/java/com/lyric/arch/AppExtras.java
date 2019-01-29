@@ -1,16 +1,20 @@
 package com.lyric.arch;
 
 /**
- * constants
- * 
+ * 页面传递参数常量
  * @author lyricgan
  */
 public interface AppExtras {
-    String EXTRAS_ID = "_id";
-    String EXTRAS_NAME = "_name";
-    String EXTRAS_TITLE = "_title";
-    String EXTRAS_DATA = "_data";
-    String EXTRAS_URL = "_url";
-    String EXTRAS_IMAGE_URL = "_image_url";
-    String EXTRAS_IMAGE_PATH = "_image_path";
+    String ID = "_id";
+    String NAME = "_name";
+    String TITLE = "_title";
+    String DATA = "_data";
+    String URL = "_url";
+    String RESULT = "_result";
+    String USER_ID = "user_id";
+    String USER_NAME = "user_name";
+    String NICK_NAME = "nick_name";
+    String IMAGE_URL = "image_url";
+    String IMAGE_PATH = "image_path";
+    String IMAGE_LIST = "image_list";
 }

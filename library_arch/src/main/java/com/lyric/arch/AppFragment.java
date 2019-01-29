@@ -23,9 +23,13 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        onCreatePrepare(savedInstanceState, getArguments());
+        onCreatePrepare(savedInstanceState);
         super.onCreate(savedInstanceState);
         logMessage("onCreate()");
+        Bundle args = getArguments();
+        if (args != null) {
+            onCreateExtras(savedInstanceState, args);
+        }
     }
 
     @Override
@@ -42,16 +46,16 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         if (titleBar == null) {
             titleBar = new AppTitleBar(view);
         }
-        onCreateTitleBar(titleBar, getArguments());
+        onCreateTitleBar(titleBar, savedInstanceState);
 
-        onCreateContentView(view, savedInstanceState, getArguments());
+        onCreateContentView(view, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         logMessage("onActivityCreated()");
-        onCreateData(savedInstanceState, getArguments());
+        onCreateData(savedInstanceState);
     }
 
     @Override
@@ -97,16 +101,20 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     @Override
-    public void onCreatePrepare(Bundle savedInstanceState, Bundle args) {
+    public void onCreatePrepare(Bundle savedInstanceState) {
     }
 
-    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle args) {
+    @Override
+    public void onCreateExtras(Bundle savedInstanceState, @NonNull Bundle args) {
+    }
+
+    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
         titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
         titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
     }
 
     @Override
-    public void onCreateData(Bundle savedInstanceState, Bundle args) {
+    public void onCreateData(Bundle savedInstanceState) {
     }
 
     @Override
@@ -184,9 +192,25 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     public void toast(int resId) {
+        if (!(getActivity() instanceof AppActivity)) {
+            return;
+        }
+        AppActivity activity = (AppActivity) getActivity();
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        activity.toast(resId);
     }
 
     public void toast(CharSequence text) {
+        if (!(getActivity() instanceof AppActivity)) {
+            return;
+        }
+        AppActivity activity = (AppActivity) getActivity();
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        activity.toast(text);
     }
 
     private void logMessage(String message) {
