@@ -41,7 +41,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         this.mRootView = view;
         if (titleBar == null) {
             titleBar = new AppTitleBar(view);
-            titleBar.setOnClickListener(this);
         }
         onCreateTitleBar(titleBar, getArguments());
 
@@ -102,6 +101,8 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     protected void onCreateTitleBar(AppTitleBar titleBar, Bundle args) {
+        titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
+        titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
     }
 
     @Override
@@ -110,10 +111,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
 
     @Override
     public void onClick(View v) {
-        int viewId = v.getId();
-        if (viewId == R.id.title_bar_left_text || viewId == R.id.title_bar_left_image) {
-            onBackPressed();
-        }
     }
 
     @Override
@@ -158,8 +155,11 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         return null;
     }
 
-    public boolean onBackPressed() {
-        return false;
+    public void onBackPressed() {
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.onBackPressed();
+        }
     }
 
     public boolean isActivityFinishing() {
@@ -192,4 +192,11 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     private void logMessage(String message) {
         Log.d(getClass().getName(), message);
     }
+
+    protected View.OnClickListener mBackPressedClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
 }

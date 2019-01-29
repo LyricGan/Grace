@@ -26,7 +26,6 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
         View decorView = getWindow().getDecorView();
         if (titleBar == null) {
             titleBar = new AppTitleBar(decorView);
-            titleBar.setOnClickListener(this);
         }
         onCreateTitleBar(titleBar, args);
 
@@ -77,6 +76,8 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
     }
 
     protected void onCreateTitleBar(AppTitleBar titleBar, Bundle args) {
+        titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
+        titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
     }
 
     @Override
@@ -85,10 +86,6 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
 
     @Override
     public void onClick(View v) {
-        int viewId = v.getId();
-        if (viewId == R.id.title_bar_left_text || viewId == R.id.title_bar_left_image) {
-            onBackPressed();
-        }
     }
 
     @Override
@@ -110,10 +107,16 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
     }
 
     public void toast(CharSequence text) {
-
     }
 
     private void logMessage(String message) {
         Log.d(getClass().getName(), message);
     }
+
+    protected View.OnClickListener mBackPressedClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
 }

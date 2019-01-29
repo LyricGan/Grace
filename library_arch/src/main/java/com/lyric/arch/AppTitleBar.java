@@ -127,28 +127,49 @@ public class AppTitleBar {
         ivRightSecondImage.setImageResource(resId);
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
+    public void setLeftTextOnClickListener(View.OnClickListener listener) {
         if (tvLeftText != null) {
             tvLeftText.setOnClickListener(listener);
         }
+    }
+
+    public void setLeftImageOnClickListener(View.OnClickListener listener) {
         if (ivLeftImage != null) {
             ivLeftImage.setOnClickListener(listener);
         }
+    }
+
+    public void setCenterTextOnClickListener(View.OnClickListener listener) {
         if (tvCenterText != null) {
             tvCenterText.setOnClickListener(listener);
         }
+    }
+
+    public void setCenterImageOnClickListener(View.OnClickListener listener) {
         if (ivCenterImage != null) {
             ivCenterImage.setOnClickListener(listener);
         }
+    }
+
+    public void setRightTextOnClickListener(View.OnClickListener listener) {
         if (tvRightText != null) {
             tvRightText.setOnClickListener(listener);
         }
-        if (tvRightSecondText != null) {
-            tvRightSecondText.setOnClickListener(listener);
-        }
+    }
+
+    public void setRightImageOnClickListener(View.OnClickListener listener) {
         if (ivRightImage != null) {
             ivRightImage.setOnClickListener(listener);
         }
+    }
+
+    public void setRightSecondTextOnClickListener(View.OnClickListener listener) {
+        if (tvRightSecondText != null) {
+            tvRightSecondText.setOnClickListener(listener);
+        }
+    }
+
+    public void setRightSecondImageOnClickListener(View.OnClickListener listener) {
         if (ivRightSecondImage != null) {
             ivRightSecondImage.setOnClickListener(listener);
         }
