@@ -94,15 +94,9 @@ public class MainActivity extends AppActivity implements IMainCallback {
         } else {
             relativePoint.setVisibility(View.INVISIBLE);
         }
-        final float pageWidth = 0.9f;
-        AppFragmentPagerAdapter adapter = new AppFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles){
-
-            @Override
-            public float getPageWidth(int position) {
-                return pageWidth;
-            }
-        };
+        AppFragmentPagerAdapter adapter = new AppFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(size);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
