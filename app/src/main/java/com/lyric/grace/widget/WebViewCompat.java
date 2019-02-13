@@ -1,4 +1,4 @@
-package com.lyric.widget;
+package com.lyric.grace.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

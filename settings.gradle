@@ -1,1 +1,1 @@
-include ':app', ':library_retrofit', ':library_utils', ':library_widget', ':library_image', ':library_arch', ':library_network', ':library_okhttp', ':library_xy'
+include ':app', ':library_retrofit', ':library_utils', ':library_image', ':library_arch', ':library_network', ':library_okhttp'

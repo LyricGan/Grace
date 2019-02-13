@@ -1,4 +1,4 @@
-package com.lyric.xy;
+package com.lyric.grace.xy;
 
 /**
  * 二分查找
