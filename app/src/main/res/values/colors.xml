@@ -35,6 +35,7 @@
 
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
+    <color name="gray">#ff999999</color>
     <color name="transparent">#00000000</color>
     <color name="half_transparent">#90000000</color>
 
@@ -44,6 +45,6 @@
     <color name="text_color_hint">#ff999999</color>
 
     <color name="bg_divider">#ffe0e0e0</color>
-    <color name="bg_thumb">#b2b2b2</color>
+    <color name="bg_thumb">#ffb2b2b2</color>
 
 </resources>
