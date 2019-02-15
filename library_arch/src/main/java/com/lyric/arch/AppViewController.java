@@ -98,7 +98,7 @@ public abstract class AppViewController<E> implements AppControllerListener<E> {
 
     public <T extends View> T findViewById(@IdRes int id) {
         if (mView != null) {
-            return (T) mView.findViewById(id);
+            return mView.findViewById(id);
         }
         return null;
     }

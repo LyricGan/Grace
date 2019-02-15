@@ -109,8 +109,8 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
-        titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
+        titleBar.setLeftTextOnClickListener(this);
+        titleBar.setLeftImageOnClickListener(this);
     }
 
     @Override
@@ -119,6 +119,9 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
+            onBackPressed();
+        }
     }
 
     @Override
@@ -191,36 +194,7 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         return mSelected;
     }
 
-    public void toast(int resId) {
-        if (!(getActivity() instanceof AppActivity)) {
-            return;
-        }
-        AppActivity activity = (AppActivity) getActivity();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-        activity.toast(resId);
-    }
-
-    public void toast(CharSequence text) {
-        if (!(getActivity() instanceof AppActivity)) {
-            return;
-        }
-        AppActivity activity = (AppActivity) getActivity();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-        activity.toast(text);
-    }
-
     private void logMessage(String message) {
         Log.d(getClass().getName(), message);
     }
-
-    protected View.OnClickListener mBackPressedClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
 }

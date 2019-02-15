@@ -12,17 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lyric.arch.AppActivity;
 import com.lyric.arch.AppFragmentPagerAdapter;
 import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
+import com.lyric.grace.base.BaseActivity;
+import com.lyric.grace.find.FindFragment;
+import com.lyric.grace.home.HomeFragment;
+import com.lyric.grace.mine.MineFragment;
+import com.lyric.grace.news.NewsFragment;
 import com.lyric.utils.DisplayUtils;
-import com.lyric.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppActivity implements IMainCallback {
+public class MainActivity extends BaseActivity {
     private TextView tvCurrentPage, tvTotalPage;
     private RelativeLayout relativePoint;
     private LinearLayout linearPoint;
@@ -53,47 +57,42 @@ public class MainActivity extends AppActivity implements IMainCallback {
     public void onCreateData(Bundle savedInstanceState) {
         super.onCreateData(savedInstanceState);
 
+        Fragment[] fragmentArray = {HomeFragment.newInstance(), NewsFragment.newInstance(), FindFragment.newInstance(), MineFragment.newInstance()};
+        final int size = fragmentArray.length;
         List<String> titles = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < size; i++) {
             titles.add(String.valueOf(i + 1));
         }
-        final int size = titles.size();
-        List<Fragment> fragments = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            fragments.add(MainFragment.newInstance(titles.get(i)));
-        }
+        List<Fragment> fragments = Arrays.asList(fragmentArray);
+
         updatePagerIndicator(0);
         tvTotalPage.setText(String.valueOf("/" + size));
 
-        if (size > 1) {
-            relativePoint.setVisibility(View.VISIBLE);
-            int itemSize = DisplayUtils.dip2px(GraceApplication.getContext(), 4);
-            for (int i = 0; i < size; i++) {
-                View childView = new View(this);
-                childView.setBackgroundResource(R.drawable.circle_white);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(itemSize, itemSize);
-                if (i > 0) {
-                    params.leftMargin = itemSize;
-                }
-                childView.setLayoutParams(params);
-                linearPoint.addView(childView);
+        relativePoint.setVisibility(View.VISIBLE);
+        int itemSize = DisplayUtils.dip2px(GraceApplication.getContext(), 4);
+        for (int i = 0; i < size; i++) {
+            View childView = new View(this);
+            childView.setBackgroundResource(R.drawable.circle_white);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(itemSize, itemSize);
+            if (i > 0) {
+                params.leftMargin = itemSize;
             }
-            linearPoint.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        linearPoint.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        linearPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-                    if (linearPoint.getChildCount() > 1) {
-                        mPointPageMargin = linearPoint.getChildAt(1).getLeft() - linearPoint.getChildAt(0).getLeft();
-                    }
-                }
-            });
-        } else {
-            relativePoint.setVisibility(View.INVISIBLE);
+            childView.setLayoutParams(params);
+            linearPoint.addView(childView);
         }
+        linearPoint.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    linearPoint.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    linearPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+                if (linearPoint.getChildCount() > 1) {
+                    mPointPageMargin = linearPoint.getChildAt(1).getLeft() - linearPoint.getChildAt(0).getLeft();
+                }
+            }
+        });
         AppFragmentPagerAdapter adapter = new AppFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(size);
@@ -120,10 +119,5 @@ public class MainActivity extends AppActivity implements IMainCallback {
 
     private void updatePagerIndicator(int currentPage) {
         tvCurrentPage.setText(String.valueOf(currentPage + 1));
-    }
-
-    @Override
-    public void showMessage(String title) {
-        ToastUtils.show(GraceApplication.getContext(), title);
     }
 }

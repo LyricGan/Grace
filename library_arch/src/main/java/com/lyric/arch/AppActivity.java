@@ -14,6 +14,7 @@ import android.view.View;
  */
 public abstract class AppActivity extends AppCompatActivity implements AppListener, View.OnClickListener {
     private AppTitleBar titleBar;
+    private boolean mActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,14 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
     protected void onResume() {
         super.onResume();
         logMessage("onResume()");
+        mActive = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         logMessage("onPause()");
+        mActive = false;
     }
 
     @Override
@@ -84,8 +87,8 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
     }
 
     protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(mBackPressedClickListener);
-        titleBar.setLeftImageOnClickListener(mBackPressedClickListener);
+        titleBar.setLeftTextOnClickListener(this);
+        titleBar.setLeftImageOnClickListener(this);
     }
 
     @Override
@@ -94,6 +97,9 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
+            onBackPressed();
+        }
     }
 
     @Override
@@ -111,20 +117,15 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
         return isFinishing();
     }
 
-    public void toast(int resId) {
-    }
-
-    public void toast(CharSequence text) {
+    /**
+     * 返回页面是否处于活动状态
+     * @return true or false
+     */
+    public boolean isActive() {
+        return mActive;
     }
 
     private void logMessage(String message) {
         Log.d(getClass().getName(), message);
     }
-
-    protected View.OnClickListener mBackPressedClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
 }
