@@ -19,6 +19,7 @@
         <item name="overlapAnchor">false</item>
 
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:listDivider">@drawable/divider</item>
     </style>
 
     <!-- 默认文本样式 -->
