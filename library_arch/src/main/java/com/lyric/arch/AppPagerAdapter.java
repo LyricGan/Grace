@@ -1,32 +1,42 @@
 package com.lyric.arch;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * PagerAdapter基类
  * @author lyricgan
  */
-public abstract class AppPagerAdapter extends PagerAdapter {
+public abstract class AppPagerAdapter<T> extends PagerAdapter {
+    private Context mContext;
+    private List<T> mItems;
     private List<View> mViews;
     private List<String> mTitles;
 
-    public AppPagerAdapter(List<View> views) {
-        this(views, null);
+    public AppPagerAdapter(Context context, List<T> items, int layoutId) {
+        this(context, items, layoutId, null);
     }
 
-    public AppPagerAdapter(List<View> views, List<String> titles) {
-        this.mViews = views;
+    public AppPagerAdapter(Context context, List<T> items, int layoutId, List<String> titles) {
+        this.mContext = context;
+        this.mItems = items;
+        this.mViews = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            mViews.add(LayoutInflater.from(context).inflate(layoutId, null, false));
+        }
         this.mTitles = titles;
     }
 
     @Override
     public int getCount() {
-        return mViews != null ? mViews.size() : 0;
+        return mItems != null ? mItems.size() : 0;
     }
 
     @Override
@@ -43,7 +53,10 @@ public abstract class AppPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View itemView = mViews.get(position);
-        instantiateItem(itemView, container, position);
+        T item = mItems.get(position);
+        if (item != null) {
+            instantiateItem(itemView, container, item, position);
+        }
         container.addView(itemView);
         return itemView;
     }
@@ -58,11 +71,9 @@ public abstract class AppPagerAdapter extends PagerAdapter {
         return super.getPageTitle(position);
     }
 
-    /**
-     * 初始化Item
-     * @param itemView Item视图
-     * @param container 容器视图
-     * @param position Item索引位置
-     */
-    protected abstract void instantiateItem(View itemView, ViewGroup container, int position);
+    protected abstract void instantiateItem(View itemView, ViewGroup container, T item, int position);
+
+    public Context getContext() {
+        return mContext;
+    }
 }
