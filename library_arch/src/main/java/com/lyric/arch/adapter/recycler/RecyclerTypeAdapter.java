@@ -6,9 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyric.arch.adapter.AdapterItemView;
-import com.lyric.arch.adapter.AdapterItemViewManager;
-
 import java.util.List;
 
 /**
@@ -18,22 +15,21 @@ import java.util.List;
 public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
     private Context mContext;
     private List<T> mItems;
-    private AdapterItemViewManager<T> mAdapterItemViewManager;
+    private RecyclerAdapterItemViewManager<T> mAdapterItemViewManager;
     private OnAdapterItemClickListener<T> mOnAdapterItemClickListener;
     private OnAdapterItemLongClickListener<T> mOnAdapterItemLongClickListener;
 
     public RecyclerTypeAdapter(Context context, List<T> items) {
         this.mContext = context;
         this.mItems = items;
-        this.mAdapterItemViewManager = new AdapterItemViewManager<>();
+        this.mAdapterItemViewManager = new RecyclerAdapterItemViewManager<>();
     }
 
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        AdapterItemView adapterItemView = mAdapterItemViewManager.getAdapterItemView(viewType);
-        int layoutId = adapterItemView.getItemViewLayoutId();
-        RecyclerViewHolder holder = getViewHolder(mContext, parent, layoutId);
+        RecyclerAdapterItemView adapterItemView = mAdapterItemViewManager.getAdapterItemView(viewType);
+        RecyclerViewHolder holder = getViewHolder(mContext, parent, adapterItemView.getItemViewLayoutId());
         onViewHolderCreated(holder, holder.getConvertView());
         setListener(parent, holder, viewType);
         return holder;
@@ -111,12 +107,12 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
         return mAdapterItemViewManager.getItemViewCount() > 0;
     }
 
-    public RecyclerTypeAdapter<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
+    public RecyclerTypeAdapter<T> addAdapterItemView(RecyclerAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(adapterItemView);
         return this;
     }
 
-    public RecyclerTypeAdapter addAdapterItemView(int viewType, AdapterItemView<T> adapterItemView) {
+    public RecyclerTypeAdapter addAdapterItemView(int viewType, RecyclerAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
         return this;
     }

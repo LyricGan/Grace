@@ -10,12 +10,10 @@ import android.os.Build;
 import android.text.TextWatcher;
 import android.text.util.Linkify;
 import android.util.SparseArray;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,15 +26,15 @@ import android.widget.TextView;
  */
 public class ListViewHolder {
     private Context mContext;
-    private SparseArray<View> mViewArray;
     private View mConvertView;
+    private SparseArray<View> mViewArray;
     private Object mAssociatedObject;
 
     public ListViewHolder(Context context, ViewGroup parent, int layoutId) {
         this.mContext = context;
-        this.mViewArray = new SparseArray<>();
         this.mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         this.mConvertView.setTag(this);
+        this.mViewArray = new SparseArray<>();
     }
 
     public static ListViewHolder create(Context context, View convertView, ViewGroup parent, int layoutId) {
@@ -82,160 +80,108 @@ public class ListViewHolder {
         return itemChanged;
     }
 
-    public ListViewHolder setVisibility(int viewId, int visibility) {
-        getView(viewId).setVisibility(visibility);
-        return this;
-    }
-
-    public ListViewHolder toggleVisibility(int viewId) {
-        View view = getView(viewId);
-        if (View.VISIBLE == view.getVisibility()) {
-            view.setVisibility(View.GONE);
-        } else {
-            view.setVisibility(View.VISIBLE);
+    public ListViewHolder setText(int viewId, CharSequence text) {
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setText(text);
         }
         return this;
     }
 
-    public ListViewHolder setEnabled(int viewId, boolean enabled) {
-        getView(viewId).setEnabled(enabled);
-        return this;
-    }
-
-    public ListViewHolder setText(int viewId, int textId) {
-        return setText(viewId, mContext.getString(textId));
-    }
-
-    public ListViewHolder setText(int viewId, String text) {
+    public ListViewHolder setText(int viewId, int resId) {
         TextView textView = getView(viewId);
-        textView.setText(text);
-        return this;
-    }
-
-    public ListViewHolder setTextAppearance(int viewId, int redId) {
-        TextView textView = getView(viewId);
-        if (Build.VERSION.SDK_INT >= 23) {
-            textView.setTextAppearance(redId);
-        } else {
-            textView.setTextAppearance(mContext, redId);
+        if (textView != null) {
+            textView.setText(resId);
         }
         return this;
     }
 
-    public ListViewHolder setTextColor(int viewId, int textColor) {
+    public ListViewHolder setTextColor(int viewId, int color) {
         TextView textView = getView(viewId);
-        textView.setTextColor(textColor);
+        if (textView != null) {
+            textView.setTextColor(color);
+        }
         return this;
     }
 
     public ListViewHolder setTextColor(int viewId, ColorStateList colorList) {
         TextView textView = getView(viewId);
-        textView.setTextColor(colorList);
-        return this;
-    }
-
-    public ListViewHolder setTextColorResource(int viewId, int textColorResId) {
-        return setTextColor(viewId, textColorResId);
-    }
-
-    public ListViewHolder setTextColorStateListRes(int viewId, int textColorStateListResId) {
-        return setTextColor(viewId, textColorStateListResId);
-    }
-
-    public ListViewHolder setTextSizeDp(int viewId, float size) {
-        ((TextView) getView(viewId)).setTextSize(size);
+        if (textView != null) {
+            textView.setTextColor(colorList);
+        }
         return this;
     }
 
     public ListViewHolder setTextSize(int viewId, float size) {
-        ((TextView) getView(viewId)).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setTextSize(size);
+        }
+        return this;
+    }
+
+    public ListViewHolder setTextSize(int viewId, int unit, float size) {
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setTextSize(unit, size);
+        }
+        return this;
+    }
+
+    public ListViewHolder setTextAppearance(int viewId, int resId) {
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                textView.setTextAppearance(resId);
+            } else {
+                textView.setTextAppearance(textView.getContext(), resId);
+            }
+        }
         return this;
     }
 
     public ListViewHolder setTextDrawable(int viewId, int left, int top, int right, int bottom) {
-        ((TextView) getView(viewId)).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        }
         return this;
     }
 
     public ListViewHolder setTextDrawable(int viewId, Drawable left, Drawable top, Drawable right, Drawable bottom) {
-        ((TextView) getView(viewId)).setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        }
         return this;
     }
 
     public ListViewHolder setTextDrawablePadding(int viewId, int padding) {
-        ((TextView) getView(viewId)).setCompoundDrawablePadding(padding);
-        return this;
-    }
-
-    public ListViewHolder setBackgroundColor(int viewId, int color) {
-        getView(viewId).setBackgroundColor(color);
-        return this;
-    }
-
-    public ListViewHolder setBackgroundResource(int viewId, int backgroundResource) {
-        getView(viewId).setBackgroundResource(backgroundResource);
-        return this;
-    }
-
-    public ListViewHolder setBackgroundDrawable(int viewId, Drawable background) {
-        if (Build.VERSION.SDK_INT >= 16) {
-            getView(viewId).setBackground(background);
-        } else {
-            getView(viewId).setBackgroundDrawable(background);
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setCompoundDrawablePadding(padding);
         }
         return this;
     }
 
-    public ListViewHolder setImageResource(int viewId, int resourceId) {
-        ImageView imageView = getView(viewId);
-        imageView.setImageResource(resourceId);
-        return this;
+    public ListViewHolder setTextLinkify(int viewId) {
+        return setTextLinkify(viewId, Linkify.ALL);
     }
 
-    public ListViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
-        ImageView imageView = getView(viewId);
-        imageView.setImageBitmap(bitmap);
-        return this;
-    }
-
-    public ListViewHolder setImageDrawable(int viewId, Drawable d) {
-        ((ImageView) getView(viewId)).setImageDrawable(d);
-        return this;
-    }
-
-    public ListViewHolder setChecked(int viewId, boolean checked) {
-        CheckBox checkBox = getView(viewId);
-        checkBox.setChecked(checked);
-        return this;
-    }
-
-    public ListViewHolder setAlpha(int viewId, float alpha) {
-        View view = getView(viewId);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            view.setAlpha(alpha);
-        } else {
-            AlphaAnimation alphaAnimation = new AlphaAnimation(alpha, alpha);
-            alphaAnimation.setDuration(0);
-            alphaAnimation.setFillAfter(true);
-            view.startAnimation(alphaAnimation);
+    public ListViewHolder setTextLinkify(int viewId, int mask) {
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            Linkify.addLinks(textView, mask);
         }
-        return this;
-    }
-
-    public ListViewHolder linkify(int viewId) {
-        Linkify.addLinks((TextView) getView(viewId), Linkify.ALL);
-        return this;
-    }
-
-    public ListViewHolder linkify(int viewId, int mask) {
-        Linkify.addLinks((TextView) getView(viewId), mask);
         return this;
     }
 
     public ListViewHolder setTypeface(int viewId, Typeface typeface) {
-        TextView view = getView(viewId);
-        view.setTypeface(typeface);
-        view.setPaintFlags(view.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setTypeface(typeface);
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
+        }
         return this;
     }
 
@@ -246,82 +192,192 @@ public class ListViewHolder {
         return this;
     }
 
+    public ListViewHolder setVisibility(int viewId, int visibility) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setVisibility(visibility);
+        }
+        return this;
+    }
+
+    public ListViewHolder setEnabled(int viewId, boolean enabled) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setEnabled(enabled);
+        }
+        return this;
+    }
+
+    public ListViewHolder setBackgroundColor(int viewId, int color) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setBackgroundColor(color);
+        }
+        return this;
+    }
+
+    public ListViewHolder setBackgroundResource(int viewId, int backgroundResource) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setBackgroundResource(backgroundResource);
+        }
+        return this;
+    }
+
+    public ListViewHolder setBackgroundDrawable(int viewId, Drawable background) {
+        View view = getView(viewId);
+        if (view != null) {
+            if (Build.VERSION.SDK_INT >= 16) {
+                view.setBackground(background);
+            } else {
+                view.setBackgroundDrawable(background);
+            }
+        }
+        return this;
+    }
+
+    public ListViewHolder setImageResource(int viewId, int resourceId) {
+        ImageView imageView = getView(viewId);
+        if (imageView != null) {
+            imageView.setImageResource(resourceId);
+        }
+        return this;
+    }
+
+    public ListViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
+        ImageView imageView = getView(viewId);
+        if (imageView != null) {
+            imageView.setImageBitmap(bitmap);
+        }
+        return this;
+    }
+
+    public ListViewHolder setImageDrawable(int viewId, Drawable d) {
+        ImageView imageView = getView(viewId);
+        if (imageView != null) {
+            imageView.setImageDrawable(d);
+        }
+        return this;
+    }
+
+    public ListViewHolder setChecked(int viewId, boolean checked) {
+        CompoundButton compoundButton = getView(viewId);
+        if (compoundButton != null) {
+            compoundButton.setChecked(checked);
+        }
+        return this;
+    }
+
+    public ListViewHolder setAlpha(int viewId, float alpha) {
+        View view = getView(viewId);
+        if (view != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                view.setAlpha(alpha);
+            } else {
+                AlphaAnimation alphaAnimation = new AlphaAnimation(alpha, alpha);
+                alphaAnimation.setDuration(0);
+                alphaAnimation.setFillAfter(true);
+                view.startAnimation(alphaAnimation);
+            }
+        }
+        return this;
+    }
+
     public ListViewHolder setProgress(int viewId, int progress) {
-        ((ProgressBar) getView(viewId)).setProgress(progress);
+        ProgressBar progressBar = getView(viewId);
+        if (progressBar != null) {
+            progressBar.setProgress(progress);
+        }
         return this;
     }
 
     public ListViewHolder setProgress(int viewId, int progress, int max) {
         ProgressBar progressBar = getView(viewId);
-        progressBar.setProgress(progress);
-        progressBar.setMax(max);
+        if (progressBar != null) {
+            progressBar.setProgress(progress);
+            progressBar.setMax(max);
+        }
         return this;
     }
 
     public ListViewHolder setProgressMax(int viewId, int max) {
-        ((ProgressBar) getView(viewId)).setMax(max);
+        ProgressBar progressBar = getView(viewId);
+        if (progressBar != null) {
+            progressBar.setMax(max);
+        }
         return this;
     }
 
     public ListViewHolder setRating(int viewId, float rating) {
-        ((RatingBar) getView(viewId)).setRating(rating);
+        RatingBar ratingBar = getView(viewId);
+        if (ratingBar != null) {
+            ratingBar.setRating(rating);
+        }
         return this;
     }
 
     public ListViewHolder setRating(int viewId, float rating, int max) {
         RatingBar ratingBar = getView(viewId);
-        ratingBar.setRating(rating);
-        ratingBar.setMax(max);
+        if (ratingBar != null) {
+            ratingBar.setRating(rating);
+            ratingBar.setMax(max);
+        }
         return this;
     }
 
     public ListViewHolder setTag(int viewId, Object tag) {
-        getView(viewId).setTag(tag);
+        View view = getView(viewId);
+        if (view != null) {
+            view.setTag(tag);
+        }
         return this;
     }
 
     public ListViewHolder setTag(int viewId, int key, Object tag) {
-        getView(viewId).setTag(key, tag);
-        return this;
-    }
-
-    public ListViewHolder setOnCheckedChangeListener(int viewId, CompoundButton.OnCheckedChangeListener listener) {
-        ((CompoundButton) getView(viewId)).setOnCheckedChangeListener(listener);
-        return this;
-    }
-
-    public ListViewHolder setOnClickListener(View.OnClickListener listener) {
-        getConvertView().setOnClickListener(listener);
+        View view = getView(viewId);
+        if (view != null) {
+            view.setTag(key, tag);
+        }
         return this;
     }
 
     public ListViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
-        getView(viewId).setOnClickListener(listener);
-        return this;
-    }
-
-    public ListViewHolder setOnLongClickListener(View.OnLongClickListener listener) {
-        getConvertView().setOnLongClickListener(listener);
+        View view = getView(viewId);
+        if (view != null) {
+            view.setOnClickListener(listener);
+        }
         return this;
     }
 
     public ListViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
-        getView(viewId).setOnLongClickListener(listener);
-        return this;
-    }
-
-    public ListViewHolder setOnTouchListener(View.OnTouchListener listener) {
-        getConvertView().setOnTouchListener(listener);
+        View view = getView(viewId);
+        if (view != null) {
+            view.setOnLongClickListener(listener);
+        }
         return this;
     }
 
     public ListViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
-        getView(viewId).setOnTouchListener(listener);
+        View view = getView(viewId);
+        if (view != null) {
+            view.setOnTouchListener(listener);
+        }
         return this;
     }
 
-    public ListViewHolder addTextChangedListener(int viewId, TextWatcher watcher){
-        ((TextView) getView(viewId)).addTextChangedListener(watcher);
+    public ListViewHolder addTextChangedListener(int viewId, TextWatcher watcher) {
+        TextView view = getView(viewId);
+        if (view != null) {
+            view.addTextChangedListener(watcher);
+        }
+        return this;
+    }
+
+    public ListViewHolder setOnCheckedChangeListener(int viewId, CompoundButton.OnCheckedChangeListener listener) {
+        CompoundButton compoundButton = getView(viewId);
+        if (compoundButton != null) {
+            compoundButton.setOnCheckedChangeListener(listener);
+        }
         return this;
     }
 }

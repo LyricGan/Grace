@@ -12,11 +12,11 @@ import android.view.ViewGroup;
  */
 public class RecyclerAdapterEmptyWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int ITEM_TYPE_EMPTY = Integer.MAX_VALUE - 1;
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
+    private RecyclerView.Adapter mAdapter;
     private View mEmptyView;
     private int mEmptyLayoutId;
 
-    public RecyclerAdapterEmptyWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
+    public RecyclerAdapterEmptyWrapper(RecyclerView.Adapter adapter) {
         this.mAdapter = adapter;
     }
 

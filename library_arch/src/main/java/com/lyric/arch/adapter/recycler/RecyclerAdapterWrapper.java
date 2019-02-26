@@ -17,9 +17,9 @@ public class RecyclerAdapterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
 
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
     private SparseArrayCompat<View> mFootViews = new SparseArrayCompat<>();
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
+    private RecyclerView.Adapter mAdapter;
 
-    public RecyclerAdapterWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
+    public RecyclerAdapterWrapper(RecyclerView.Adapter adapter) {
         this.mAdapter = adapter;
     }
 

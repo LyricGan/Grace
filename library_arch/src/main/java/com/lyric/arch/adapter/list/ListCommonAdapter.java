@@ -2,9 +2,6 @@ package com.lyric.arch.adapter.list;
 
 import android.content.Context;
 
-import com.lyric.arch.adapter.AdapterItemView;
-import com.lyric.arch.adapter.recycler.RecyclerViewHolder;
-
 import java.util.List;
 
 /**
@@ -13,9 +10,9 @@ import java.util.List;
  */
 public abstract class ListCommonAdapter<T> extends ListTypeAdapter<T> {
 
-    public ListCommonAdapter(Context context, final int layoutId, List<T> datas) {
-        super(context, datas);
-        addAdapterItemView(new AdapterItemView<T>() {
+    public ListCommonAdapter(Context context, List<T> items, final int layoutId) {
+        super(context, items);
+        addAdapterItemView(new ListAdapterItemView<T>() {
             @Override
             public int getItemViewLayoutId() {
                 return layoutId;
@@ -27,12 +24,8 @@ public abstract class ListCommonAdapter<T> extends ListTypeAdapter<T> {
             }
 
             @Override
-            public void convert(RecyclerViewHolder holder, T item, int position) {
-            }
-
-            @Override
-            public void convert(ListViewHolder holder, T t, int position) {
-                ListCommonAdapter.this.convert(holder, t, position);
+            public void convert(ListViewHolder holder, T item, int position) {
+                ListCommonAdapter.this.convert(holder, item, position);
             }
         });
     }

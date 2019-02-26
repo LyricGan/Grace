@@ -5,9 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.lyric.arch.adapter.AdapterItemView;
-import com.lyric.arch.adapter.AdapterItemViewManager;
-
 import java.util.List;
 
 /**
@@ -17,18 +14,18 @@ import java.util.List;
 public class ListTypeAdapter<T> extends BaseAdapter {
     private Context mContext;
     private List<T> mItems;
-    private AdapterItemViewManager<T> mAdapterItemViewManager;
+    private ListAdapterItemViewManager<T> mAdapterItemViewManager;
 
     public ListTypeAdapter(Context context, List<T> items) {
         this.mContext = context;
         this.mItems = items;
-        this.mAdapterItemViewManager = new AdapterItemViewManager<>();
+        this.mAdapterItemViewManager = new ListAdapterItemViewManager<>();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         T item = getItem(position);
-        AdapterItemView<T> adapterItemView = mAdapterItemViewManager.getAdapterItemView(item, position);
+        ListAdapterItemView<T> adapterItemView = mAdapterItemViewManager.getAdapterItemView(item, position);
         if (adapterItemView == null) {
             return null;
         }
@@ -61,7 +58,7 @@ public class ListTypeAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return mItems != null ? mItems.size() : 0;
     }
 
     @Override
@@ -88,7 +85,7 @@ public class ListTypeAdapter<T> extends BaseAdapter {
         mAdapterItemViewManager.convert(viewHolder, item, position);
     }
 
-    public ListTypeAdapter<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
+    public ListTypeAdapter<T> addAdapterItemView(ListAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(adapterItemView);
         return this;
     }
