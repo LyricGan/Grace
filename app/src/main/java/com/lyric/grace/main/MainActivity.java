@@ -16,14 +16,9 @@ import com.lyric.arch.AppFragmentPagerAdapter;
 import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
 import com.lyric.grace.base.BaseActivity;
-import com.lyric.grace.find.FindFragment;
-import com.lyric.grace.home.HomeFragment;
-import com.lyric.grace.mine.MineFragment;
-import com.lyric.grace.news.NewsFragment;
 import com.lyric.utils.DisplayUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -57,14 +52,13 @@ public class MainActivity extends BaseActivity {
     public void onCreateData(Bundle savedInstanceState) {
         super.onCreateData(savedInstanceState);
 
-        Fragment[] fragmentArray = {HomeFragment.newInstance(), NewsFragment.newInstance(), FindFragment.newInstance(), MineFragment.newInstance()};
-        final int size = fragmentArray.length;
+        final int size = 3;
+        List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         for (int i = 0; i < size; i++) {
+            fragments.add(MainFragment.newInstance());
             titles.add(String.valueOf(i + 1));
         }
-        List<Fragment> fragments = Arrays.asList(fragmentArray);
-
         updatePagerIndicator(0);
         tvTotalPage.setText(String.valueOf("/" + size));
 
