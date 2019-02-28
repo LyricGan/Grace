@@ -1,6 +1,6 @@
 package com.lyric.grace.base;
 
-import com.lyric.arch.AppFragment;
+import com.lyric.arch.app.AppFragment;
 
 /**
  * @author lyricgan

@@ -12,11 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lyric.arch.AppFragmentPagerAdapter;
+import com.lyric.arch.app.AppFragmentPagerAdapter;
+import com.lyric.arch.util.DisplayUtils;
 import com.lyric.grace.GraceApplication;
 import com.lyric.grace.R;
 import com.lyric.grace.base.BaseActivity;
-import com.lyric.utils.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.List;

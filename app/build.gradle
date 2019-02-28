@@ -122,9 +122,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     implementation project(':library_arch')
-    implementation project(':library_utils')
-    implementation project(':library_image')
-    implementation project(':library_okhttp')
 
     implementation 'com.android.support:cardview-v7:' + supportLibraryVersion
     implementation 'com.android.support:gridlayout-v7:' + supportLibraryVersion
