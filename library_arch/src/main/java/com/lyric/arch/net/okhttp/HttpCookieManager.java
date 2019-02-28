@@ -36,7 +36,7 @@ public class HttpCookieManager {
             return null;
         }
         List<Cookie> cookies = getCookies(url);
-        if (cookies == null || cookies.isEmpty()) {
+        if (cookies.isEmpty()) {
             return null;
         }
         for (Cookie cookie : cookies) {
@@ -57,7 +57,7 @@ public class HttpCookieManager {
         }
         CookieJar cookieJar = mHttpClient.cookieJar();
         List<Cookie> cookies = cookieJar.loadForRequest(httpUrl);
-        if (cookies == null || cookies.isEmpty()) {
+        if (cookies.isEmpty()) {
             return;
         }
         cookies.remove(cookie);
@@ -75,7 +75,7 @@ public class HttpCookieManager {
         }
         CookieJar cookieJar = mHttpClient.cookieJar();
         List<Cookie> cookies = cookieJar.loadForRequest(httpUrl);
-        if (cookies == null || cookies.isEmpty()) {
+        if (cookies.isEmpty()) {
             return;
         }
         cookies.clear();
@@ -92,7 +92,7 @@ public class HttpCookieManager {
         }
         CookieJar cookieJar = mHttpClient.cookieJar();
         List<Cookie> cookies = cookieJar.loadForRequest(httpUrl);
-        if (cookies == null || cookies.isEmpty()) {
+        if (cookies.isEmpty()) {
             return;
         }
         Cookie cookie;

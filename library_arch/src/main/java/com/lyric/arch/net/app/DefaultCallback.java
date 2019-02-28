@@ -1,4 +1,4 @@
-package com.lyric.arch.net;
+package com.lyric.arch.net.app;
 
 /**
  * 默认回调类

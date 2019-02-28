@@ -1,4 +1,4 @@
-package com.lyric.arch.util;
+package com.lyric.arch.widget;
 
 import android.view.View;
 import android.widget.AbsListView;

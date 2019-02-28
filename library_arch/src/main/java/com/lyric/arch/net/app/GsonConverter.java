@@ -1,4 +1,4 @@
-package com.lyric.arch.net;
+package com.lyric.arch.net.app;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
