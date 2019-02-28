@@ -37,7 +37,16 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        convert(holder, mItems.get(position));
+        convert(holder, getItem(position));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+        } else {
+            convert(holder, getItem(position), payloads);
+        }
     }
 
     @Override
@@ -62,6 +71,10 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
 
     protected void convert(RecyclerViewHolder holder, T item) {
         mAdapterItemViewManager.convert(holder, item, holder.getAdapterPosition());
+    }
+
+    protected void convert(RecyclerViewHolder holder, T item, @NonNull List<Object> payloads) {
+        mAdapterItemViewManager.convert(holder, item, holder.getAdapterPosition(), payloads);
     }
 
     protected boolean isEnabled(int viewType) {

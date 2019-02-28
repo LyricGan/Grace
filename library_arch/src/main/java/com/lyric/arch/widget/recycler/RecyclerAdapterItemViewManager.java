@@ -1,6 +1,9 @@
 package com.lyric.arch.widget.recycler;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
+
+import java.util.List;
 
 /**
  * @author lyricgan
@@ -68,15 +71,15 @@ public class RecyclerAdapterItemViewManager<T> {
         }
     }
 
-    public RecyclerAdapterItemView<T> getAdapterItemView(T item, int position) {
+    public void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads) {
         int count = mAdapterItemViewArray.size();
-        for (int i = count - 1; i >= 0; i--) {
+        for (int i = 0; i < count; i++) {
             RecyclerAdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
             if (adapterItemView.isForViewType(item, position)) {
-                return adapterItemView;
+                adapterItemView.convert(holder, item, position, payloads);
+                return;
             }
         }
-        return null;
     }
 
     public RecyclerAdapterItemView<T> getAdapterItemView(int viewType) {

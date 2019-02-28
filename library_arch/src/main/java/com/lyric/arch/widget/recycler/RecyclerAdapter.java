@@ -1,6 +1,7 @@
 package com.lyric.arch.widget.recycler;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -27,8 +28,16 @@ public abstract class RecyclerAdapter<T> extends RecyclerTypeAdapter<T> {
             public void convert(RecyclerViewHolder holder, T item, int position) {
                 RecyclerAdapter.this.convert(holder, item, position);
             }
+
+            @Override
+            public void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads) {
+                RecyclerAdapter.this.convert(holder, item, position, payloads);
+            }
         });
     }
 
     protected abstract void convert(RecyclerViewHolder holder, T item, int position);
+
+    protected void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads) {
+    }
 }
