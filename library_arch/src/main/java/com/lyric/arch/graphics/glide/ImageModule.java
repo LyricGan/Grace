@@ -1,4 +1,4 @@
-package com.lyric.arch.util.image;
+package com.lyric.arch.graphics.glide;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

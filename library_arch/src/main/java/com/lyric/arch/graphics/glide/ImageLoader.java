@@ -1,4 +1,4 @@
-package com.lyric.arch.util.image;
+package com.lyric.arch.graphics.glide;
 
 import android.app.Activity;
 import android.content.Context;
@@ -91,8 +91,12 @@ public class ImageLoader {
         return requestBuilder.listener(listener);
     }
 
-    public Glide getGlide(Context context) {
-        return Glide.get(context);
+    public void clearMemory(Context context) {
+        Glide.get(context).clearMemory();
+    }
+
+    public void clearDiskCache(Context context) {
+        Glide.get(context).clearDiskCache();
     }
 
     public RequestManager getManager(Context context) {
@@ -101,10 +105,6 @@ public class ImageLoader {
 
     public RequestManager getManager(Activity activity) {
         return Glide.with(activity);
-    }
-
-    public Glide getLoader(Context context) {
-        return Glide.get(context);
     }
 
     public File getPhotoCacheDir(Context context) {

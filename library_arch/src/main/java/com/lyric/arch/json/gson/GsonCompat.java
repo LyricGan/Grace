@@ -1,4 +1,4 @@
-package com.lyric.arch.util.gson;
+package com.lyric.arch.json.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

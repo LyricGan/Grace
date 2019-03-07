@@ -1,4 +1,4 @@
-package com.lyric.arch.util.gson;
+package com.lyric.arch.json.gson;
 
 import com.google.gson.LongSerializationPolicy;
 import com.google.gson.TypeAdapter;

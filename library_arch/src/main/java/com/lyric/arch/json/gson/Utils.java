@@ -1,4 +1,4 @@
-package com.lyric.arch.util.gson;
+package com.lyric.arch.json.gson;
 
 import android.text.TextUtils;
 

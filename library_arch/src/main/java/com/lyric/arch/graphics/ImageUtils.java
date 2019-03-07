@@ -1,4 +1,4 @@
-package com.lyric.arch.util;
+package com.lyric.arch.graphics;
 
 import android.app.Activity;
 import android.content.Context;

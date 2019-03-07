@@ -1,4 +1,4 @@
-package com.lyric.arch.util;
+package com.lyric.arch.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,7 +27,6 @@ public class ImageCompressor {
     private static final int DEFAULT_OUT_HEIGHT = 1080;
     private static final int DEFAULT_MAX_FILE_SIZE = 1024;// KB
     private static final String DEFAULT_OUT_FILE_PATH = "compress/images";
-    private ImageCompressListener mCompressListener;
 
     private ImageCompressor() {
     }
@@ -40,17 +39,12 @@ public class ImageCompressor {
         return ImageCompressorHolder.mInstance;
     }
 
-    public ImageCompressor addListener(ImageCompressListener listener) {
-        this.mCompressListener = listener;
-        return this;
+    public void compress(String srcImagePath, ImageCompressListener listener) {
+        this.compress(srcImagePath, DEFAULT_OUT_WIDTH, DEFAULT_OUT_HEIGHT, DEFAULT_MAX_FILE_SIZE, DEFAULT_OUT_FILE_PATH, listener);
     }
 
-    public void compress(String srcImagePath) {
-        this.compress(srcImagePath, DEFAULT_OUT_WIDTH, DEFAULT_OUT_HEIGHT, DEFAULT_MAX_FILE_SIZE, DEFAULT_OUT_FILE_PATH);
-    }
-
-    public void compress(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath) {
-        new CompressTask(this, mCompressListener).execute(srcImagePath, "" + outWidth, "" + outHeight, "" + maxFileSize, outFilePath);
+    public void compress(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath, ImageCompressListener listener) {
+        new CompressTask(this, listener).execute(srcImagePath, "" + outWidth, "" + outHeight, "" + maxFileSize, outFilePath);
     }
 
     /**
@@ -71,7 +65,7 @@ public class ImageCompressor {
         float srcWidth = options.outWidth;
         float srcHeight = options.outHeight;
         float srcRatio = srcWidth / srcHeight;
-        float outRatio = outWidth / outHeight;
+        float outRatio = outWidth / (outHeight * 1.0f);
         float actualOutWidth = srcWidth;
         float actualOutHeight = srcHeight;
         // 计算规则：

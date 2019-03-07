@@ -1,4 +1,4 @@
-package com.lyric.arch.util;
+package com.lyric.arch.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.lyric.arch.util.gson;
+package com.lyric.arch.json.gson;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -8,27 +8,27 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * 自定义json浮点型数据解析
+ * 自定义json长整型数据解析
  *
  * @author lyricgan
  */
-class DoubleTypeAdapter extends TypeAdapter<Double> {
+class LongTypeAdapter extends TypeAdapter<Long> {
 
     @Override
-    public void write(JsonWriter out, Double value) throws IOException {
+    public void write(JsonWriter out, Long value) throws IOException {
         out.value(value);
     }
 
     @Override
-    public Double read(JsonReader in) throws IOException {
+    public Long read(JsonReader in) throws IOException {
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
-            return 0.00d;
+            return 0L;
         }
         if (in.peek() == JsonToken.BOOLEAN) {
             in.nextBoolean();
-            return 0.00d;
+            return 0L;
         }
-        return Utils.parseDouble(in.nextString(), 0.00d);
+        return Utils.parseLong(in.nextString(), 0L);
     }
 }
