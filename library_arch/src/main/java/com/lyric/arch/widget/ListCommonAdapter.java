@@ -25,10 +25,10 @@ public abstract class ListCommonAdapter<T> extends ListTypeAdapter<T> {
 
             @Override
             public void convert(ListViewHolder holder, T item, int position) {
-                ListCommonAdapter.this.convert(holder, item, position);
+                convertItemView(holder, item, position);
             }
         });
     }
 
-    protected abstract void convert(ListViewHolder viewHolder, T item, int position);
+    protected abstract void convertItemView(ListViewHolder viewHolder, T item, int position);
 }

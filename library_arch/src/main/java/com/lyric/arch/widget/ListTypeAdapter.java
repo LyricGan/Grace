@@ -90,8 +90,15 @@ public class ListTypeAdapter<T> extends BaseAdapter {
         return this;
     }
 
+    public ListTypeAdapter<T> addAdapterItemView(int viewType, ListAdapterItemView<T> adapterItemView) {
+        mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
+        return this;
+    }
+
     public void setItemList(List<T> items) {
         this.mItems = items;
+
+        notifyDataSetChanged();
     }
 
     public List<T> getItemList() {

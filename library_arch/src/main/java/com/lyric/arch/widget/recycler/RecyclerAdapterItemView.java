@@ -1,9 +1,6 @@
 package com.lyric.arch.widget.recycler;
 
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-
-import java.util.List;
 
 /**
  * @author lyricgan
@@ -11,11 +8,10 @@ import java.util.List;
  */
 public interface RecyclerAdapterItemView<T> {
 
-    @LayoutRes int getItemViewLayoutId();
+    @LayoutRes
+    int getItemViewLayoutId();
 
     boolean isForViewType(T item, int position);
 
     void convert(RecyclerViewHolder holder, T item, int position);
-
-    void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads);
 }

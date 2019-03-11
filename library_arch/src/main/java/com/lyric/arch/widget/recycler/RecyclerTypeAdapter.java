@@ -2,6 +2,8 @@ package com.lyric.arch.widget.recycler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,27 @@ import java.util.List;
  * @since 2019/2/25
  */
 public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
+    private static final int BASE_ITEM_TYPE_HEADER = 100000;
+    private static final int BASE_ITEM_TYPE_FOOTER = 200000;
+
+    private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
+    private SparseArrayCompat<View> mFootViews = new SparseArrayCompat<>();
+
     private Context mContext;
     private List<T> mItems;
     private RecyclerAdapterItemViewManager<T> mAdapterItemViewManager;
-    private OnAdapterItemClickListener<T> mOnAdapterItemClickListener;
-    private OnAdapterItemLongClickListener<T> mOnAdapterItemLongClickListener;
+    private OnAdapterItemClickListener mOnAdapterItemClickListener;
+    private OnAdapterItemLongClickListener mOnAdapterItemLongClickListener;
+
+    public interface OnAdapterItemClickListener {
+
+        void onItemClick(ViewGroup parent, View view, int position);
+    }
+
+    public interface OnAdapterItemLongClickListener {
+
+        boolean onItemLongClick(ViewGroup parent, View view, int position);
+    }
 
     public RecyclerTypeAdapter(Context context, List<T> items) {
         this.mContext = context;
@@ -28,29 +46,34 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerAdapterItemView adapterItemView = mAdapterItemViewManager.getAdapterItemView(viewType);
-        RecyclerViewHolder holder = getViewHolder(mContext, parent, adapterItemView.getItemViewLayoutId());
-        onViewHolderCreated(holder, holder.getConvertView());
-        setListener(parent, holder, viewType);
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        convert(holder, getItem(position));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull List<Object> payloads) {
-        if (payloads.isEmpty()) {
-            super.onBindViewHolder(holder, position, payloads);
+        if (mHeaderViews.get(viewType) != null) {
+            return RecyclerViewHolder.createViewHolder(parent.getContext(), mHeaderViews.get(viewType));
+        } else if (mFootViews.get(viewType) != null) {
+            return RecyclerViewHolder.createViewHolder(parent.getContext(), mFootViews.get(viewType));
         } else {
-            convert(holder, getItem(position), payloads);
+            return getCreateViewHolder(parent, viewType);
         }
     }
 
     @Override
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        if (isHeaderViewPos(position)) {
+            return;
+        }
+        if (isFooterViewPos(position)) {
+            return;
+        }
+        convert(holder, position - getHeaderViewCount());
+    }
+
+    @Override
     public int getItemViewType(int position) {
+        if (isHeaderViewPos(position)) {
+            return mHeaderViews.keyAt(position);
+        } else if (isFooterViewPos(position)) {
+            return mFootViews.keyAt(position - getHeaderViewCount() - getContentItemSize());
+        }
+        position = position - getHeaderViewCount();
         if (isUseAdapterItemViewManager()) {
             return mAdapterItemViewManager.getItemViewType(getItem(position), position);
         }
@@ -59,22 +82,54 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
 
     @Override
     public int getItemCount() {
-        return mItems != null ? mItems.size() : 0;
+        return getContentItemSize() + getHeaderViewCount() + getFooterViewCount();
     }
-    
-    protected RecyclerViewHolder getViewHolder(Context context, ViewGroup parent, int layoutId) {
-        return RecyclerViewHolder.createViewHolder(context, parent, layoutId);
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerWrapperUtils.onAttachedToRecyclerView(recyclerView, new RecyclerWrapperUtils.SpanSizeCallback() {
+            @Override
+            public int getSpanSize(GridLayoutManager layoutManager, GridLayoutManager.SpanSizeLookup oldLookup, int position) {
+                int viewType = getItemViewType(position);
+                if (mHeaderViews.get(viewType) != null) {
+                    return layoutManager.getSpanCount();
+                } else if (mFootViews.get(viewType) != null) {
+                    return layoutManager.getSpanCount();
+                }
+                if (oldLookup != null) {
+                    return oldLookup.getSpanSize(position);
+                }
+                return 1;
+            }
+        });
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        int position = holder.getLayoutPosition();
+        if (isHeaderViewPos(position) || isFooterViewPos(position)) {
+            RecyclerWrapperUtils.setFullSpan(holder);
+        }
+    }
+
+    protected RecyclerViewHolder getCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        RecyclerAdapterItemView adapterItemView = mAdapterItemViewManager.getAdapterItemView(viewType);
+        RecyclerViewHolder holder = RecyclerViewHolder.createViewHolder(parent.getContext(), parent, adapterItemView.getItemViewLayoutId());
+        onViewHolderCreated(holder, holder.getConvertView());
+        setListener(parent, holder, viewType);
+        return holder;
     }
 
     protected void onViewHolderCreated(RecyclerViewHolder holder, View itemView) {
     }
 
-    protected void convert(RecyclerViewHolder holder, T item) {
-        mAdapterItemViewManager.convert(holder, item, holder.getAdapterPosition());
-    }
-
-    protected void convert(RecyclerViewHolder holder, T item, @NonNull List<Object> payloads) {
-        mAdapterItemViewManager.convert(holder, item, holder.getAdapterPosition(), payloads);
+    protected void convert(RecyclerViewHolder holder, int position) {
+        T item = getItem(position);
+        if (item != null) {
+            mAdapterItemViewManager.convert(holder, item, position);
+        }
     }
 
     protected boolean isEnabled(int viewType) {
@@ -92,12 +147,7 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
                 if (mOnAdapterItemClickListener == null) {
                     return;
                 }
-                int position = viewHolder.getAdapterPosition();
-                T item = getItem(position);
-                if (item == null) {
-                    return;
-                }
-                mOnAdapterItemClickListener.onItemClick(parent, v, position, item);
+                mOnAdapterItemClickListener.onItemClick(parent, v, viewHolder.getAdapterPosition() - getHeaderViewCount());
             }
         });
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -106,12 +156,7 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
                 if (mOnAdapterItemLongClickListener == null) {
                     return false;
                 }
-                int position = viewHolder.getAdapterPosition();
-                T item = getItem(position);
-                if (item == null) {
-                    return false;
-                }
-                return mOnAdapterItemLongClickListener.onItemLongClick(parent, v, position, item);
+                return mOnAdapterItemLongClickListener.onItemLongClick(parent, v, viewHolder.getAdapterPosition() - getHeaderViewCount());
             }
         });
     }
@@ -129,9 +174,39 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
         mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
         return this;
     }
+
+    public int getContentItemSize() {
+        return mItems != null ? mItems.size() : 0;
+    }
+
+    private boolean isHeaderViewPos(int position) {
+        return position < getHeaderViewCount();
+    }
+
+    private boolean isFooterViewPos(int position) {
+        return position >= getHeaderViewCount() + getContentItemSize();
+    }
+
+    public void addHeaderView(View view) {
+        mHeaderViews.put(mHeaderViews.size() + BASE_ITEM_TYPE_HEADER, view);
+    }
+
+    public void addFootView(View view) {
+        mFootViews.put(mFootViews.size() + BASE_ITEM_TYPE_FOOTER, view);
+    }
+
+    public int getHeaderViewCount() {
+        return mHeaderViews.size();
+    }
+
+    public int getFooterViewCount() {
+        return mFootViews.size();
+    }
     
     public void setItemList(List<T> items) {
         this.mItems = items;
+
+        notifyDataSetChanged();
     }
 
     public List<T> getItemList() {
@@ -202,24 +277,14 @@ public class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHol
     }
 
     private boolean isPositionInvalid(int position) {
-        return (position < 0 || position >= getItemCount());
+        return (position < 0 || position >= getContentItemSize());
     }
 
-    public void setOnItemClickListener(OnAdapterItemClickListener<T> listener) {
+    public void setOnAdapterItemClickListener(OnAdapterItemClickListener listener) {
         this.mOnAdapterItemClickListener = listener;
     }
 
-    public void setOnAdapterItemLongClickListener(OnAdapterItemLongClickListener<T> listener) {
+    public void setOnAdapterItemLongClickListener(OnAdapterItemLongClickListener listener) {
         this.mOnAdapterItemLongClickListener = listener;
-    }
-
-    public interface OnAdapterItemClickListener<T> {
-
-        void onItemClick(ViewGroup parent, View view, int position, T item);
-    }
-
-    public interface OnAdapterItemLongClickListener<T> {
-
-        boolean onItemLongClick(ViewGroup parent, View view, int position, T item);
     }
 }

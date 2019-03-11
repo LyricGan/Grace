@@ -1,7 +1,7 @@
 package com.lyric.arch.widget.recycler;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.annotation.LayoutRes;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import java.util.List;
  */
 public abstract class RecyclerAdapter<T> extends RecyclerTypeAdapter<T> {
 
-    public RecyclerAdapter(final Context context, List<T> items, final int layoutId) {
+    public RecyclerAdapter(final Context context, List<T> items) {
         super(context, items);
         addAdapterItemView(new RecyclerAdapterItemView<T>() {
             @Override
             public int getItemViewLayoutId() {
-                return layoutId;
+                return getItemLayoutId();
             }
 
             @Override
@@ -26,18 +26,13 @@ public abstract class RecyclerAdapter<T> extends RecyclerTypeAdapter<T> {
 
             @Override
             public void convert(RecyclerViewHolder holder, T item, int position) {
-                RecyclerAdapter.this.convert(holder, item, position);
-            }
-
-            @Override
-            public void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads) {
-                RecyclerAdapter.this.convert(holder, item, position, payloads);
+                convertItemView(holder, item, position);
             }
         });
     }
 
-    protected abstract void convert(RecyclerViewHolder holder, T item, int position);
+    protected abstract @LayoutRes
+    int getItemLayoutId();
 
-    protected void convert(RecyclerViewHolder holder, T item, int position, @NonNull List<Object> payloads) {
-    }
+    protected abstract void convertItemView(RecyclerViewHolder holder, T item, int position);
 }
