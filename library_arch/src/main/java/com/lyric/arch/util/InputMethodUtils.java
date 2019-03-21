@@ -60,7 +60,15 @@ public class InputMethodUtils {
         return imm != null && imm.isActive();
     }
 
+    /**
+     * 监听软键盘弹出和隐藏
+     * @param activity Activity
+     * @param listener 软键盘弹出和隐藏监听事件
+     */
     public static void observeSoftKeyboard(Activity activity, final OnSoftKeyboardChangedListener listener) {
+        if (activity == null) {
+            return;
+        }
         final View decorView = activity.getWindow().getDecorView();
         decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             int previousKeyboardHeight = -1;
@@ -73,8 +81,8 @@ public class InputMethodUtils {
                 int height = decorView.getHeight();
                 int keyboardHeight = height - displayHeight;
                 if (previousKeyboardHeight != keyboardHeight) {
-                    boolean hide = (double) displayHeight / height > 0.8;
-                    listener.onSoftKeyBoardChange(keyboardHeight, !hide);
+                    boolean visible = (double) displayHeight / height <= 0.8;
+                    listener.onSoftKeyBoardChange(keyboardHeight, visible);
                 }
                 previousKeyboardHeight = height;
             }
