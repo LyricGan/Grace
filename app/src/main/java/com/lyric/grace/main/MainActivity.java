@@ -50,8 +50,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onCreateData(Bundle savedInstanceState) {
-        super.onCreateData(savedInstanceState);
-
         final int size = 3;
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();

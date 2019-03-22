@@ -33,7 +33,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void onCreateData(Bundle savedInstanceState) {
-        super.onCreateData(savedInstanceState);
     }
 
     @Override

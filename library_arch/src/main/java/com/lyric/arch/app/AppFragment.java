@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyric.arch.R;
-
 /**
  * base fragment
  *
@@ -21,7 +19,6 @@ import com.lyric.arch.R;
 public abstract class AppFragment extends Fragment implements AppListener, View.OnClickListener {
     private View mRootView;
     private AppTitleBar titleBar;
-    private boolean mSelected;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,59 +99,7 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         logMessage("onDetach()");
     }
 
-    @Override
-    public void onCreatePrepare(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreateExtras(Bundle savedInstanceState, @NonNull Bundle args) {
-    }
-
-    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(this);
-        titleBar.setLeftImageOnClickListener(this);
-    }
-
-    @Override
-    public void onCreateData(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
-            onBackPressed();
-        }
-    }
-
-    @Override
-    public void showLoading(CharSequence message, boolean cancelable) {
-        if (!(getActivity() instanceof AppActivity)) {
-            return;
-        }
-        AppActivity activity = (AppActivity) getActivity();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-        if (!isAdded() || isRemoving()) {
-            return;
-        }
-        activity.showLoading(message, cancelable);
-    }
-
-    @Override
-    public void hideLoading() {
-        if (!(getActivity() instanceof AppActivity)) {
-            return;
-        }
-        AppActivity activity = (AppActivity) getActivity();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-        if (!isAdded() || isRemoving()) {
-            return;
-        }
-        activity.hideLoading();
-    }
+    protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
 
     public View getRootView() {
         return mRootView;
@@ -186,14 +131,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
             return;
         }
         activity.finish();
-    }
-
-    public void onSelectChanged(boolean isSelected) {
-        this.mSelected = isSelected;
-    }
-
-    public boolean isSelected() {
-        return mSelected;
     }
 
     private void logMessage(String message) {

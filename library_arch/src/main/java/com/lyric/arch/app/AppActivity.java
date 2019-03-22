@@ -2,12 +2,9 @@ package com.lyric.arch.app;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import com.lyric.arch.R;
 
 /**
  * base activity
@@ -80,37 +77,7 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
         ActivityStackManager.getInstance().remove(this);
     }
 
-    @Override
-    public void onCreatePrepare(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreateExtras(Bundle savedInstanceState, @NonNull Bundle args) {
-    }
-
-    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(this);
-        titleBar.setLeftImageOnClickListener(this);
-    }
-
-    @Override
-    public void onCreateData(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
-            onBackPressed();
-        }
-    }
-
-    @Override
-    public void showLoading(CharSequence message, boolean cancelable) {
-    }
-
-    @Override
-    public void hideLoading() {
-    }
+    protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
 
     public boolean isDestroy() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
