@@ -13,7 +13,6 @@ import com.lyric.grace.R;
  * @since 2019/2/15
  */
 public abstract class BaseFragment extends AppFragment {
-    private boolean mSelected;
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
@@ -64,13 +63,5 @@ public abstract class BaseFragment extends AppFragment {
             return;
         }
         activity.hideLoading();
-    }
-
-    public void onSelectChanged(boolean isSelected) {
-        this.mSelected = isSelected;
-    }
-
-    public boolean isSelected() {
-        return mSelected;
     }
 }
