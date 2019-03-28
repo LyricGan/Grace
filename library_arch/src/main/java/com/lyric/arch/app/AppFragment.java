@@ -99,6 +99,12 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         logMessage("onDetach()");
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        logMessage("setUserVisibleHint(),isVisibleToUser:" + isVisibleToUser);
+    }
+
     protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
 
     public View getRootView() {
