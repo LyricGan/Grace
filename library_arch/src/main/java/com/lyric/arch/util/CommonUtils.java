@@ -358,4 +358,23 @@ public class CommonUtils {
         return isShortCutCreated;
     }
 
+    public static boolean isActivityInvalid(Activity activity) {
+        if (activity == null) {
+            return true;
+        }
+        boolean invalid = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            invalid = activity.isDestroyed();
+        } else  {
+            invalid = activity.isFinishing();
+        }
+        return invalid;
+    }
+
+    public static void finishActivity(Activity activity) {
+        if (isActivityInvalid(activity)) {
+            return;
+        }
+        activity.finish();
+    }
 }

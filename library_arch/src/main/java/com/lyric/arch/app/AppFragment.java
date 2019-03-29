@@ -2,10 +2,12 @@ package com.lyric.arch.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,12 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     @Override
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+        logMessage("onInflate()");
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         logMessage("onAttach()");
@@ -100,9 +108,33 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        logMessage("onSaveInstanceState()");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        logMessage("onActivityResult()");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        logMessage("onRequestPermissionsResult()");
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         logMessage("setUserVisibleHint(),isVisibleToUser:" + isVisibleToUser);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        logMessage("onHiddenChanged(),hidden:" + hidden);
     }
 
     protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
@@ -124,19 +156,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         if (activity != null) {
             activity.onBackPressed();
         }
-    }
-
-    public boolean isActivityFinishing() {
-        Activity activity = getActivity();
-        return activity == null || activity.isFinishing();
-    }
-
-    public void finishActivity() {
-        Activity activity = getActivity();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
-        activity.finish();
     }
 
     private void logMessage(String message) {

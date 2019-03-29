@@ -1,7 +1,8 @@
 package com.lyric.arch.app;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -77,14 +78,37 @@ public abstract class AppActivity extends AppCompatActivity implements AppListen
         ActivityStackManager.getInstance().remove(this);
     }
 
-    protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
-
-    public boolean isDestroy() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return isDestroyed();
-        }
-        return isFinishing();
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        logMessage("onNewIntent()");
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        logMessage("onSaveInstanceState()");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        logMessage("onRestoreInstanceState()");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        logMessage("onActivityResult()");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        logMessage("onRequestPermissionsResult()");
+    }
+
+    protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
 
     /**
      * 返回页面是否处于活动状态
