@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 public class GraceApplication extends Application {
-    private static GraceApplication sInstance;
+    private static Application sInstance;
 
     @Override
     public void onCreate() {

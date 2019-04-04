@@ -3,8 +3,8 @@ package com.lyric.grace.base;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyric.arch.app.AppActivity;
-import com.lyric.arch.app.AppFragment;
+import com.lyric.support.app.AppActivity;
+import com.lyric.support.app.AppFragment;
 
 /**
  * @author lyricgan

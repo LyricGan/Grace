@@ -121,7 +121,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
 
-    implementation project(':library_arch')
+    implementation project(':library_support')
 
     implementation 'com.android.support:cardview-v7:' + supportLibraryVersion
     implementation 'com.android.support:gridlayout-v7:' + supportLibraryVersion
