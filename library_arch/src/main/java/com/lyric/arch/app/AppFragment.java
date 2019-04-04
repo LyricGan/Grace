@@ -20,7 +20,6 @@ import android.view.ViewGroup;
  */
 public abstract class AppFragment extends Fragment implements AppListener, View.OnClickListener {
     private View mRootView;
-    private AppTitleBar titleBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +43,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         super.onViewCreated(view, savedInstanceState);
         logMessage("onViewCreated()");
         this.mRootView = view;
-        if (titleBar == null) {
-            titleBar = new AppTitleBar(view);
-        }
-        onCreateTitleBar(titleBar, savedInstanceState);
 
         onCreateContentView(view, savedInstanceState);
     }
@@ -137,8 +132,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
         logMessage("onHiddenChanged(),hidden:" + hidden);
     }
 
-    protected abstract void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState);
-
     public View getRootView() {
         return mRootView;
     }
@@ -149,13 +142,6 @@ public abstract class AppFragment extends Fragment implements AppListener, View.
             return activity.findViewById(id);
         }
         return null;
-    }
-
-    public void onBackPressed() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            activity.onBackPressed();
-        }
     }
 
     private void logMessage(String message) {

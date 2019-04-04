@@ -5,8 +5,6 @@ import android.view.View;
 
 import com.lyric.arch.app.AppActivity;
 import com.lyric.arch.app.AppFragment;
-import com.lyric.arch.app.AppTitleBar;
-import com.lyric.grace.R;
 
 /**
  * @author lyricgan
@@ -23,16 +21,7 @@ public abstract class BaseFragment extends AppFragment {
     }
 
     @Override
-    protected void onCreateTitleBar(AppTitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(this);
-        titleBar.setLeftImageOnClickListener(this);
-    }
-
-    @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
-            onBackPressed();
-        }
     }
 
     @Override
@@ -63,5 +52,9 @@ public abstract class BaseFragment extends AppFragment {
             return;
         }
         activity.hideLoading();
+    }
+
+    public boolean onBackPressed() {
+        return false;
     }
 }
