@@ -5,47 +5,65 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- A light Holo shade of blue -->
-    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="holo_blue_light">#FF33B5E5</color>
     <!-- A light Holo shade of gray -->
     <color name="holo_gray_light">#33999999</color>
     <!-- A light Holo shade of green -->
-    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_green_light">#FF99CC00</color>
     <!-- A light Holo shade of red -->
-    <color name="holo_red_light">#ffff4444</color>
+    <color name="holo_red_light">#FFFF4444</color>
     <!-- A dark Holo shade of blue -->
-    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_blue_dark">#FF0099CC</color>
     <!-- A dark Holo shade of green -->
-    <color name="holo_green_dark">#ff669900</color>
+    <color name="holo_green_dark">#FF669900</color>
     <!-- A dark Holo shade of red -->
-    <color name="holo_red_dark">#ffcc0000</color>
+    <color name="holo_red_dark">#FFCC0000</color>
     <!-- A Holo shade of purple -->
-    <color name="holo_purple">#ffaa66cc</color>
+    <color name="holo_purple">#FFAA66CC</color>
     <!-- A light Holo shade of orange -->
-    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_orange_light">#FFFFBB33</color>
     <!-- A dark Holo shade of orange -->
-    <color name="holo_orange_dark">#ffff8800</color>
+    <color name="holo_orange_dark">#FFFF8800</color>
     <!-- A really bright Holo shade of blue -->
-    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="holo_blue_bright">#FF00DDFF</color>
     <!-- A really bright Holo shade of gray -->
-    <color name="holo_gray_bright">#33CCCCCC</color>
+    <color name="holo_gray_bright">#33cccccc</color>
     <!-- A really lighter Holo shade of gray -->
-    <color name="holo_lighter_gray">#ffdddddd</color>
+    <color name="holo_lighter_gray">#FFDDDDDD</color>
     <!-- A really darker Holo shade of gray -->
-    <color name="holo_darker_gray">#ffaaaaaa</color>
+    <color name="holo_darker_gray">#FFAAAAAA</color>
 
-    <color name="white">#ffffffff</color>
-    <color name="black">#ff000000</color>
-    <color name="gray">#ff999999</color>
+    <!-- 基本色 -->
     <color name="transparent">#00000000</color>
-    <color name="half_transparent">#90000000</color>
+    <color name="black">#FF000000</color> <!-- 黑色 -->
+    <color name="white">#FFFFFFFF</color> <!-- 白色 -->
+    <color name="yellow">#FFFFFF00</color> <!-- 黄色 -->
+    <color name="gold">#FFFFD700</color> <!-- 金色 -->
+    <color name="pink">#FFFFC0CB</color> <!-- 粉红色 -->
+    <color name="red">#FFFF0000</color> <!-- 红色 -->
+    <color name="brown">#FFA52A2A</color> <!-- 褐色 -->
+    <color name="orange">#FFEF8532</color> <!-- 橘色 -->
+    <color name="gray">#FF999999</color> <!-- 灰色 -->
+    <color name="purple">#FF800080</color> <!-- 紫色 -->
+    <color name="green">#FF00FF00</color> <!-- 绿色 -->
+    <color name="blue">#FF0000FF</color> <!-- 蓝色 -->
+    <color name="point">#FFBABABA</color> <!-- 灰色 -->
 
-    <color name="text_color_default">#ff555555</color>
-    <color name="text_color_white">#ffffffff</color>
-    <color name="text_color_black">#ff222222</color>
-    <color name="text_color_gray">#ff888888</color>
-    <color name="text_color_hint">#ff999999</color>
+    <color name="half_transparent">#88000000</color>
+    <color name="half_black">#35000000</color>
+    <color name="half_white">#80FFFFFF</color>
+    <color name="light_brown">#FFFAF3</color>
+    <color name="light_gray">#FF999999</color>
+    <color name="light_orange">#FFE2C9</color>
+    <color name="light_blue">#5DCDEF</color>
 
-    <color name="bg_divider">#ffe0e0e0</color>
-    <color name="bg_thumb">#ffb2b2b2</color>
+    <color name="color_text_default">#FF555555</color>
+    <color name="color_text_white">#FFFFFFFF</color>
+    <color name="color_text_black">#FF222222</color>
+    <color name="color_text_gray">#FF888888</color>
+    <color name="color_text_hint">#FF999999</color>
+
+    <color name="color_divider">#FFE0E0E0</color>
+    <color name="color_thumb">#FFB2B2B2</color>
 
 </resources>
