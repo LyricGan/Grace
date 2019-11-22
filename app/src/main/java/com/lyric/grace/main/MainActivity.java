@@ -58,7 +58,8 @@ public class MainActivity extends BaseActivity {
             titles.add(String.valueOf(i + 1));
         }
         updatePagerIndicator(0);
-        tvTotalPage.setText(String.valueOf("/" + size));
+        String totalPage = "/" + size;
+        tvTotalPage.setText(totalPage);
 
         relativePoint.setVisibility(View.VISIBLE);
         int itemSize = DisplayUtils.dip2px(GraceApplication.getContext(), 4);

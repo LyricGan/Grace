@@ -6,29 +6,8 @@
               android:gravity="center"
               android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_play"
+    <com.lyric.grace.main.ChartView
+        android:id="@+id/chart_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/play"/>
-
-    <Button
-        android:id="@+id/btn_pause"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/pause"/>
-
-    <Button
-        android:id="@+id/btn_stop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/stop"/>
+        android:layout_height="320dp"/>
 </LinearLayout>
