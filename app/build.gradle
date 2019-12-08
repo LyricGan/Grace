@@ -115,25 +115,18 @@ def static releaseTime() {
     return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08"))
 }
 
-def supportLibraryVersion = '27.1.1'
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
 
-    implementation project(':library_support')
-
-    implementation 'com.android.support:cardview-v7:' + supportLibraryVersion
-    implementation 'com.android.support:gridlayout-v7:' + supportLibraryVersion
-    implementation 'com.android.support:design:' + supportLibraryVersion
-    implementation 'com.android.support:percent:' + supportLibraryVersion
-    implementation 'com.android.support:customtabs:' + supportLibraryVersion
+    implementation project(':library_grace_base')
+    implementation project(':library_grace_common_ui')
 
     // 腾讯UI工具库
-    implementation 'com.qmuiteam:qmui:1.1.7'
+//    implementation 'com.qmuiteam:qmui:1.1.7'
 
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+//    implementation 'com.facebook.stetho:stetho:1.5.0'
+//    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     // 滴滴提供检测工具包
-    implementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
+//    implementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
 }

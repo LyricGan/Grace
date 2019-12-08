@@ -4,19 +4,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lyric.support.app.AppFragmentPagerAdapter;
-import com.lyric.support.util.DisplayUtils;
-import com.lyric.grace.GraceApplication;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.lyric.grace.R;
 import com.lyric.grace.base.BaseActivity;
+import com.lyricgan.grace.commonui.adapter.GraceFragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class MainActivity extends BaseActivity {
         viewFocusPoint = findViewById(R.id.view_focus_point);
         viewPager = findViewById(R.id.view_pager);
 
-        viewPager.setPageMargin(DisplayUtils.dip2px(GraceApplication.getContext(), 8));
+        viewPager.setPageMargin(20);
         viewPager.setPageMarginDrawable(new ColorDrawable(Color.BLACK));
     }
 
@@ -62,7 +61,7 @@ public class MainActivity extends BaseActivity {
         tvTotalPage.setText(totalPage);
 
         relativePoint.setVisibility(View.VISIBLE);
-        int itemSize = DisplayUtils.dip2px(GraceApplication.getContext(), 4);
+        int itemSize = 8;
         for (int i = 0; i < size; i++) {
             View childView = new View(this);
             childView.setBackgroundResource(R.drawable.circle_white);
@@ -86,7 +85,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-        AppFragmentPagerAdapter adapter = new AppFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        GraceFragmentPagerAdapter adapter = new GraceFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(size);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

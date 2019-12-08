@@ -3,14 +3,14 @@ package com.lyric.grace.base;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyric.support.app.AppActivity;
-import com.lyric.support.app.AppFragment;
+import com.lyricgan.grace.base.GraceActivity;
+import com.lyricgan.grace.base.GraceFragment;
 
 /**
  * @author lyricgan
  * @since 2019/2/15
  */
-public abstract class BaseFragment extends AppFragment {
+public abstract class BaseFragment extends GraceFragment {
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
@@ -26,10 +26,10 @@ public abstract class BaseFragment extends AppFragment {
 
     @Override
     public void showLoading(CharSequence message, boolean cancelable) {
-        if (!(getActivity() instanceof AppActivity)) {
+        if (!(getActivity() instanceof GraceActivity)) {
             return;
         }
-        AppActivity activity = (AppActivity) getActivity();
+        GraceActivity activity = (GraceActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }
@@ -41,10 +41,10 @@ public abstract class BaseFragment extends AppFragment {
 
     @Override
     public void hideLoading() {
-        if (!(getActivity() instanceof AppActivity)) {
+        if (!(getActivity() instanceof GraceActivity)) {
             return;
         }
-        AppActivity activity = (AppActivity) getActivity();
+        GraceActivity activity = (GraceActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }

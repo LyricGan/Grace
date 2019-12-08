@@ -150,18 +150,7 @@
     public void *(android.webkit.webView, jav.lang.String);
 }
 
-
 ################ 第三方jar包 ######################
-
-# Gson，JavaBean不做混淆
--dontwarn sun.misc.Unsafe.**
--dontwarn com.google.gson.**
--keep class sun.misc.Unsafe {*;}
--keep class com.google.gson.** {*;}
-# 实体类
--keep class * extends com.lyric.grace.base.DataEntity {
-    *;
-}
 
 #org.apache.http.legacy 适配6.0
 #-libraryjars libs/org.apache.http.legacy.jar
@@ -175,30 +164,4 @@
 -keep class com.android.internal.http.multipart.**{*;}
 -keep class org.apache.commons.**{*;}
 -keep class org.apache.http.**{*;}
-
-#glide图片加载
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
-# okhttp
--dontwarn okhttp3.**
--dontwarn okio.**
--dontwarn javax.annotation.**
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-
-# EventBus
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
-# Only required if you use AsyncExecutor
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}
 
