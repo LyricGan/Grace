@@ -1,16 +1,16 @@
 package com.lyricgan.grace.imageloader;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.TransitionOptions;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import java.io.File;
@@ -33,62 +33,36 @@ public class ImageLoader {
         return ImageLoaderHolder.IMAGE_LOADER;
     }
 
-    public void load(Context context, Object model, ImageView view) {
-        load(context, model, view, -1);
+    public static void load(ImageView view, Object objUrl, int placeholderId) {
+        load(view, objUrl, placeholderId, ImageView.ScaleType.CENTER_CROP);
     }
 
-    public void load(Context context, Object model, ImageView view, int placeholderId) {
-        load(context, model, view, RequestOptions.placeholderOf(placeholderId));
+    public static void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType) {
+        load(view, objUrl, placeholderId, scaleType, null);
     }
 
-    public void load(Context context, Object model, ImageView view, RequestOptions requestOptions) {
-        load(context, model, view, requestOptions, Drawable.class);
+    public static void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, ImageRequestListener<?> listener) {
+        ImageLoaderOptions options = ImageLoaderOptions.getDefaultConfig(placeholderId).transform(scaleType);
+        load(view, objUrl, options, listener);
     }
 
-    public void load(Context context, Object model, ImageView view, RequestOptions requestOptions, TransitionOptions<?, ? super Drawable> transitionOptions) {
-        load(context, model, view, requestOptions, Drawable.class, transitionOptions, null);
-    }
-
-    public void load(Context context, Object model, ImageView view, RequestOptions requestOptions, TransitionOptions<?, ? super Drawable> transitionOptions, RequestListener<Drawable> listener) {
-        load(context, model, view, requestOptions, Drawable.class, transitionOptions, listener);
-    }
-
-    public <ResourceType> void load(Context context, Object model, ImageView view, RequestOptions requestOptions, Class<ResourceType> clazz) {
-        load(context, model, view, requestOptions, clazz, null, null);
-    }
-
-    public <ResourceType> void load(Context context, Object model, ImageView view, RequestOptions requestOptions, Class<ResourceType> clazz, TransitionOptions<?, ? super ResourceType> transitionOptions) {
-        load(context, model, view, requestOptions, clazz, transitionOptions, null);
-    }
-
-    /**
-     * 加载图片
-     * @param context 上下文
-     * @param model 加载资源模型
-     * @param view 视图
-     * @param requestOptions 请求参数
-     * @param clazz 泛型类对象，例如Drawable.class
-     * @param transitionOptions 过渡选项，例如交叉淡入
-     * @param listener 加载监听事件
-     * @param <ResourceType> 泛型类参数类型
-     */
-    public <ResourceType> void load(Context context, Object model, ImageView view, RequestOptions requestOptions, Class<ResourceType> clazz, TransitionOptions<?, ? super ResourceType> transitionOptions, RequestListener<ResourceType> listener) {
-        getRequestBuilder(context, model, requestOptions, clazz, transitionOptions, listener).into(view);
-    }
-
-    public <ResourceType> Target<ResourceType> load(Context context, Object model, Target<ResourceType> target, RequestOptions requestOptions, Class<ResourceType> clazz, TransitionOptions<?, ? super ResourceType> transitionOptions, RequestListener<ResourceType> listener) {
-        return getRequestBuilder(context, model, requestOptions, clazz, transitionOptions, listener).into(target);
-    }
-
-    private <ResourceType> RequestBuilder<ResourceType> getRequestBuilder(Context context, Object model, RequestOptions requestOptions, Class<ResourceType> clazz, TransitionOptions<?, ? super ResourceType> transitionOptions, RequestListener<ResourceType> listener) {
-        RequestBuilder<ResourceType> requestBuilder = Glide.with(context).as(clazz).load(model);
-        if (requestOptions != null) {
-            requestBuilder = requestBuilder.apply(requestOptions);
+    public static void load(ImageView view, Object objUrl, @NonNull ImageLoaderOptions options, RequestListener listener) {
+        if (view == null) {
+            return;
         }
-        if (transitionOptions != null) {
-            requestBuilder = requestBuilder.transition(transitionOptions);
+        Context context = view.getContext();
+        if (objUrl == null) {
+            return;
         }
-        return requestBuilder.listener(listener);
+        try {
+            RequestBuilder<?> builder = Glide.with(context).asBitmap();
+            builder.load(objUrl)
+                    .apply(options.getRequestOptions())
+                    .listener(listener)
+                    .into(view);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     public void clearMemory(Context context) {
@@ -99,19 +73,34 @@ public class ImageLoader {
         Glide.get(context).clearDiskCache();
     }
 
-    public RequestManager getManager(Context context) {
-        return Glide.with(context);
-    }
-
-    public RequestManager getManager(Activity activity) {
-        return Glide.with(activity);
-    }
-
     public File getPhotoCacheDir(Context context) {
         return Glide.getPhotoCacheDir(context);
     }
 
     public File getPhotoCacheDir(Context context, String cacheName) {
         return Glide.getPhotoCacheDir(context, cacheName);
+    }
+
+    /**
+     * 图片加载回调接口
+     * @param <R> 资源类型
+     */
+    public static abstract class ImageRequestListener<R> implements RequestListener<R> {
+
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<R> target, boolean isFirstResource) {
+            onLoadFailed(model, isFirstResource);
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(R resource, Object model, Target<R> target, DataSource dataSource, boolean isFirstResource) {
+            onLoadSuccess(resource, model, isFirstResource);
+            return false;
+        }
+
+        public abstract void onLoadFailed(Object model, boolean isFirstResource);
+
+        public abstract void onLoadSuccess(R resource, Object model, boolean isFirstResource);
     }
 }
