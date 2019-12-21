@@ -1,41 +1,43 @@
-package com.lyricgan.grace.base;
+package com.lyric.grace.samples;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GraceTitleBar {
-    private View mTitleView;
+import com.lyric.grace.R;
+
+public class TitleBar {
+    private View mView;
     private TextView tvLeftText, tvCenterText, tvRightText, tvRightSecondText;
     private ImageView ivLeftImage, ivCenterImage, ivRightImage, ivRightSecondImage;
 
-    public GraceTitleBar(View titleView) {
-        this.mTitleView = titleView;
+    public TitleBar(View view) {
+        this.mView = view;
 
-        bindViews(titleView);
+        bindViews(view);
     }
 
-    public View getTitleView() {
-        return mTitleView;
+    public View getView() {
+        return mView;
     }
 
-    public void setTitleView(View titleView) {
-        this.mTitleView = titleView;
-        bindViews(titleView);
+    public void setView(View view) {
+        this.mView = view;
+        bindViews(view);
     }
 
-    private void bindViews(View titleView) {
-        if (titleView == null) {
+    private void bindViews(View view) {
+        if (view == null) {
             return;
         }
-        tvLeftText = titleView.findViewById(R.id.title_bar_left_text);
-        ivLeftImage = titleView.findViewById(R.id.title_bar_left_image);
-        tvCenterText = titleView.findViewById(R.id.title_bar_center_text);
-        ivCenterImage = titleView.findViewById(R.id.title_bar_center_image);
-        tvRightText = titleView.findViewById(R.id.title_bar_right_text);
-        tvRightSecondText = titleView.findViewById(R.id.title_bar_right_second_text);
-        ivRightImage = titleView.findViewById(R.id.title_bar_right_image);
-        ivRightSecondImage = titleView.findViewById(R.id.title_bar_right_second_image);
+        tvLeftText = view.findViewById(R.id.title_bar_left_text);
+        ivLeftImage = view.findViewById(R.id.title_bar_left_image);
+        tvCenterText = view.findViewById(R.id.title_bar_center_text);
+        ivCenterImage = view.findViewById(R.id.title_bar_center_image);
+        tvRightText = view.findViewById(R.id.title_bar_right_text);
+        tvRightSecondText = view.findViewById(R.id.title_bar_right_second_text);
+        ivRightImage = view.findViewById(R.id.title_bar_right_image);
+        ivRightSecondImage = view.findViewById(R.id.title_bar_right_second_image);
     }
 
     public void setLeftText(int resId) {

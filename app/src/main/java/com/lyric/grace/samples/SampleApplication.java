@@ -1,9 +1,9 @@
-package com.lyric.grace;
+package com.lyric.grace.samples;
 
 import android.app.Application;
 import android.content.Context;
 
-public class GraceApplication extends Application {
+public class SampleApplication extends Application {
     private static Application sInstance;
 
     @Override

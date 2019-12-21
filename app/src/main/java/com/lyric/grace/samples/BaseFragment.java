@@ -1,15 +1,10 @@
-package com.lyric.grace.base;
+package com.lyric.grace.samples;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyricgan.grace.base.GraceActivity;
 import com.lyricgan.grace.base.GraceFragment;
 
-/**
- * @author lyricgan
- * @since 2019/2/15
- */
 public abstract class BaseFragment extends GraceFragment {
 
     @Override
@@ -26,10 +21,10 @@ public abstract class BaseFragment extends GraceFragment {
 
     @Override
     public void showLoading(CharSequence message, boolean cancelable) {
-        if (!(getActivity() instanceof GraceActivity)) {
+        if (!(getActivity() instanceof BaseActivity)) {
             return;
         }
-        GraceActivity activity = (GraceActivity) getActivity();
+        BaseActivity activity = (BaseActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }
@@ -41,10 +36,10 @@ public abstract class BaseFragment extends GraceFragment {
 
     @Override
     public void hideLoading() {
-        if (!(getActivity() instanceof GraceActivity)) {
+        if (!(getActivity() instanceof BaseActivity)) {
             return;
         }
-        GraceActivity activity = (GraceActivity) getActivity();
+        BaseActivity activity = (BaseActivity) getActivity();
         if (activity == null || activity.isFinishing()) {
             return;
         }
@@ -56,5 +51,12 @@ public abstract class BaseFragment extends GraceFragment {
 
     public boolean onBackPressed() {
         return false;
+    }
+
+    public TitleBar getActivityTitleBar() {
+        if (getActivity() instanceof BaseActivity) {
+            return ((BaseActivity) getActivity()).getTitleBar();
+        }
+        return null;
     }
 }

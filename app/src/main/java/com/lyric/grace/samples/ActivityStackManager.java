@@ -1,4 +1,4 @@
-package com.lyricgan.grace.base;
+package com.lyric.grace.samples;
 
 import android.app.Activity;
 

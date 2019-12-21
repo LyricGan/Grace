@@ -8,8 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class GraceActivity extends AppCompatActivity implements GraceAppListener, View.OnClickListener {
-    private GraceTitleBar titleBar;
+public abstract class GraceActivity extends AppCompatActivity implements GraceAppListener {
     private boolean mActive;
 
     @Override
@@ -17,7 +16,6 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
         onCreatePrepare(savedInstanceState);
         super.onCreate(savedInstanceState);
         logMessage("onCreate()");
-        ActivityStackManager.getInstance().add(this);
 
         Bundle args = getIntent().getExtras();
         if (args != null) {
@@ -25,13 +23,9 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
         }
         setContentView(getContentViewId());
         View decorView = getWindow().getDecorView();
-        if (titleBar == null) {
-            titleBar = new GraceTitleBar(decorView);
-        }
-        onCreateTitleBar(titleBar, savedInstanceState);
 
+        onCreateTitleBar(decorView, savedInstanceState);
         onCreateContentView(decorView, savedInstanceState);
-
         onCreateData(savedInstanceState);
     }
 
@@ -71,7 +65,6 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
     protected void onDestroy() {
         super.onDestroy();
         logMessage("onDestroy()");
-        ActivityStackManager.getInstance().remove(this);
     }
 
     @Override
@@ -104,10 +97,11 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
         logMessage("onRequestPermissionsResult()");
     }
 
-    protected abstract void onCreateTitleBar(GraceTitleBar titleBar, Bundle savedInstanceState);
+    protected abstract void onCreateTitleBar(View decorView, Bundle savedInstanceState);
 
     /**
      * 返回页面是否处于活动状态
+     *
      * @return true or false
      */
     public boolean isActive() {

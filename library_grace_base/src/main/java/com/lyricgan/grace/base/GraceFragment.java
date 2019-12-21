@@ -1,6 +1,5 @@
 package com.lyricgan.grace.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,14 +129,6 @@ public abstract class GraceFragment extends Fragment implements GraceAppListener
 
     public View getRootView() {
         return mRootView;
-    }
-
-    public <T extends View> T findViewById(int id) {
-        Activity activity = getActivity();
-        if (activity != null) {
-            return activity.findViewById(id);
-        }
-        return null;
     }
 
     private void logMessage(String message) {

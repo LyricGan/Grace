@@ -1,4 +1,4 @@
-package com.lyric.grace.main;
+package com.lyric.grace.samples;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.lyric.grace.R;
-import com.lyric.grace.base.BaseActivity;
 import com.lyricgan.grace.commonui.adapter.GraceFragmentPagerAdapter;
 
 import java.util.ArrayList;
