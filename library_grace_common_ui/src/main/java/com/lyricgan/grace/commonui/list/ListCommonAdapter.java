@@ -4,6 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
+/**
+ * 通用列表适配器
+ */
 public abstract class ListCommonAdapter<T> extends ListTypeAdapter<T> {
 
     public ListCommonAdapter(Context context, List<T> items) {
