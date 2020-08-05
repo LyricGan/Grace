@@ -2,7 +2,6 @@ package com.lyric.grace.samples;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -14,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.lyric.grace.R;
-import com.lyricgan.grace.commonui.adapter.GraceFragmentPagerAdapter;
+import com.lyricgan.grace.widget.adapter.GraceFragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +73,7 @@ public class MainActivity extends BaseActivity {
         linearPoint.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    linearPoint.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                } else {
-                    linearPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
+                linearPoint.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 if (linearPoint.getChildCount() > 1) {
                     mPointPageMargin = linearPoint.getChildAt(1).getLeft() - linearPoint.getChildAt(0).getLeft();
                 }

@@ -1,1 +1,2 @@
-include ':app', ':library_grace_base', ':library_grace_util', ':library_grace_network', ':library_grace_imageloader', ':library_grace_common_ui', ':library_grace_json'
+include ':app'
+include ':library_grace'

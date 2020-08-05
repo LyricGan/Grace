@@ -3,7 +3,7 @@ package com.lyric.grace.samples;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyricgan.grace.base.GraceFragment;
+import com.lyricgan.grace.GraceFragment;
 
 public abstract class BaseFragment extends GraceFragment {
 

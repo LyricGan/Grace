@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lyric.grace.R;
-import com.lyricgan.grace.base.GraceActivity;
+import com.lyricgan.grace.GraceActivity;
 
 public abstract class BaseActivity extends GraceActivity implements View.OnClickListener {
     private TitleBar mTitleBar;
