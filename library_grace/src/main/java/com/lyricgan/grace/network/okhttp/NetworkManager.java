@@ -9,21 +9,21 @@ import okhttp3.Call;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 
-public class HttpManager {
+public class NetworkManager {
     private OkHttpClient mHttpClient;
     private HttpCookieManager mCookieManager;
 
-    private HttpManager() {
+    private NetworkManager() {
         if (mHttpClient == null) {
             mHttpClient = getDefaultHttpClient();
         }
     }
 
     private static class HttpManagerHolder {
-        private static final HttpManager INSTANCE = new HttpManager();
+        private static final NetworkManager INSTANCE = new NetworkManager();
     }
 
-    public static HttpManager getInstance() {
+    public static NetworkManager getInstance() {
         return HttpManagerHolder.INSTANCE;
     }
 

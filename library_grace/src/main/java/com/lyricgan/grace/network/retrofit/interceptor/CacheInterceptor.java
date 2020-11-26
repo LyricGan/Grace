@@ -3,6 +3,8 @@ package com.lyricgan.grace.network.retrofit.interceptor;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.lyricgan.grace.network.retrofit.Utils;
 
 import java.io.IOException;
@@ -29,6 +31,7 @@ public class CacheInterceptor implements Interceptor {
         this.mContext = context;
     }
 
+    @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
@@ -37,13 +40,14 @@ public class CacheInterceptor implements Interceptor {
             return chain.proceed(request);
         }
         String cacheType = request.header(HEADER_USER_CACHE_TYPE);
-        if (!Utils.isNetworkConnected(mContext)) {
+        boolean isNetworkConnected = Utils.isNetworkConnected(mContext);
+        if (!isNetworkConnected) {
             request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
                     .build();
         }
         Response originalResponse = chain.proceed(request);
-        if (!Utils.isNetworkConnected(mContext)) {
+        if (!isNetworkConnected) {
             cacheControl = CACHE_CONTROL_ONLY_CACHE;
         } else if (TYPE_NETWORK_NO_CACHE.equals(cacheType)) {
             cacheControl = CACHE_CONTROL_NO_CACHE;

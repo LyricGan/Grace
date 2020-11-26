@@ -4,9 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-/**
- * @author lyricgan
- */
 public final class Utils {
 
     public static boolean isNetworkConnected(Context context) {

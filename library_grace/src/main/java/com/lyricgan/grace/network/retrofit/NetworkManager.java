@@ -12,12 +12,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
- * network manager with retrofit
+ * Network manager with retrofit
  * https://github.com/square/retrofit
  *
- * @author lyricgan
+ * @author Lyric Gan
  */
-public class RetrofitManager {
+public class NetworkManager {
     /** default connect timeout */
     private static final long CONNECT_TIMEOUT = 30L;
     /** default read timeout */
@@ -27,14 +27,14 @@ public class RetrofitManager {
 
     private Retrofit mRetrofit;
 
-    private RetrofitManager() {
+    private NetworkManager() {
     }
 
     private static final class NetworkManagerHolder {
-        private static final RetrofitManager INSTANCE = new RetrofitManager();
+        private static final NetworkManager INSTANCE = new NetworkManager();
     }
 
-    public static RetrofitManager getInstance() {
+    public static NetworkManager getInstance() {
         return NetworkManagerHolder.INSTANCE;
     }
 

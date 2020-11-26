@@ -26,11 +26,11 @@ public class ImageLoader {
     }
 
     private static final class ImageLoaderHolder {
-        private static final ImageLoader sInstance = new ImageLoader();
+        private static final ImageLoader INSTANCE = new ImageLoader();
     }
 
     public static ImageLoader getInstance() {
-        return ImageLoaderHolder.sInstance;
+        return ImageLoaderHolder.INSTANCE;
     }
 
     public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType) {
