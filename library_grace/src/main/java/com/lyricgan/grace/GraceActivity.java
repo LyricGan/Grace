@@ -74,13 +74,13 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         logMessage("onSaveInstanceState()");
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         logMessage("onRestoreInstanceState()");
     }

@@ -116,12 +116,6 @@ public abstract class GraceFragment extends Fragment implements GraceAppListener
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        logMessage("setUserVisibleHint(),isVisibleToUser:" + isVisibleToUser);
-    }
-
-    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         logMessage("onHiddenChanged(),hidden:" + hidden);

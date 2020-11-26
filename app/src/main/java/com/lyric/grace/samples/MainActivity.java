@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int getContentViewId() {
-        return R.layout.activity_main;
+        return R.layout.main_layout;
     }
 
     @Override

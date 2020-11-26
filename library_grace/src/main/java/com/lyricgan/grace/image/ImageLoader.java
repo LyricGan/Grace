@@ -26,27 +26,23 @@ public class ImageLoader {
     }
 
     private static final class ImageLoaderHolder {
-        private static final ImageLoader IMAGE_LOADER = new ImageLoader();
+        private static final ImageLoader sInstance = new ImageLoader();
     }
 
     public static ImageLoader getInstance() {
-        return ImageLoaderHolder.IMAGE_LOADER;
+        return ImageLoaderHolder.sInstance;
     }
 
-    public static void load(ImageView view, Object objUrl, int placeholderId) {
-        load(view, objUrl, placeholderId, ImageView.ScaleType.CENTER_CROP);
-    }
-
-    public static void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType) {
+    public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType) {
         load(view, objUrl, placeholderId, scaleType, null);
     }
 
-    public static void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, ImageRequestListener<?> listener) {
+    public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, ImageRequestListener<?> listener) {
         ImageLoaderOptions options = ImageLoaderOptions.getDefaultConfig(placeholderId).transform(scaleType);
         load(view, objUrl, options, listener);
     }
 
-    public static void load(ImageView view, Object objUrl, @NonNull ImageLoaderOptions options, RequestListener listener) {
+    public void load(ImageView view, Object objUrl, @NonNull ImageLoaderOptions options, RequestListener listener) {
         if (view == null) {
             return;
         }
@@ -86,7 +82,6 @@ public class ImageLoader {
      * @param <R> 资源类型
      */
     public static abstract class ImageRequestListener<R> implements RequestListener<R> {
-
         @Override
         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<R> target, boolean isFirstResource) {
             onLoadFailed(model, isFirstResource);

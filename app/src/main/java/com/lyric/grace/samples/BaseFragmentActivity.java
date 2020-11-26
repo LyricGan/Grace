@@ -16,7 +16,7 @@ import com.lyric.grace.R;
  * @author Lyric Gan
  * @since 2019/4/18
  */
-public class FragmentContainerActivity extends BaseActivity {
+public class BaseFragmentActivity extends BaseActivity {
     private String mTitle;
     private String mFragmentName;
     private Bundle mParams;
@@ -32,7 +32,7 @@ public class FragmentContainerActivity extends BaseActivity {
 
     @Override
     public int getContentViewId() {
-        return R.layout.app_fragment_container_layout;
+        return R.layout.app_fragment_layout;
     }
 
     @Override

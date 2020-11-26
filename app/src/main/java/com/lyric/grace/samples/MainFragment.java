@@ -16,13 +16,13 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_main;
+        return R.layout.main_tab_layout;
     }
 
     @Override
     public void onCreateContentView(View view, Bundle savedInstanceState) {
         view.findViewById(R.id.btn_jump).setOnClickListener(v -> {
-            PageJumpHelper.jumpFragmentPage(getActivity(), NestedScrollFragment.class, FragmentContainerActivity.class, "NestedPage", null);
+            PageJumpHelper.jumpFragmentPage(getActivity(), NestedScrollFragment.class, BaseFragmentActivity.class, "NestedPage", null);
         });
     }
 
