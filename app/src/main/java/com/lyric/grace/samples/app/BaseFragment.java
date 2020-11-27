@@ -1,4 +1,4 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.app;
 
 import android.os.Bundle;
 import android.view.View;

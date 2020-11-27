@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lyric.grace.R;
+import com.lyric.grace.samples.app.BaseFragment;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,13 @@ import java.util.ArrayList;
  * @since 2020/8/5
  */
 public class NestedScrollFragment extends BaseFragment {
+
+    public static NestedScrollFragment newInstance() {
+        Bundle args = new Bundle();
+        NestedScrollFragment fragment = new NestedScrollFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public int getContentViewId() {

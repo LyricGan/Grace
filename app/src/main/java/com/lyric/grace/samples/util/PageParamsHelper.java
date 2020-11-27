@@ -1,6 +1,8 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.util;
 
 import android.os.Bundle;
+
+import com.lyric.grace.samples.constants.IExtras;
 
 /**
  * 参数封装工具类，将不同的页面参数统一封装，方便维护

@@ -1,9 +1,10 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.app;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.lyric.grace.R;
+import com.lyric.grace.samples.util.ActivityStackManager;
 import com.lyricgan.grace.GraceActivity;
 
 public abstract class BaseActivity extends GraceActivity implements View.OnClickListener {

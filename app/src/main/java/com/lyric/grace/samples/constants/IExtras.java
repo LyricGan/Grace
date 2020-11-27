@@ -1,4 +1,4 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.constants;
 
 /**
  * 页面传递参数

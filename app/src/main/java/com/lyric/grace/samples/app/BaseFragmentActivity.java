@@ -1,4 +1,4 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.app;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
 import com.lyric.grace.R;
+import com.lyric.grace.samples.constants.IExtras;
 
 /**
  * Fragment容器Activity

@@ -1,4 +1,4 @@
-package com.lyric.grace.samples;
+package com.lyric.grace.samples.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.lyric.grace.samples.constants.IExtras;
 
 /**
  * 页面跳转工具类，将不同的页面跳转统一封装，方便维护

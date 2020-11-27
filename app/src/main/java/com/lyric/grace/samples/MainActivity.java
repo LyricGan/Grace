@@ -1,7 +1,5 @@
 package com.lyric.grace.samples;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -13,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.lyric.grace.R;
+import com.lyric.grace.samples.app.BaseActivity;
 import com.lyricgan.grace.widget.adapter.GraceFragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -40,27 +39,46 @@ public class MainActivity extends BaseActivity {
         linearPoint = findViewById(R.id.linear_point);
         viewFocusPoint = findViewById(R.id.view_focus_point);
         viewPager = findViewById(R.id.view_pager);
-
-        viewPager.setPageMargin(20);
-        viewPager.setPageMarginDrawable(new ColorDrawable(Color.BLACK));
     }
 
     @Override
     public void onCreateData(Bundle savedInstanceState) {
-        final int size = 3;
         List<Fragment> fragments = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            fragments.add(MainFragment.newInstance());
-            titles.add(String.valueOf(i + 1));
-        }
+
+        fragments.add(MainFragment.newInstance());
+        titles.add(MainFragment.class.getSimpleName());
+
+        fragments.add(NestedScrollFragment.newInstance());
+        titles.add(NestedScrollFragment.class.getSimpleName());
+
+        GraceFragmentPagerAdapter adapter = new GraceFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        viewPager.setAdapter(adapter);
+
+        int adapterCount = adapter.getCount();
+        viewPager.setOffscreenPageLimit(adapterCount - 1);
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (mPointPageMargin > 0) {
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewFocusPoint.getLayoutParams();
+                    params.leftMargin = (int) (mPointPageMargin * positionOffset) + mPointPageMargin * position;
+                    viewFocusPoint.setLayoutParams(params);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                updatePagerIndicator(position);
+            }
+        });
         updatePagerIndicator(0);
-        String totalPage = "/" + size;
+        String totalPage = "/" + adapterCount;
         tvTotalPage.setText(totalPage);
 
         relativePoint.setVisibility(View.VISIBLE);
-        int itemSize = 8;
-        for (int i = 0; i < size; i++) {
+        int itemSize = 20;
+        for (int i = 0; i < adapterCount; i++) {
             View childView = new View(this);
             childView.setBackgroundResource(R.drawable.circle_white);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(itemSize, itemSize);
@@ -77,28 +95,6 @@ public class MainActivity extends BaseActivity {
                 if (linearPoint.getChildCount() > 1) {
                     mPointPageMargin = linearPoint.getChildAt(1).getLeft() - linearPoint.getChildAt(0).getLeft();
                 }
-            }
-        });
-        GraceFragmentPagerAdapter adapter = new GraceFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(size);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (mPointPageMargin > 0) {
-                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewFocusPoint.getLayoutParams();
-                    params.leftMargin = (int) (mPointPageMargin * positionOffset) + mPointPageMargin * position;
-                    viewFocusPoint.setLayoutParams(params);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                updatePagerIndicator(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
             }
         });
     }
