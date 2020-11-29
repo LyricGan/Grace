@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 
-import java.io.File;
-
 /**
  * 图片加载类
  * @author Lyric Gan
@@ -26,10 +24,6 @@ public class ImageLoader {
 
     public static ImageLoader getInstance() {
         return ImageLoaderHolder.INSTANCE;
-    }
-
-    public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType) {
-        load(view, objUrl, placeholderId, scaleType, null);
     }
 
     public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, RequestListener<?> listener) {
@@ -59,13 +53,5 @@ public class ImageLoader {
 
     public void clearDiskCache(Context context) {
         Glide.get(context).clearDiskCache();
-    }
-
-    public File getPhotoCacheDir(Context context) {
-        return Glide.getPhotoCacheDir(context);
-    }
-
-    public File getPhotoCacheDir(Context context, String cacheName) {
-        return Glide.getPhotoCacheDir(context, cacheName);
     }
 }
