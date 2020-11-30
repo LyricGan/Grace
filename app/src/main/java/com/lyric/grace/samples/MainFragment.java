@@ -26,7 +26,13 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreateContentView(View view, Bundle savedInstanceState) {
         view.findViewById(R.id.tv_test_1).setOnClickListener(v -> PageJumpHelper.jumpFragmentPage(getActivity(), NestedScrollFragment.class, BaseFragmentActivity.class, "NestedPage", null));
-        view.findViewById(R.id.tv_test_2).setOnClickListener(v -> AppRunningUtils.handleBatteryOptimizationsSettings(getActivity()));
+        view.findViewById(R.id.tv_test_2).setOnClickListener(v -> {
+            if (AppRunningUtils.isIgnoringBatteryOptimizations(getActivity())) {
+                AppRunningUtils.jumpBatteryOptimizationsSettings(getActivity());
+            } else {
+                AppRunningUtils.requestIgnoreBatteryOptimizations(getActivity());
+            }
+        });
         view.findViewById(R.id.tv_test_3).setOnClickListener(v -> AppRunningUtils.handleBackgroundRunningSettings(getActivity()));
     }
 

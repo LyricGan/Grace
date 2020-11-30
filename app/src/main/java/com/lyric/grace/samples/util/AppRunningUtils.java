@@ -47,31 +47,21 @@ public class AppRunningUtils {
         }
     }
 
-    public static void handleBatteryOptimizationsSettings(Context context) {
+    public static void jumpBatteryOptimizationsSettings(Context context) {
         if (context == null) {
             return;
         }
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        if (powerManager == null) {
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent();
-            String packageName = context.getPackageName();
-            if (powerManager.isIgnoringBatteryOptimizations(packageName)) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-            } else {
-                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                intent.setData(Uri.parse("package:" + packageName));
-            }
-            try {
                 if (!(context instanceof Activity)) {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 context.startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
     }
 
