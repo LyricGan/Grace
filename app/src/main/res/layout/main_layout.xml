@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     android:orientation="vertical">
 
     <include layout="@layout/app_title_bar_layout" />
@@ -16,11 +15,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/tv_current_page"
@@ -35,29 +34,5 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_text_black"
             android:textSize="14sp" />
-
-        <RelativeLayout
-            android:id="@+id/relative_point"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:id="@+id/linear_point"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-            <View
-                android:id="@+id/view_focus_point"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:background="@drawable/circle_gray"
-                android:gravity="center_vertical" />
-        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
