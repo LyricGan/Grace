@@ -165,3 +165,7 @@
 -keep class org.apache.commons.**{*;}
 -keep class org.apache.http.**{*;}
 
+# MATISSE混淆配置BEGIN
+-dontwarn com.squareup.picasso.**
+-dontwarn com.bumptech.glide.**
+# MATISSE混淆配置END

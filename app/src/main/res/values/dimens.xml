@@ -13,4 +13,6 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_middle">18sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+
+    <dimen name="grid_expected_size">120dp</dimen>
 </resources>
