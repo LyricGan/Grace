@@ -1,6 +1,7 @@
 package com.lyricgan.grace.image;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -26,12 +27,12 @@ public class ImageLoader {
         return ImageLoaderHolder.INSTANCE;
     }
 
-    public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, RequestListener<?> listener) {
+    public void load(ImageView view, Object objUrl, int placeholderId, ImageView.ScaleType scaleType, RequestListener<Bitmap> listener) {
         ImageLoaderOptions options = ImageLoaderOptions.getDefaultConfig(placeholderId).transform(scaleType);
         load(view, objUrl, options, listener);
     }
 
-    public void load(ImageView view, Object objUrl, @NonNull ImageLoaderOptions options, RequestListener listener) {
+    public void load(ImageView view, Object objUrl, @NonNull ImageLoaderOptions options, RequestListener<Bitmap> listener) {
         if (view == null || objUrl == null) {
             return;
         }
