@@ -23,9 +23,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
-    private Context mContext;
-    private View mConvertView;
-    private SparseArray<View> mViews;
+    private final Context mContext;
+    private final View mConvertView;
+    private final SparseArray<View> mViews;
 
     public RecyclerViewHolder(Context context, View itemView) {
         super(itemView);

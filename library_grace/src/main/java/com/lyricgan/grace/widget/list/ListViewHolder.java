@@ -21,9 +21,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class ListViewHolder {
-    private Context mContext;
-    private View mConvertView;
-    private SparseArray<View> mViewArray;
+    private final Context mContext;
+    private final View mConvertView;
+    private final SparseArray<View> mViewArray;
     private Object mAssociatedObject;
 
     public ListViewHolder(Context context, ViewGroup parent, int layoutId) {

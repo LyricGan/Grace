@@ -1,33 +1,36 @@
 package com.lyricgan.grace.widget.list;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.List;
 
-public class ListTypeAdapter<T> extends BaseAdapter {
-    private Context mContext;
+public abstract class ListTypeAdapter<T> extends BaseAdapter {
+    private final Context mContext;
     private List<T> mItems;
-    private ListAdapterItemViewManager<T> mAdapterItemViewManager;
+    private final AdapterItemViewManager<T> mAdapterItemViewManager;
 
     public ListTypeAdapter(Context context, List<T> items) {
         this.mContext = context;
         this.mItems = items;
-        this.mAdapterItemViewManager = new ListAdapterItemViewManager<>();
+        this.mAdapterItemViewManager = new AdapterItemViewManager<>();
+
+        addAdapterItemViews();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         T item = getItem(position);
-        ListAdapterItemView<T> adapterItemView = mAdapterItemViewManager.getAdapterItemView(item, position);
+        AdapterItemView<T> adapterItemView = mAdapterItemViewManager.getAdapterItemView(item, position);
         if (adapterItemView == null) {
-            return null;
+            return getEmptyAdapterItemView();
         }
         ListViewHolder viewHolder;
         if (convertView == null) {
-            viewHolder = new ListViewHolder(mContext, parent, adapterItemView.getItemViewLayoutId());
+            viewHolder = new ListViewHolder(mContext, parent, adapterItemView.getItemLayoutId());
             onViewHolderCreated(viewHolder, viewHolder.getConvertView());
         } else {
             viewHolder = (ListViewHolder) convertView.getTag();
@@ -39,7 +42,7 @@ public class ListTypeAdapter<T> extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         if (isUseAdapterItemViewManager()) {
-            return mAdapterItemViewManager.getItemViewType(mItems.get(position), position);
+            return mAdapterItemViewManager.getItemViewType(getItem(position), position);
         }
         return super.getItemViewType(position);
     }
@@ -81,13 +84,29 @@ public class ListTypeAdapter<T> extends BaseAdapter {
         mAdapterItemViewManager.convert(viewHolder, item, position);
     }
 
-    public ListTypeAdapter<T> addAdapterItemView(ListAdapterItemView<T> adapterItemView) {
+    protected View getEmptyAdapterItemView() {
+        return null;
+    }
+
+    protected abstract void addAdapterItemViews();
+
+    public ListTypeAdapter<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(adapterItemView);
         return this;
     }
 
-    public ListTypeAdapter<T> addAdapterItemView(int viewType, ListAdapterItemView<T> adapterItemView) {
+    public ListTypeAdapter<T> addAdapterItemView(int viewType, AdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
+        return this;
+    }
+
+    public ListTypeAdapter<T> removeAdapterItemView(AdapterItemView<T> adapterItemView) {
+        mAdapterItemViewManager.removeAdapterItemView(adapterItemView);
+        return this;
+    }
+
+    public ListTypeAdapter<T> removeAdapterItemView(int viewType) {
+        mAdapterItemViewManager.removeAdapterItemView(viewType);
         return this;
     }
 
@@ -159,5 +178,100 @@ public class ListTypeAdapter<T> extends BaseAdapter {
 
     private boolean isPositionInvalid(int position) {
         return (position < 0 || position >= getCount());
+    }
+
+    public static class AdapterItemViewManager<T> {
+        private final SparseArray<AdapterItemView<T>> mAdapterItemViewArray = new SparseArray<>();
+
+        public AdapterItemViewManager<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
+            int viewType = mAdapterItemViewArray.size();
+            if (adapterItemView != null) {
+                mAdapterItemViewArray.put(viewType, adapterItemView);
+            }
+            return this;
+        }
+
+        public AdapterItemViewManager<T> addAdapterItemView(int viewType, AdapterItemView<T> adapterItemView) {
+            if (mAdapterItemViewArray.get(viewType) == null) {
+                mAdapterItemViewArray.put(viewType, adapterItemView);
+            }
+            return this;
+        }
+
+        public AdapterItemViewManager<T> removeAdapterItemView(AdapterItemView<T> adapterItemView) {
+            if (adapterItemView != null) {
+                int indexToRemove = mAdapterItemViewArray.indexOfValue(adapterItemView);
+                if (indexToRemove >= 0) {
+                    mAdapterItemViewArray.removeAt(indexToRemove);
+                }
+            }
+            return this;
+        }
+
+        public AdapterItemViewManager<T> removeAdapterItemView(int viewType) {
+            int indexToRemove = mAdapterItemViewArray.indexOfKey(viewType);
+            if (indexToRemove >= 0) {
+                mAdapterItemViewArray.removeAt(indexToRemove);
+            }
+            return this;
+        }
+
+        public int getItemViewCount() {
+            return mAdapterItemViewArray.size();
+        }
+
+        public int getItemViewType(T item, int position) {
+            int count = mAdapterItemViewArray.size();
+            for (int i = count - 1; i >= 0; i--) {
+                AdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
+                if (adapterItemView.isForViewType(item, position)) {
+                    return mAdapterItemViewArray.keyAt(i);
+                }
+            }
+            return 0;
+        }
+
+        public void convert(ListViewHolder holder, T item, int position) {
+            int count = mAdapterItemViewArray.size();
+            for (int i = 0; i < count; i++) {
+                AdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
+                if (adapterItemView.isForViewType(item, position)) {
+                    adapterItemView.convert(holder, item, position);
+                    return;
+                }
+            }
+        }
+
+        public AdapterItemView<T> getAdapterItemView(T item, int position) {
+            int count = mAdapterItemViewArray.size();
+            for (int i = count - 1; i >= 0; i--) {
+                AdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
+                if (adapterItemView.isForViewType(item, position)) {
+                    return adapterItemView;
+                }
+            }
+            return null;
+        }
+
+        public AdapterItemView<T> getAdapterItemView(int viewType) {
+            return mAdapterItemViewArray.get(viewType);
+        }
+
+        public int getItemLayoutId(int viewType) {
+            return getAdapterItemView(viewType).getItemLayoutId();
+        }
+
+        public int getItemViewType(AdapterItemView<T> adapterItemView) {
+            return mAdapterItemViewArray.indexOfValue(adapterItemView);
+        }
+    }
+
+    public interface AdapterItemView<T> {
+
+        int getItemLayoutId();
+
+        boolean isForViewType(T item, int position);
+
+        void convert(ListViewHolder holder, T item, int position);
     }
 }
