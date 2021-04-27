@@ -385,7 +385,7 @@ public abstract class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<Recycl
                 RecyclerAdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
                 if (adapterItemView.isForViewType(item, position)) {
                     adapterItemView.convert(holder, item, position);
-                    return;
+                    break;
                 }
             }
         }

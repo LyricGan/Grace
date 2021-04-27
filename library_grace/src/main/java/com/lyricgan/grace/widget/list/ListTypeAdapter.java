@@ -237,7 +237,7 @@ public abstract class ListTypeAdapter<T> extends BaseAdapter {
                 AdapterItemView<T> adapterItemView = mAdapterItemViewArray.valueAt(i);
                 if (adapterItemView.isForViewType(item, position)) {
                     adapterItemView.convert(holder, item, position);
-                    return;
+                    break;
                 }
             }
         }
