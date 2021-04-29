@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.List;
 
-public abstract class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
+public abstract class AppRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
     private static final int BASE_ITEM_TYPE_HEADER = 100000;
     private static final int BASE_ITEM_TYPE_FOOTER = 200000;
 
@@ -36,7 +36,11 @@ public abstract class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<Recycl
         boolean onItemLongClick(ViewGroup parent, View view, int position);
     }
 
-    public RecyclerTypeAdapter(Context context, List<T> items) {
+    public AppRecyclerAdapter(Context context) {
+        this(context, null);
+    }
+
+    public AppRecyclerAdapter(Context context, List<T> items) {
         this.mContext = context;
         this.mItems = items;
         this.mAdapterItemViewManager = new RecyclerAdapterItemViewManager<>();
@@ -165,22 +169,22 @@ public abstract class RecyclerTypeAdapter<T> extends RecyclerView.Adapter<Recycl
 
     protected abstract void addAdapterItemViews();
 
-    public RecyclerTypeAdapter<T> addAdapterItemView(RecyclerAdapterItemView<T> adapterItemView) {
+    public AppRecyclerAdapter<T> addAdapterItemView(RecyclerAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(adapterItemView);
         return this;
     }
 
-    public RecyclerTypeAdapter<T> addAdapterItemView(int viewType, RecyclerAdapterItemView<T> adapterItemView) {
+    public AppRecyclerAdapter<T> addAdapterItemView(int viewType, RecyclerAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
         return this;
     }
 
-    public RecyclerTypeAdapter<T> removeAdapterItemView(RecyclerAdapterItemView<T> adapterItemView) {
+    public AppRecyclerAdapter<T> removeAdapterItemView(RecyclerAdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.removeAdapterItemView(adapterItemView);
         return this;
     }
 
-    public RecyclerTypeAdapter<T> removeAdapterItemView(int viewType) {
+    public AppRecyclerAdapter<T> removeAdapterItemView(int viewType) {
         mAdapterItemViewManager.removeAdapterItemView(viewType);
         return this;
     }
