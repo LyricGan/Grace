@@ -38,8 +38,11 @@ public class MainActivity extends BaseActivity {
         fragments.add(MainFragment.newInstance());
         titles.add(MainFragment.class.getSimpleName());
 
-        fragments.add(MainFragment.newInstance());
-        titles.add(MainFragment.class.getSimpleName());
+        fragments.add(NestedScrollFragment.newInstance());
+        titles.add(NestedScrollFragment.class.getSimpleName());
+
+        fragments.add(RefreshFragment.newInstance());
+        titles.add(RefreshFragment.class.getSimpleName());
 
         GraceFragmentPagerAdapter adapter = new GraceFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
