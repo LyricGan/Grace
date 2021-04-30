@@ -35,7 +35,7 @@ public abstract class ListTypeAdapter<T> extends BaseAdapter {
         ListViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ListViewHolder(mContext, parent, adapterItemView.getItemLayoutId());
-            onViewHolderCreated(viewHolder, viewHolder.getConvertView());
+            onViewHolderCreated(viewHolder, item, position);
         } else {
             viewHolder = (ListViewHolder) convertView.getTag();
         }
@@ -81,7 +81,7 @@ public abstract class ListTypeAdapter<T> extends BaseAdapter {
         return mAdapterItemViewManager.getItemViewCount() > 0;
     }
 
-    protected void onViewHolderCreated(ListViewHolder holder, View itemView) {
+    protected void onViewHolderCreated(ListViewHolder holder, T item, int position) {
     }
 
     protected void convert(ListViewHolder viewHolder, T item, int position) {
