@@ -8,16 +8,16 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-public abstract class AppListAdapter<T> extends BaseAdapter {
+public abstract class ListTypeAdapter<T> extends BaseAdapter {
     private final Context mContext;
     private List<T> mItems;
     private final AdapterItemViewManager<T> mAdapterItemViewManager;
 
-    public AppListAdapter(Context context) {
+    public ListTypeAdapter(Context context) {
         this(context, null);
     }
 
-    public AppListAdapter(Context context, List<T> items) {
+    public ListTypeAdapter(Context context, List<T> items) {
         this.mContext = context;
         this.mItems = items;
         this.mAdapterItemViewManager = new AdapterItemViewManager<>();
@@ -94,22 +94,22 @@ public abstract class AppListAdapter<T> extends BaseAdapter {
 
     protected abstract void addAdapterItemViews();
 
-    public AppListAdapter<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
+    public ListTypeAdapter<T> addAdapterItemView(AdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(adapterItemView);
         return this;
     }
 
-    public AppListAdapter<T> addAdapterItemView(int viewType, AdapterItemView<T> adapterItemView) {
+    public ListTypeAdapter<T> addAdapterItemView(int viewType, AdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.addAdapterItemView(viewType, adapterItemView);
         return this;
     }
 
-    public AppListAdapter<T> removeAdapterItemView(AdapterItemView<T> adapterItemView) {
+    public ListTypeAdapter<T> removeAdapterItemView(AdapterItemView<T> adapterItemView) {
         mAdapterItemViewManager.removeAdapterItemView(adapterItemView);
         return this;
     }
 
-    public AppListAdapter<T> removeAdapterItemView(int viewType) {
+    public ListTypeAdapter<T> removeAdapterItemView(int viewType) {
         mAdapterItemViewManager.removeAdapterItemView(viewType);
         return this;
     }
