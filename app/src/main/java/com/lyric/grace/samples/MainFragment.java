@@ -42,19 +42,17 @@ public class MainFragment extends BaseFragment {
             }
         });
         view.findViewById(R.id.tv_test_3).setOnClickListener(v -> AppRunningUtils.handleBackgroundRunningSettings(getActivity()));
-        view.findViewById(R.id.tv_test_4).setOnClickListener(v -> onAlbumClick(true));
-        view.findViewById(R.id.tv_test_5).setOnClickListener(v -> onAlbumClick(false));
+        view.findViewById(R.id.tv_test_4).setOnClickListener(v -> onAlbumClick());
     }
 
     @Override
     public void onCreateData(Bundle savedInstanceState) {
     }
 
-    private void onAlbumClick(boolean lightStyle) {
+    private void onAlbumClick() {
         if (PermissionHelper.hasPermissions(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Matisse.from(getActivity())
                     .choose(MimeType.ofAll())
-                    .theme(lightStyle ? R.style.Matisse_Zhihu : R.style.Matisse_Dracula)
                     .countable(true)
                     .maxSelectable(9)
                     .addFilter(new GifSizeFilter(320, 320, 10 * Filter.K * Filter.K))

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:divider="@drawable/divider"
     android:orientation="vertical"
-    android:showDividers="middle">
+    android:showDividers="middle|end">
 
     <TextView
         android:id="@+id/tv_test_1"
@@ -36,33 +36,13 @@
         android:paddingBottom="16dp"
         android:text="@string/m_background_running_settings" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_test_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:orientation="horizontal"
-        android:showDividers="middle">
-
-        <TextView
-            android:id="@+id/tv_test_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/item_selector"
-            android:gravity="center_horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:text="@string/m_photo_album" />
-
-        <TextView
-            android:id="@+id/tv_test_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/item_selector"
-            android:gravity="center_horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:text="@string/m_photo_album" />
-    </LinearLayout>
+        android:background="@drawable/item_selector"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/m_photo_album" />
 </LinearLayout>
