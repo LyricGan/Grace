@@ -130,7 +130,13 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13.2'
 
-    implementation project(':module_grace')
+    implementation project(':library_base')
+    implementation project(':library_util')
+    implementation project(':library_widget')
+    implementation project(':library_json')
+    implementation project(':library_imageloader')
+    implementation project(':library_network')
+    implementation project(':library_eventbus')
     implementation project(':module_kotlin')
 
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'

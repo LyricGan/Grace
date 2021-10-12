@@ -1,7 +1,4 @@
 include ':app'
-include ':module_grace'
-include ':module_kotlin'
-
 include ':library_base'
 include ':library_json'
 include ':library_network'
@@ -10,3 +7,4 @@ include ':library_eventbus'
 include ':library_util'
 include ':library_widget'
 include ':library_retrofit'
+include ':module_kotlin'
