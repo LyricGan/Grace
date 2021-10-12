@@ -1,2 +1,12 @@
 include ':app'
-include ':library_grace'
+include ':module_grace'
+include ':module_kotlin'
+
+include ':library_base'
+include ':library_json'
+include ':library_network'
+include ':library_imageloader'
+include ':library_eventbus'
+include ':library_util'
+include ':library_widget'
+include ':library_retrofit'

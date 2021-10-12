@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lyric.grace.samples.view.ELinkageScrollLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lyricgan.grace.samples.view.ELinkageScrollLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <com.lyric.grace.samples.view.LWebView
+    <com.lyricgan.grace.samples.view.LWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.lyric.grace.samples.view.LLinearLayout
+    <com.lyricgan.grace.samples.view.LLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -34,14 +34,14 @@
             android:gravity="center"
             android:text="LinearLayout"
             android:textSize="22dp" />
-    </com.lyric.grace.samples.view.LLinearLayout>
+    </com.lyricgan.grace.samples.view.LLinearLayout>
 
-    <com.lyric.grace.samples.view.LRecyclerView
+    <com.lyricgan.grace.samples.view.LRecyclerView
         android:id="@+id/recycler1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.lyric.grace.samples.view.LTextView
+    <com.lyricgan.grace.samples.view.LTextView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@color/colorPrimary"
@@ -51,12 +51,12 @@
         android:textColor="#ffffff"
         android:textSize="28dp" />
 
-    <com.lyric.grace.samples.view.LRecyclerView
+    <com.lyricgan.grace.samples.view.LRecyclerView
         android:id="@+id/recycler2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.lyric.grace.samples.view.LScrollView
+    <com.lyricgan.grace.samples.view.LScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -125,9 +125,9 @@
                 android:text="ScrollView - 5"
                 android:textSize="22dp" />
         </LinearLayout>
-    </com.lyric.grace.samples.view.LScrollView>
+    </com.lyricgan.grace.samples.view.LScrollView>
 
-    <com.lyric.grace.samples.view.LFrameLayout
+    <com.lyricgan.grace.samples.view.LFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -135,5 +135,5 @@
             android:id="@+id/recycler_in_framelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.lyric.grace.samples.view.LFrameLayout>
-</com.lyric.grace.samples.view.ELinkageScrollLayout>
+    </com.lyricgan.grace.samples.view.LFrameLayout>
+</com.lyricgan.grace.samples.view.ELinkageScrollLayout>
