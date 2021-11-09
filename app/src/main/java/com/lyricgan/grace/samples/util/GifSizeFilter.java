@@ -29,9 +29,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GifSizeFilter extends Filter {
-    private int mMinWidth;
-    private int mMinHeight;
-    private int mMaxSize;
+    private final int mMinWidth;
+    private final int mMinHeight;
+    private final int mMaxSize;
 
     public GifSizeFilter(int minWidth, int minHeight, int maxSizeInBytes) {
         mMinWidth = minWidth;
@@ -53,7 +53,8 @@ public class GifSizeFilter extends Filter {
         }
         Point size = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), item.getContentUri());
         if (size.x < mMinWidth || size.y < mMinHeight || item.size > mMaxSize) {
-            return new IncapableCause(IncapableCause.DIALOG, context.getString(R.string.m_error_gif, mMinWidth, String.valueOf(PhotoMetadataUtils.getSizeInMB(mMaxSize))));
+            String sizeString = String.valueOf(PhotoMetadataUtils.getSizeInMB(mMaxSize));
+            return new IncapableCause(IncapableCause.DIALOG, context.getString(R.string.album_error_gif, mMinWidth, sizeString));
         }
         return null;
     }

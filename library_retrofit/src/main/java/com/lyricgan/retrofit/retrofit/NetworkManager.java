@@ -2,8 +2,8 @@ package com.lyricgan.retrofit.retrofit;
 
 import android.content.Context;
 
-import com.lyricgan.grace.network.retrofit.converter.GsonConverterFactory;
-import com.lyricgan.grace.network.retrofit.interceptor.CacheInterceptorHelper;
+import com.lyricgan.retrofit.retrofit.converter.GsonConverterFactory;
+import com.lyricgan.retrofit.retrofit.interceptor.CacheInterceptorHelper;
 
 import java.util.concurrent.TimeUnit;
 

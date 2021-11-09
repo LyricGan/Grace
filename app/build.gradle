@@ -22,7 +22,7 @@ android {
 
         ndk {
             // 设置.so文件支持的CPU架构
-            abiFilters 'armeabi-v7a'
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
     }
 
@@ -138,6 +138,7 @@ dependencies {
     implementation project(':library_network')
     implementation project(':library_eventbus')
     implementation project(':module_kotlin')
+    implementation project(':library_video')
 
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
 
@@ -150,5 +151,11 @@ dependencies {
     implementation  'com.scwang.smart:refresh-header-two-level:2.0.3'   // 二级刷新头
     implementation  'com.scwang.smart:refresh-footer-ball:2.0.3'        // 球脉冲加载
     implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    // 经典加载
+
+    // Shape 框架：https://github.com/getActivity/ShapeView
+    implementation 'com.github.getActivity:ShapeView:6.0'
+
+    // 权限请求框架 https://github.com/getActivity/XXPermissions
+    implementation 'com.github.getActivity:XXPermissions:12.5'
 }
 

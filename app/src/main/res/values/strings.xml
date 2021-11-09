@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">Grace</string>
     <string name="action_settings">Settings</string>
-    <string name="display">Display</string>
 
-    <string name="test">测试</string>
-    <string name="m_battery_optimizations_settings">电池优化设置</string>
-    <string name="m_background_running_settings">后台运行设置</string>
-    <string name="m_photo_album">访问相册</string>
-    <string name="m_error_gif">长宽不小于 %1$dpx，且大小不超过 %2$sM。</string>
+    <string name="album_error_gif">长宽不小于 %1$dpx，且大小不超过 %2$sM。</string>
+    <string name="video_play">视频播放</string>
 </resources>

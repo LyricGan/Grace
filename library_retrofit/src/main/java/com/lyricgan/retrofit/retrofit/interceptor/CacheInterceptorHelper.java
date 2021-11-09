@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.lyricgan.grace.network.retrofit.Utils;
+import com.lyricgan.retrofit.retrofit.Utils;
 
 import java.io.IOException;
 
