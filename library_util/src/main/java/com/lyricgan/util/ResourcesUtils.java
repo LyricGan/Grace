@@ -19,7 +19,7 @@ public class ResourcesUtils {
     }
 
     public static Resources getResources() {
-        return ApplicationUtils.getApplication().getResources();
+        return ApplicationUtils.getContext().getResources();
     }
 
     public static Resources getSystem() {
