@@ -1,4 +1,4 @@
-package com.lyricgan.parser.gson;
+package com.lyricgan.gson.adapter;
 
 import android.util.Log;
 
@@ -17,7 +17,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-final class CollectionTypeAdapterFactory implements TypeAdapterFactory {
+/**
+ * 自定义json集合类解析
+ * @author Lyric Gan
+ */
+public class CollectionTypeAdapterFactory implements TypeAdapterFactory {
     private final ConstructorConstructor constructorConstructor;
 
     public CollectionTypeAdapterFactory(ConstructorConstructor constructorConstructor) {
@@ -101,3 +105,4 @@ final class CollectionTypeAdapterFactory implements TypeAdapterFactory {
         }
     }
 }
+

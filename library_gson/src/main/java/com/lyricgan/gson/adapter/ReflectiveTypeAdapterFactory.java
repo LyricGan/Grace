@@ -1,4 +1,4 @@
-package com.lyricgan.parser.gson;
+package com.lyricgan.gson.adapter;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.FieldNamingStrategy;
@@ -31,7 +31,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
+/**
+ * 自定义json实体类解析
+ * @author Lyric Gan
+ */
+public class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
     private final ConstructorConstructor constructorConstructor;
     private final FieldNamingStrategy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
     private final Excluder excluder = Excluder.DEFAULT;

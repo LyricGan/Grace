@@ -1,4 +1,4 @@
-package com.lyricgan.parser.gson;
+package com.lyricgan.gson.adapter;
 
 import com.google.gson.LongSerializationPolicy;
 import com.google.gson.TypeAdapter;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicLongArray;
 
-class NumberTypeAdapterHelper {
+public class NumberTypeAdapterHelper {
 
     public static TypeAdapter<Number> longAdapter(LongSerializationPolicy longSerializationPolicy) {
         if (longSerializationPolicy == LongSerializationPolicy.DEFAULT) {

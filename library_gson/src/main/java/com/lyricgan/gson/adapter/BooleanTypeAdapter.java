@@ -1,4 +1,4 @@
-package com.lyricgan.parser.gson;
+package com.lyricgan.gson.adapter;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -7,7 +7,11 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-class BooleanTypeAdapter extends TypeAdapter<Boolean> {
+/**
+ * 自定义json布尔类型解析
+ * @author Lyric Gan
+ */
+public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
 
     @Override
     public void write(JsonWriter out, Boolean value) throws IOException {
@@ -16,19 +20,21 @@ class BooleanTypeAdapter extends TypeAdapter<Boolean> {
 
     @Override
     public Boolean read(JsonReader in) throws IOException {
-        if (in.peek() == JsonToken.NULL) {
+        JsonToken token = in.peek();
+        if (token == JsonToken.BOOLEAN) {
+            return in.nextBoolean();
+        }
+        if (token == JsonToken.NULL) {
             in.nextNull();
             return false;
         }
-        if (in.peek() == JsonToken.BOOLEAN) {
-            return in.nextBoolean();
-        }
-        if (in.peek() == JsonToken.STRING) {
+        if (token == JsonToken.STRING) {
             try {
                 return Boolean.valueOf(in.nextString());
             } catch (IOException e) {
-                return false;
+                e.printStackTrace();
             }
+            return false;
         }
         return false;
     }

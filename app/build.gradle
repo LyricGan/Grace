@@ -133,7 +133,7 @@ dependencies {
     implementation project(':library_base')
     implementation project(':library_util')
     implementation project(':library_widget')
-    implementation project(':library_json')
+    implementation project(':library_gson')
     implementation project(':library_imageloader')
     implementation project(':library_network')
     implementation project(':library_eventbus')

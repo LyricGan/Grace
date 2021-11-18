@@ -1,4 +1,4 @@
-package com.lyricgan.parser.gson;
+package com.lyricgan.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +13,16 @@ import com.google.gson.internal.bind.ObjectTypeAdapter;
 import com.google.gson.internal.bind.SqlDateTypeAdapter;
 import com.google.gson.internal.bind.TimeTypeAdapter;
 import com.google.gson.internal.bind.TypeAdapters;
+import com.lyricgan.gson.adapter.BooleanTypeAdapter;
+import com.lyricgan.gson.adapter.CollectionTypeAdapterFactory;
+import com.lyricgan.gson.adapter.DoubleTypeAdapter;
+import com.lyricgan.gson.adapter.FloatTypeAdapter;
+import com.lyricgan.gson.adapter.IntegerTypeAdapter;
+import com.lyricgan.gson.adapter.LongTypeAdapter;
+import com.lyricgan.gson.adapter.NumberTypeAdapterHelper;
+import com.lyricgan.gson.adapter.ReflectiveTypeAdapterFactory;
+import com.lyricgan.gson.adapter.ShortTypeAdapter;
+import com.lyricgan.gson.adapter.StringTypeAdapter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -24,10 +34,13 @@ import java.util.concurrent.atomic.AtomicLongArray;
 
 public class GsonCompat {
 
+    private GsonCompat() {
+    }
+
     public static Gson build() {
         GsonBuilder builder = new GsonBuilder();
         try {
-            Class builderClass = builder.getClass();
+            Class<?> builderClass = builder.getClass();
             Field field = builderClass.getDeclaredField("instanceCreators");
             field.setAccessible(true);
             Map<Type, InstanceCreator<?>> creatorMap = (Map<Type, InstanceCreator<?>>) field.get(builder);
