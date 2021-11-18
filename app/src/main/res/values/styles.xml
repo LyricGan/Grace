@@ -12,9 +12,9 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Default">
         <item name="overlapAnchor">false</item>
@@ -24,7 +24,7 @@
     </style>
 
     <!-- 默认文本样式 -->
-    <style name="text_style">
+    <style name="TextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_text_default</item>
@@ -32,7 +32,7 @@
     </style>
 
     <!-- 默认输入框样式 -->
-    <style name="editText_style">
+    <style name="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_text_black</item>
@@ -44,19 +44,18 @@
     </style>
 
     <!-- 默认分隔线样式 -->
-    <style name="divider_line_style">
+    <style name="DividerLineStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">@color/color_divider</item>
     </style>
 
     <!-- 默认列表样式 -->
-    <style name="listView_style">
+    <style name="ListViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:divider">@color/color_divider</item>
         <item name="android:dividerHeight">0.5dp</item>
         <item name="android:cacheColorHint">#00000000</item>
     </style>
-
 </resources>

@@ -1,4 +1,4 @@
-package com.lyricgan.grace.samples;
+package com.lyricgan.grace.samples.ui;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
 import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.SampleApplication;
 import com.lyricgan.grace.samples.app.BaseFragment;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.util.GifSizeFilter;

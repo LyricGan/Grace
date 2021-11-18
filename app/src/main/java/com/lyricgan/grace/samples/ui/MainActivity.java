@@ -1,4 +1,4 @@
-package com.lyricgan.grace.samples;
+package com.lyricgan.grace.samples.ui;
 
 import android.os.Bundle;
 import android.view.View;

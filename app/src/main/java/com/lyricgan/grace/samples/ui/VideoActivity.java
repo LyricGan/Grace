@@ -1,4 +1,4 @@
-package com.lyricgan.grace.samples;
+package com.lyricgan.grace.samples.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import com.lyricgan.media.video.VideoPlayerView;
 import com.lyricgan.media.video.model.MediaPlayMode;
 
 /**
+ * 视频播放页
  * @author Lyric Gan
  */
 public class VideoActivity extends BaseActivity {

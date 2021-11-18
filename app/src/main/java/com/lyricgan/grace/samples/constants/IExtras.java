@@ -1,8 +1,7 @@
 package com.lyricgan.grace.samples.constants;
 
 /**
- * 页面传递参数
- *
+ * 参数常量
  * @author Lyric Gan
  */
 public interface IExtras {

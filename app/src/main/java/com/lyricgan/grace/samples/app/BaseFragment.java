@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lyricgan.base.GraceFragment;
+import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseFragment extends GraceFragment {
 

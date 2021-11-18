@@ -10,16 +10,18 @@ import androidx.fragment.app.FragmentManager;
 
 import com.lyricgan.grace.R;
 import com.lyricgan.grace.samples.constants.IExtras;
+import com.lyricgan.grace.samples.widget.TitleBar;
 
 /**
  * Fragment容器Activity
  *
  * @author Lyric Gan
  */
-public class BaseFragmentActivity extends BaseActivity {
-    private String mTitle;
+public class ContainerActivity extends BaseActivity {
     private String mFragmentName;
+    private String mTitle;
     private Bundle mParams;
+
     private Fragment mFragment;
 
     @Override
