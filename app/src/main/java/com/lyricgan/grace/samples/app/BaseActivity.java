@@ -3,9 +3,9 @@ package com.lyricgan.grace.samples.app;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyricgan.grace.R;
-import com.lyricgan.grace.samples.util.ActivityStackManager;
 import com.lyricgan.base.GraceActivity;
+import com.lyricgan.grace.samples.R;
+import com.lyricgan.grace.samples.util.ActivityStackManager;
 import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseActivity extends GraceActivity implements View.OnClickListener {

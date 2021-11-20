@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.app.BaseActivity;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.media.video.VideoPlayerView;

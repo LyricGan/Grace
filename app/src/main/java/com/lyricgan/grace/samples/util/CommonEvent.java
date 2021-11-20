@@ -1,7 +1,8 @@
-package com.lyricgan.eventbus;
+package com.lyricgan.grace.samples.util;
 
 /**
- * 默认通知事件，接收事件类型和事件参数
+ * 通知事件，接收事件类型和事件参数
+ * @author Lyric Gan
  */
 public class CommonEvent {
     private int arg1;

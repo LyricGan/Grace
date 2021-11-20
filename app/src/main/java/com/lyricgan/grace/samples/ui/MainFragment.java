@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.SampleApplication;
 import com.lyricgan.grace.samples.app.BaseFragment;
 import com.lyricgan.grace.samples.constants.IExtras;

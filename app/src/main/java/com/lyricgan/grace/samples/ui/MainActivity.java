@@ -3,7 +3,7 @@ package com.lyricgan.grace.samples.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.app.BaseActivity;
 
 public class MainActivity extends BaseActivity {

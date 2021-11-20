@@ -1,10 +1,11 @@
-package com.lyricgan.eventbus;
+package com.lyricgan.grace.samples.util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.meta.SubscriberInfoIndex;
 
 /**
- * https://github.com/greenrobot/EventBus
+ * EventBus工具类，https://github.com/greenrobot/EventBus
+ * @author Lyric Gan
  */
 public class EventBusUtils {
 

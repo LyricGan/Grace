@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lyricgan.grace"
+    package="com.lyricgan.grace.samples"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /><!--允许程序忽略电池优化权限 -->
 
     <application
-        android:name=".samples.SampleApplication"
+        android:name=".SampleApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,7 +32,8 @@
             android:value="${CHANNEL_VALUE}" />
 
         <activity
-            android:name=".samples.ui.MainActivity"
+            android:name=".ui.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,10 +52,10 @@
         </activity>
 
         <activity
-            android:name=".samples.app.ContainerActivity"
+            android:name=".app.ContainerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".samples.ui.VideoActivity"
+            android:name=".ui.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 

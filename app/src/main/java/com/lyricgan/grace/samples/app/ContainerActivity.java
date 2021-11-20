@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.widget.TitleBar;
 
 /**
  * Fragment容器Activity
- *
  * @author Lyric Gan
  */
 public class ContainerActivity extends BaseActivity {

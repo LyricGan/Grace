@@ -18,7 +18,7 @@ package com.lyricgan.grace.samples.util;
 import android.content.Context;
 import android.graphics.Point;
 
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;

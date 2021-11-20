@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lyricgan.grace.R;
+import com.lyricgan.grace.samples.R;
 
 public class TitleBar {
     private View mView;
