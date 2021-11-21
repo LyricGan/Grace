@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lyricgan.base.GraceActivity;
-import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.util.ActivityStackManager;
 import com.lyricgan.grace.samples.widget.TitleBar;
 
-public abstract class BaseActivity extends GraceActivity implements View.OnClickListener {
+public abstract class BaseActivity extends GraceActivity {
     private TitleBar mTitleBar;
 
     @Override
@@ -22,16 +21,13 @@ public abstract class BaseActivity extends GraceActivity implements View.OnClick
 
     @Override
     protected void onCreateTitleBar(View decorView, Bundle savedInstanceState) {
-        if (mTitleBar == null) {
-            mTitleBar = new TitleBar(decorView);
-        }
-        onCreateTitleBar(mTitleBar, savedInstanceState);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.title_bar_left_text || v.getId() == R.id.title_bar_left_image) {
-            onBackPressed();
+        TitleBar titleBar = mTitleBar;
+        if (titleBar == null) {
+            titleBar = new TitleBar(decorView);
+            titleBar.bindViews();
+            titleBar.setLeftTextOnClickListener(v -> onBackPressed());
+            titleBar.setLeftImageOnClickListener(v -> onBackPressed());
+            mTitleBar = titleBar;
         }
     }
 
@@ -47,11 +43,6 @@ public abstract class BaseActivity extends GraceActivity implements View.OnClick
 
     @Override
     public void hideLoading() {
-    }
-
-    protected void onCreateTitleBar(TitleBar titleBar, Bundle savedInstanceState) {
-        titleBar.setLeftTextOnClickListener(this);
-        titleBar.setLeftImageOnClickListener(this);
     }
 
     public TitleBar getTitleBar() {

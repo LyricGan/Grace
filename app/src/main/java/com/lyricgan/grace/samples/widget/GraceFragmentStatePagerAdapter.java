@@ -1,20 +1,20 @@
-package com.lyricgan.base;
+package com.lyricgan.grace.samples.widget;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-public class GraceFragmentPagerAdapter extends FragmentPagerAdapter {
+public class GraceFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> mFragments;
     private List<String> mTitles;
 
-    public GraceFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public GraceFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         this(fm, fragments, null);
     }
 
-    public GraceFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public GraceFragmentStatePagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.mFragments = fragments;
         this.mTitles = titles;

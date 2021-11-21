@@ -1,4 +1,4 @@
-package com.lyricgan.base;
+package com.lyricgan.grace.samples.widget;
 
 import android.content.Context;
 import android.view.LayoutInflater;

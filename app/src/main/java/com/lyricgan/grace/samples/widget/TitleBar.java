@@ -13,8 +13,6 @@ public class TitleBar {
 
     public TitleBar(View view) {
         this.mView = view;
-
-        bindViews(view);
     }
 
     public View getView() {
@@ -23,10 +21,10 @@ public class TitleBar {
 
     public void setView(View view) {
         this.mView = view;
-        bindViews(view);
     }
 
-    private void bindViews(View view) {
+    public void bindViews() {
+        View view = mView;
         if (view == null) {
             return;
         }

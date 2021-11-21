@@ -1,7 +1,6 @@
 package com.lyricgan.grace.samples.app;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.lyricgan.base.GraceFragment;
 import com.lyricgan.grace.samples.widget.TitleBar;
@@ -14,10 +13,6 @@ public abstract class BaseFragment extends GraceFragment {
 
     @Override
     public void onCreateExtras(Bundle savedInstanceState, Bundle args) {
-    }
-
-    @Override
-    public void onClick(View v) {
     }
 
     @Override
