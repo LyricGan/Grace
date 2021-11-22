@@ -17,7 +17,6 @@ import com.lyricgan.grace.samples.app.BaseFragment;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.util.GifSizeFilter;
 import com.lyricgan.grace.samples.util.PageJumpHelper;
-import com.lyricgan.grace.samples.util.PermissionHelper;
 import com.lyricgan.util.UriUtils;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -32,10 +31,7 @@ public class MainFragment extends BaseFragment {
     private TextView tvContent;
 
     public static MainFragment newInstance() {
-        Bundle args = new Bundle();
-        MainFragment fragment = new MainFragment();
-        fragment.setArguments(args);
-        return fragment;
+        return new MainFragment();
     }
 
     @Override
@@ -62,12 +58,9 @@ public class MainFragment extends BaseFragment {
     }
 
     private void onVideoPlayClick() {
-//        jumpVideoPage("http://mvvideo2.meitudata.com/572e1dbe4fe681155.mp4");
-
         if (XXPermissions.isGranted(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             selectVideo();
         } else {
-            PermissionHelper.requestPermissions(getActivity(), 10, Manifest.permission.WRITE_EXTERNAL_STORAGE);
             XXPermissions.with(getActivity()).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).request((permissions, all) -> {
                 if (all) {
                     selectVideo();
@@ -100,10 +93,14 @@ public class MainFragment extends BaseFragment {
         tvContent.setText(uriStrings);
 
         Uri uri = selectedList.get(0);
-        jumpVideoPage(UriUtils.getPath(SampleApplication.getContext(), uri));
+        String url = UriUtils.getPath(SampleApplication.getContext(), uri);
+        tvContent.append(url);
+
+        jumpVideoPage(url);
     }
 
     private void jumpVideoPage(String url) {
+//        final String testUrl = "http://mvvideo2.meitudata.com/572e1dbe4fe681155.mp4";
         Bundle extras = new Bundle();
         extras.putString(IExtras.KEY_URL, url);
         PageJumpHelper.jumpActivity(getActivity(), VideoActivity.class, extras);
