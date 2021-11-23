@@ -49,22 +49,7 @@
     <color name="blue">#FF0000FF</color> <!-- 蓝色 -->
     <color name="point">#FFBABABA</color> <!-- 灰色 -->
 
-    <color name="half_transparent">#88000000</color>
-    <color name="half_black">#35000000</color>
-    <color name="half_white">#80FFFFFF</color>
-    <color name="light_brown">#FFFAF3</color>
-    <color name="light_gray">#FF999999</color>
-    <color name="light_orange">#FFE2C9</color>
-    <color name="light_blue">#5DCDEF</color>
-
-    <color name="color_text_default">#FF555555</color>
-    <color name="color_text_white">#FFFFFFFF</color>
-    <color name="color_text_black">#FF222222</color>
-    <color name="color_text_gray">#FF888888</color>
-    <color name="color_text_hint">#FF999999</color>
-
-    <color name="app_background">#FFF6F6F6</color>
-    <color name="color_divider">#FFE0E0E0</color>
-    <color name="color_thumb">#FFB2B2B2</color>
-    <color name="color_white_pressed">#FFF8F8F8</color>
+    <color name="text_default">#FF555555</color>
+    <color name="text_hint">#FF999999</color>
+    <color name="divider">#FFE0E0E0</color>
 </resources>

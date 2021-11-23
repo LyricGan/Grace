@@ -5,29 +5,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/app_background</item>
-    </style>
-
-    <style name="AppTheme.Translucent" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.Default">
-        <item name="overlapAnchor">false</item>
 
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:listDivider">@drawable/divider</item>
+        <item name="android:textViewStyle">@style/TextStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
     <!-- 默认文本样式 -->
     <style name="TextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/color_text_default</item>
+        <item name="android:textColor">@color/text_default</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
@@ -35,8 +24,8 @@
     <style name="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/color_text_black</item>
-        <item name="android:textColorHint">@color/color_text_hint</item>
+        <item name="android:textColor">@color/text_default</item>
+        <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:background">@null</item>
         <item name="android:inputType">text</item>
@@ -47,14 +36,14 @@
     <style name="DividerLineStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
-        <item name="android:background">@color/color_divider</item>
+        <item name="android:background">@color/divider</item>
     </style>
 
     <!-- 默认列表样式 -->
     <style name="ListViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:divider">@color/color_divider</item>
+        <item name="android:divider">@color/divider</item>
         <item name="android:dividerHeight">0.5dp</item>
         <item name="android:cacheColorHint">#00000000</item>
     </style>

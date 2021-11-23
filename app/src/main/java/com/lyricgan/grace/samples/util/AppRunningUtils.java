@@ -11,7 +11,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 /**
- * 应用电池及后台运行权限设置工具类，需要在manifest文件配置允许忽略电池优化权限
+ * 应用电池及后台运行权限设置工具类，需要在manifest文件配置允许忽略电池优化权限<br/>
+ * android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
  *
  * @author Lyric Gan
  */
