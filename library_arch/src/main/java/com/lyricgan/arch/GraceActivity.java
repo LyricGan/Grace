@@ -1,4 +1,4 @@
-package com.lyricgan.base;
+package com.lyricgan.arch;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class GraceActivity extends AppCompatActivity implements GraceAppListener {
-    private boolean mActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +44,12 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
     protected void onResume() {
         super.onResume();
         logMessage("onResume()");
-        mActive = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         logMessage("onPause()");
-        mActive = false;
     }
 
     @Override
@@ -98,15 +95,6 @@ public abstract class GraceActivity extends AppCompatActivity implements GraceAp
     }
 
     protected abstract void onCreateTitleBar(View decorView, Bundle savedInstanceState);
-
-    /**
-     * 返回页面是否处于活动状态
-     *
-     * @return true or false
-     */
-    public boolean isActive() {
-        return mActive;
-    }
 
     private void logMessage(String message) {
         Log.d(getClass().getName(), message);

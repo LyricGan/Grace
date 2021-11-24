@@ -1,5 +1,5 @@
 include ':app'
-include ':library_base'
+include ':library_arch'
 include ':library_gson'
 include ':library_network'
 include ':library_imageloader'

@@ -136,7 +136,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13.2'
 
-    implementation project(':library_base')
+    implementation project(':library_arch')
     implementation project(':library_util')
     implementation project(':library_widget')
     implementation project(':library_gson')

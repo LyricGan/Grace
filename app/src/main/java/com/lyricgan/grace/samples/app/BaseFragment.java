@@ -2,7 +2,7 @@ package com.lyricgan.grace.samples.app;
 
 import android.os.Bundle;
 
-import com.lyricgan.base.GraceFragment;
+import com.lyricgan.arch.GraceFragment;
 import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseFragment extends GraceFragment {

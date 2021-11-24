@@ -1,4 +1,4 @@
-package com.lyricgan.base;
+package com.lyricgan.arch;
 
 import android.os.Bundle;
 import android.view.View;
