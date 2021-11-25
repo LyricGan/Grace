@@ -1,7 +1,6 @@
 package com.lyricgan.grace.samples.app;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -80,21 +79,5 @@ public class ContainerActivity extends BaseActivity {
             e.printStackTrace();
             finish();
         }
-    }
-
-    public Bundle getParams() {
-        return mParams;
-    }
-
-    public Fragment getContainerFragment() {
-        return mFragment;
-    }
-
-    public void replaceContainerFragment() {
-        String fragmentName = mFragmentName;
-        if (TextUtils.isEmpty(fragmentName)) {
-            return;
-        }
-        initFragment(fragmentName, mParams);
     }
 }
