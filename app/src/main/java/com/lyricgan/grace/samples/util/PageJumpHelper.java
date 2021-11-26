@@ -18,6 +18,9 @@ import com.lyricgan.grace.samples.constants.IExtras;
  */
 public class PageJumpHelper {
 
+    private PageJumpHelper() {
+    }
+
     /**
      * 跳转到Fragment页面
      * @param context Context

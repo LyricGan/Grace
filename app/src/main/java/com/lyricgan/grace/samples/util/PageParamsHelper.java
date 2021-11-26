@@ -11,11 +11,14 @@ import com.lyricgan.grace.samples.constants.IExtras;
  */
 public class PageParamsHelper {
 
+    private PageParamsHelper() {
+    }
+
     private static Bundle newParams() {
         return new Bundle();
     }
 
-    public static Bundle getIdParams(String id) {
+    public static Bundle getParams(String id) {
         Bundle params = newParams();
         params.putString(IExtras.KEY_ID, id);
         return params;

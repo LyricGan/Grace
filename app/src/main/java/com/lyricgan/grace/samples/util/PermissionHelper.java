@@ -7,14 +7,15 @@ import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 /**
- * 应用权限工具类
- *
+ * 权限工具类
  * @author Lyric Gan
  */
 public class PermissionHelper {
+
+    private PermissionHelper() {
+    }
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -33,12 +34,5 @@ public class PermissionHelper {
             return;
         }
         ActivityCompat.requestPermissions(activity, permissions, requestCode);
-    }
-
-    public static void requestPermissions(Fragment fragment, int requestCode, String... permissions) {
-        if (fragment == null) {
-            return;
-        }
-        fragment.requestPermissions(permissions, requestCode);
     }
 }
