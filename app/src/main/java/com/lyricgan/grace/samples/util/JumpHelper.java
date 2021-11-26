@@ -16,9 +16,9 @@ import com.lyricgan.grace.samples.constants.IExtras;
  *
  * @author Lyric Gan
  */
-public class PageJumpHelper {
+public class JumpHelper {
 
-    private PageJumpHelper() {
+    private JumpHelper() {
     }
 
     /**

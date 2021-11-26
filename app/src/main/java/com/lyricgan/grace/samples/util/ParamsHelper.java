@@ -9,17 +9,13 @@ import com.lyricgan.grace.samples.constants.IExtras;
  *
  * @author Lyric Gan
  */
-public class PageParamsHelper {
+public class ParamsHelper {
 
-    private PageParamsHelper() {
-    }
-
-    private static Bundle newParams() {
-        return new Bundle();
+    private ParamsHelper() {
     }
 
     public static Bundle getParams(String id) {
-        Bundle params = newParams();
+        Bundle params = new Bundle();
         params.putString(IExtras.KEY_ID, id);
         return params;
     }

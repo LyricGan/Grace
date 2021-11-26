@@ -16,7 +16,7 @@ import com.lyricgan.grace.samples.SampleApplication;
 import com.lyricgan.grace.samples.app.BaseActivity;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.util.GifSizeFilter;
-import com.lyricgan.grace.samples.util.PageJumpHelper;
+import com.lyricgan.grace.samples.util.JumpHelper;
 import com.lyricgan.util.UriUtils;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -99,6 +99,6 @@ public class MainActivity extends BaseActivity {
 //        final String testUrl = "http://mvvideo2.meitudata.com/572e1dbe4fe681155.mp4";
         Bundle extras = new Bundle();
         extras.putString(IExtras.KEY_URL, url);
-        PageJumpHelper.jumpActivity(this, VideoActivity.class, extras);
+        JumpHelper.jumpActivity(this, VideoActivity.class, extras);
     }
 }
