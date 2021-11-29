@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import com.lyricgan.grace.samples.R;
 
+/**
+ * 标题栏
+ */
 public class TitleBar {
     private View mView;
     private TextView tvLeftText, tvCenterText, tvRightText, tvRightSecondText;
@@ -39,87 +42,75 @@ public class TitleBar {
     }
 
     public void setLeftText(int resId) {
-        if (tvLeftText == null) {
-            return;
+        if (tvLeftText != null) {
+            tvLeftText.setText(resId);
         }
-        tvLeftText.setText(resId);
     }
 
     public void setLeftText(CharSequence text) {
-        if (tvLeftText == null) {
-            return;
+        if (tvLeftText != null) {
+            tvLeftText.setText(text);
         }
-        tvLeftText.setText(text);
     }
 
     public void setLeftImage(int resId) {
-        if (ivLeftImage == null) {
-            return;
+        if (ivLeftImage != null) {
+            ivLeftImage.setImageResource(resId);
         }
-        ivLeftImage.setImageResource(resId);
     }
 
     public void setCenterText(int resId) {
-        if (tvCenterText == null) {
-            return;
+        if (tvCenterText != null) {
+            tvCenterText.setText(resId);
         }
-        tvCenterText.setText(resId);
     }
 
     public void setCenterText(CharSequence text) {
-        if (tvCenterText == null) {
-            return;
+        if (tvCenterText != null) {
+            tvCenterText.setText(text);
         }
-        tvCenterText.setText(text);
     }
 
     public void setCenterImage(int redId) {
-        if (ivCenterImage == null) {
-            return;
+        if (ivCenterImage != null) {
+            ivCenterImage.setImageResource(redId);
         }
-        ivCenterImage.setImageResource(redId);
     }
 
     public void setRightText(int resId) {
-        if (tvRightText == null) {
-            return;
+        if (tvRightText != null) {
+            tvRightText.setText(resId);
         }
-        tvRightText.setText(resId);
     }
 
     public void setRightText(CharSequence text) {
-        if (tvRightText == null) {
-            return;
+        if (tvRightText != null) {
+            tvRightText.setText(text);
         }
-        tvRightText.setText(text);
     }
 
     public void setRightSecondText(int resId) {
-        if (tvRightSecondText == null) {
-            return;
+        if (tvRightSecondText != null) {
+            tvRightSecondText.setText(resId);
         }
-        tvRightSecondText.setText(resId);
     }
 
     public void setRightSecondText(CharSequence text) {
-        if (tvRightSecondText == null) {
-            return;
+        if (tvRightSecondText != null) {
+            tvRightSecondText.setText(text);
         }
-        tvRightSecondText.setText(text);
     }
 
     public void setRightImage(int resId) {
-        if (ivRightImage == null) {
-            return;
+        if (ivRightImage != null) {
+            ivRightImage.setImageResource(resId);
         }
-        ivRightImage.setImageResource(resId);
     }
 
     public void setRightSecondImage(int resId) {
-        if (ivRightSecondImage == null) {
-            return;
+        if (ivRightSecondImage != null) {
+            ivRightSecondImage.setImageResource(resId);
         }
-        ivRightSecondImage.setImageResource(resId);
     }
 
     public void setLeftTextOnClickListener(View.OnClickListener listener) {
