@@ -1,28 +1,23 @@
 package com.lyricgan.grace.samples.widget;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lyricgan.grace.samples.R;
 
 /**
- * 标题栏
+ * 自定义标题栏
  */
 public class TitleBar {
-    private View mView;
+    private final View mView;
+    private ViewGroup titleBarView;
     private TextView tvLeftText, tvCenterText, tvRightText, tvRightSecondText;
     private ImageView ivLeftImage, ivCenterImage, ivRightImage, ivRightSecondImage;
 
     public TitleBar(View view) {
-        this.mView = view;
-    }
-
-    public View getView() {
-        return mView;
-    }
-
-    public void setView(View view) {
         this.mView = view;
     }
 
@@ -31,6 +26,7 @@ public class TitleBar {
         if (view == null) {
             return;
         }
+        titleBarView = view.findViewById(R.id.title_bar);
         tvLeftText = view.findViewById(R.id.title_bar_left_text);
         ivLeftImage = view.findViewById(R.id.title_bar_left_image);
         tvCenterText = view.findViewById(R.id.title_bar_center_text);
@@ -39,6 +35,24 @@ public class TitleBar {
         tvRightSecondText = view.findViewById(R.id.title_bar_right_second_text);
         ivRightImage = view.findViewById(R.id.title_bar_right_image);
         ivRightSecondImage = view.findViewById(R.id.title_bar_right_second_image);
+    }
+
+    public void setBackgroundColor(int color) {
+        if (titleBarView != null) {
+            titleBarView.setBackgroundColor(color);
+        }
+    }
+
+    public void setBackgroundResource(int resId) {
+        if (titleBarView != null) {
+            titleBarView.setBackgroundResource(resId);
+        }
+    }
+
+    public void setBackground(Drawable background) {
+        if (titleBarView != null) {
+            titleBarView.setBackground(background);
+        }
     }
 
     public void setLeftText(int resId) {
