@@ -3,6 +3,7 @@ package com.lyricgan.media.video.controller;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -360,7 +361,7 @@ public abstract class MediaPlayerBaseControllerView extends FrameLayout {
         });
     }
 
-    protected Handler mHandler = new Handler() {
+    protected Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {

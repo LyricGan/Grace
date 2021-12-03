@@ -1,7 +1,6 @@
 package com.lyricgan.media.video.controller;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,10 +29,6 @@ public class VideoMediaPlayerSmallControllerView extends MediaPlayerBaseControll
     private ImageView overflowImage;
     private boolean isFirst;
 
-    public VideoPlayerView.PlayerViewTitleOption getPlayerViewTitleOptionListener() {
-        return playerViewTitleOptionListener;
-    }
-
     public void setPlayerViewTitleOptionListener(VideoPlayerView.PlayerViewTitleOption playerViewTitleOptionListener) {
         this.playerViewTitleOptionListener = playerViewTitleOptionListener;
     }
@@ -60,17 +55,17 @@ public class VideoMediaPlayerSmallControllerView extends MediaPlayerBaseControll
 
     @Override
     public void initViews() {
-        mControllerTopView = (RelativeLayout) findViewById(R.id.controller_top_layout);
-        backImage = (ImageView) findViewById(R.id.image_back);
-        mTitleTextView = (TextView) findViewById(R.id.title_text_view);
-        overflowImage = (ImageView) findViewById(R.id.image_overflow_video);
+        mControllerTopView = findViewById(R.id.controller_top_layout);
+        backImage = findViewById(R.id.image_back);
+        mTitleTextView = findViewById(R.id.title_text_view);
+        overflowImage = findViewById(R.id.image_overflow_video);
 
-        mControllerBottomView = (RelativeLayout) findViewById(R.id.controller_bottom_layout);
-        mSeekBar = (MediaPlayerVideoSeekBar) findViewById(R.id.seekbar_video_progress);
-        mPlaybackImageView = (ImageView) findViewById(R.id.video_playback_image_view);
-        mScreenModeImageView = (ImageView) findViewById(R.id.video_fullscreen_image_view);
-        mCurrentTimeTextView = (TextView) findViewById(R.id.video_small_current_time_tv);
-        mTotalTimeTextView = (TextView) findViewById(R.id.video_small_duration_time_tv);
+        mControllerBottomView = findViewById(R.id.controller_bottom_layout);
+        mSeekBar = findViewById(R.id.seekbar_video_progress);
+        mPlaybackImageView = findViewById(R.id.video_playback_image_view);
+        mScreenModeImageView = findViewById(R.id.video_fullscreen_image_view);
+        mCurrentTimeTextView = findViewById(R.id.video_small_current_time_tv);
+        mTotalTimeTextView = findViewById(R.id.video_small_duration_time_tv);
     }
 
     @Override
@@ -140,43 +135,14 @@ public class VideoMediaPlayerSmallControllerView extends MediaPlayerBaseControll
         mControllerBottomView.setVisibility(INVISIBLE);
     }
 
-    public void updateVideoTitle(String title) {
-        if (!TextUtils.isEmpty(title)) {
-            mTitleTextView.setText(title);
-        }
-    }
-
-    public void updateVideoProgress(float percentage) {
-        if (percentage >= 0 && percentage <= 1) {
-            int progress = (int) (percentage * mSeekBar.getMax());
-            if (!mVideoProgressTrackingTouch) {
-                mSeekBar.setProgress(progress);
-            }
-            long currentPosition = mMediaPlayerController.getCurrentPosition();
-            long duration = mMediaPlayerController.getDuration();
-            if (duration > 0 && currentPosition <= duration) {
-                mCurrentTimeTextView.setText(MediaPlayerUtils.getVideoDisplayTime(currentPosition));
-                mTotalTimeTextView.setText(MediaPlayerUtils.getVideoDisplayTime(duration));
-            }
-        }
-    }
-
     public void updateVideoPlaybackState(boolean isStart) {
         // 判断是否正在播放
         if (isStart) {
             mPlaybackImageView.setImageResource(R.drawable.blue_ksy_pause);
-            if (mMediaPlayerController.canPause()) {
-                mPlaybackImageView.setEnabled(true);
-            } else {
-                mPlaybackImageView.setEnabled(false);
-            }
+            mPlaybackImageView.setEnabled(mMediaPlayerController.canPause());
         } else {
             mPlaybackImageView.setImageResource(R.drawable.blue_ksy_play);
-            if (((IVideoController) mMediaPlayerController).canStart()) {
-                mPlaybackImageView.setEnabled(true);
-            } else {
-                mPlaybackImageView.setEnabled(false);
-            }
+            mPlaybackImageView.setEnabled(((IVideoController) mMediaPlayerController).canStart());
         }
     }
 

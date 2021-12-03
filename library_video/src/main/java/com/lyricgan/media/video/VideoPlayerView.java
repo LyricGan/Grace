@@ -516,42 +516,6 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
         return ev.getY() > top && ev.getY() < bottom;
     }
 
-    /**
-     * 手势处理
-     * <p/>
-     * //     * @param ev
-     *
-     * @return
-     */
-    //    @Override
-    //    public boolean dispatchTouchEvent(MotionEvent ev) {
-    //
-    //        boolean result = false;
-    //        if (mMediaPlayerEventActionView.isShowing()) {
-    //            result = mMediaPlayerEventActionView.dispatchTouchEvent(ev);
-    //        }
-    //
-    //        if (result) {
-    //            return true;
-    //        }
-    //
-    //        if (mVideoReady) {
-    //
-    //            if (MediaPlayerUtils.isFullScreenMode(mPlayMode)) {
-    //                return mMediaPlayerLargeControllerView.dispatchTouchEvent(ev);
-    //            }
-    //            if (MediaPlayerUtils.isWindowMode(mPlayMode)) {
-    //                return mMediaPlayerSmallControllerView.dispatchTouchEvent(ev);
-    //            }
-    //        }
-    //
-    //        return true;
-    //    }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
-
     // 按键的处理
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {

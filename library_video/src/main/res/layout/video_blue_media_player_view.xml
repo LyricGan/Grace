@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipChildren="false">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
     <com.lyricgan.media.video.MediaVideoView
         android:id="@+id/ks_camera_video_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <com.lyricgan.media.video.ui.MediaPlayerBufferingView
         android:id="@+id/ks_camera_buffering_view"
@@ -17,7 +17,7 @@
         <include
             layout="@layout/blue_media_player_buffering_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.lyricgan.media.video.ui.MediaPlayerBufferingView>
 
     <com.lyricgan.media.video.ui.MediaPlayerLoadingView
@@ -28,7 +28,7 @@
         <include
             layout="@layout/blue_media_player_loading_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.lyricgan.media.video.ui.MediaPlayerLoadingView>
 
     <com.lyricgan.media.video.ui.MediaPlayerEventActionView
@@ -39,7 +39,7 @@
         <include
             layout="@layout/blue_media_player_event_action_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.lyricgan.media.video.ui.MediaPlayerEventActionView>
 
     <com.lyricgan.media.video.controller.VideoMediaPlayerLargeControllerView
@@ -50,7 +50,7 @@
         <include
             layout="@layout/video_blue_media_player_controller_large"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.lyricgan.media.video.controller.VideoMediaPlayerLargeControllerView>
 
     <com.lyricgan.media.video.controller.VideoMediaPlayerSmallControllerView
@@ -61,8 +61,7 @@
         <include
             layout="@layout/video_blue_media_player_controller_small"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.lyricgan.media.video.controller.VideoMediaPlayerSmallControllerView>
-
 </RelativeLayout>
 

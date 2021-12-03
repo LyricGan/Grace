@@ -42,9 +42,6 @@ public class MediaVideoView extends SurfaceView implements MediaPlayerControl, I
     public static final int STATE_PLAYING = 3;
     private static final int STATE_PAUSED = 4;
     private static final int STATE_PLAYBACK_COMPLETED = 5;
-    private static final int STATE_SUSPEND = 6;
-    private static final int STATE_RESUME = 7;
-    private static final int STATE_SUSPEND_UNSUPPORTED = 8;
 
     public int mCurrentState = STATE_IDLE;
     private int mTargetState = STATE_IDLE;
@@ -589,14 +586,6 @@ public class MediaVideoView extends SurfaceView implements MediaPlayerControl, I
             return mCurrentBufferPercentage;
         }
         return 0;
-    }
-
-    public int getVideoWidth() {
-        return mVideoWidth;
-    }
-
-    public int getVideoHeight() {
-        return mVideoHeight;
     }
 
     protected boolean isInPlaybackState() {
