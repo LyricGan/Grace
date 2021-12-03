@@ -91,20 +91,20 @@ public abstract class OnDownloadCallback implements ResponseCallback {
     }
 
     private void handleFailed(Call call, IOException e) {
-        HttpManager.getInstance().getMainHandler().post(() -> onFailed(call, e));
+        HttpManager.getInstance().getMainHandler().post(() -> onFailed(new HttpCall(call), e));
     }
 
     private void handleSuccess(Call call, String saveFilePath) {
-        HttpManager.getInstance().getMainHandler().post(() -> onSuccess(call, saveFilePath));
+        HttpManager.getInstance().getMainHandler().post(() -> onSuccess(new HttpCall(call), saveFilePath));
     }
 
     private void handleProgressChanged(Call call, float progress, long contentLength) {
-        HttpManager.getInstance().getMainHandler().post(() -> onProgressChanged(call, progress, contentLength));
+        HttpManager.getInstance().getMainHandler().post(() -> onProgressChanged(new HttpCall(call), progress, contentLength));
     }
 
-    public abstract void onFailed(Call call, IOException e);
+    public abstract void onFailed(HttpCall call, IOException e);
 
-    public abstract void onSuccess(Call call, String saveFilePath);
+    public abstract void onSuccess(HttpCall call, String saveFilePath);
 
-    public abstract void onProgressChanged(Call call, float progress, long contentLength);
+    public abstract void onProgressChanged(HttpCall call, float progress, long contentLength);
 }

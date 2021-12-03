@@ -43,12 +43,12 @@ public abstract class StringCallback implements ResponseCallback {
         }
     }
 
-    protected void handleFailed(Call call, IOException e) {
-        HttpManager.getInstance().getMainHandler().post(() -> onFailed(new HttpCall(call), e));
+    private void handleFailed(Call call, IOException e) {
+        onFailed(new HttpCall(call), e);
     }
 
     /**
-     * 回调在主线程
+     * 回调在子线程
      */
     public abstract void onFailed(HttpCall call, IOException e);
 

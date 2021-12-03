@@ -21,7 +21,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * HTTP网络请求管理类，使用OkHttp实现
+ * HTTP网络请求管理类，使用OkHttp实现，https://github.com/square/okhttp
  * @author Lyric Gan
  */
 public class HttpManager {
@@ -40,7 +40,7 @@ public class HttpManager {
         return Holder.INSTANCE;
     }
 
-    public void initHttpClient(OkHttpClient httpClient) {
+    public void setHttpClient(OkHttpClient httpClient) {
         this.mHttpClient = httpClient;
     }
 

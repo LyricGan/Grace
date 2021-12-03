@@ -3,6 +3,7 @@ package com.lyricgan.network;
 import okhttp3.Call;
 
 /**
+ * 网络请求回调
  * @author Lyric Gan
  */
 public class HttpCall {

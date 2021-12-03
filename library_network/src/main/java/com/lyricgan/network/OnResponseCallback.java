@@ -1,7 +1,5 @@
 package com.lyricgan.network;
 
-import android.text.TextUtils;
-
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -10,7 +8,7 @@ import java.lang.reflect.Type;
  * 网络请求回调接口
  * @author Lyric Gan
  */
-public abstract class OnResponseCallback<T extends IEntity> extends StringCallback {
+public abstract class OnResponseCallback<T extends HttpEntity> extends StringCallback {
     private Type modelType;
 
     public OnResponseCallback() {
@@ -32,15 +30,19 @@ public abstract class OnResponseCallback<T extends IEntity> extends StringCallba
         if (model != null) {
             handleSuccess(call, model);
         } else {
-            handleFailed(call.getCall(), new IOException("Response parse failed"));
+            handleFailed(call, new IOException("Response parse failed"));
         }
     }
 
-    protected abstract T convert(String content, Type modelType);
+    private void handleFailed(HttpCall call, IOException e) {
+        HttpManager.getInstance().getMainHandler().post(() -> onFailed(call, e));
+    }
 
     private void handleSuccess(HttpCall call, T model) {
         HttpManager.getInstance().getMainHandler().post(() -> onSuccess(call, model));
     }
+
+    protected abstract T convert(String content, Type modelType);
 
     public abstract void onFailed(HttpCall call, IOException e);
 

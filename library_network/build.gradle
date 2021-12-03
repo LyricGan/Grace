@@ -28,7 +28,7 @@ android {
 
 dependencies {
     def okhttpVersion = '3.14.9'
-    // OkHttp网络加载库 https://github.com/square/okhttp
+    // 网络加载库，https://github.com/square/okhttp
     api 'com.squareup.okhttp3:okhttp:' + okhttpVersion
     api 'com.squareup.okhttp3:logging-interceptor:' + okhttpVersion
 }
