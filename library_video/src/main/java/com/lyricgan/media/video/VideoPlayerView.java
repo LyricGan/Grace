@@ -613,7 +613,7 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
             mMediaPlayerSmallControllerView.hide();
 
             if (mPlayerViewCallback != null) {
-                mPlayerViewCallback.hideViews();
+                mPlayerViewCallback.onPlayModeChanged(playMode);
             }
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             if (mDeviceNavigationBarExist) {
@@ -632,7 +632,7 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
             mMediaPlayerSmallControllerView.show();
 
             if (mPlayerViewCallback != null) {
-                mPlayerViewCallback.restoreViews();
+                mPlayerViewCallback.onPlayModeChanged(playMode);
             }
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             if (mDeviceNavigationBarExist) {
@@ -978,6 +978,10 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
                 mMediaPlayerEventActionView.updateEventMode(MediaPlayerEventActionView.EVENT_ACTION_VIEW_MODE_WAIT, extraMessage);
             }
             mMediaPlayerEventActionView.show();
+
+            if (mPlayerViewCallback != null) {
+                mPlayerViewCallback.onError(what, extraMessage);
+            }
             return true;
         }
     };
@@ -993,26 +997,24 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
     }
 
     public interface PlayerViewCallback {
-
-        // 小屏切换全屏时的事件通知
-        void hideViews();
-
-        // 全屏切回小屏时的事件通知
-        void restoreViews();
-
-        // 当播放器初始化完成，可以进入播放时的事件通知
+        /**
+         * 播放器初始化完成
+         */
         void onPrepared();
 
-        // 用户操作切换清晰度时的事件通知
-        void onQualityChanged(int quality);
+        /**
+         * 播放模式切换回调
+         */
+        void onPlayModeChanged(int playMode);
 
-        // 用户操作切换剧集
-        void onCourseChanged(int videoId);
-
-        // PlayerView请求Activity销毁自身时事件通知
+        /**
+         * 窗口关闭回调
+         */
         void onFinish(int playMode);
 
-        // PlayerView收到错误消息时的事件通知
+        /**
+         * 错误回调
+         */
         void onError(int errorCode, String errorMsg);
     }
 

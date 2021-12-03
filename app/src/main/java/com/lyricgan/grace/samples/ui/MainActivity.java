@@ -96,7 +96,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void jumpVideoPage(String url) {
-//        final String testUrl = "http://mvvideo2.meitudata.com/572e1dbe4fe681155.mp4";
         Bundle extras = new Bundle();
         extras.putString(IExtras.KEY_URL, url);
         JumpHelper.jumpActivity(this, VideoActivity.class, extras);

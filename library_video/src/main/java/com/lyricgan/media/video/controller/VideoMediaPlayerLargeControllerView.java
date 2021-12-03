@@ -242,16 +242,10 @@ public class VideoMediaPlayerLargeControllerView extends MediaPlayerBaseControll
 
     @Override
     public void setMediaQuality(MediaQualityBean quality) {
-        if (mPlayerViewCallback != null) {
-            mPlayerViewCallback.onQualityChanged(quality.getQualityCode());
-        }
     }
 
     @Override
     public void setRelateVideoInfo(RelateVideoInfo relateVideoInfo) {
-        if (mPlayerViewCallback != null) {
-            mPlayerViewCallback.onCourseChanged(relateVideoInfo.getId());
-        }
     }
 
     @Override

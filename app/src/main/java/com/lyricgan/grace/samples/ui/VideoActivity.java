@@ -30,28 +30,11 @@ public class VideoActivity extends BaseActivity {
 
         videoPlayerView.setPlayerViewCallback(new VideoPlayerView.PlayerViewCallback() {
             @Override
-            public void hideViews() {
-
-            }
-
-            @Override
-            public void restoreViews() {
-
-            }
-
-            @Override
             public void onPrepared() {
-
             }
 
             @Override
-            public void onQualityChanged(int quality) {
-
-            }
-
-            @Override
-            public void onCourseChanged(int videoId) {
-
+            public void onPlayModeChanged(int playMode) {
             }
 
             @Override
@@ -65,7 +48,6 @@ public class VideoActivity extends BaseActivity {
 
             @Override
             public void onError(int errorCode, String errorMsg) {
-
             }
         });
         videoPlayerView.play(videoUrl);
