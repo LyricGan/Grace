@@ -5,7 +5,6 @@ package com.lyricgan.grace.samples.constants;
  * @author Lyric Gan
  */
 public interface IExtras {
-    String KEY_ID = "key_id";
     String KEY_NAME = "key_name";
     String KEY_TITLE = "key_title";
     String KEY_URL = "key_url";
