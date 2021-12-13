@@ -54,15 +54,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void onVideoPlayClick() {
-        if (XXPermissions.isGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            selectVideo();
-        } else {
-            XXPermissions.with(this).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).request((permissions, all) -> {
-                if (all) {
-                    selectVideo();
-                }
-            });
-        }
+        XXPermissions.with(this).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).request((permissions, all) -> {
+            if (all) {
+                selectVideo();
+            }
+        });
     }
 
     private void selectVideo() {
