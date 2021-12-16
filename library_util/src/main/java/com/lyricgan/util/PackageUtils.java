@@ -311,6 +311,9 @@ public class PackageUtils {
      */
     public static final int DELETE_FAILED_PERMISSION_DENIED = -4;
 
+    private PackageUtils() {
+    }
+
     /**
      * install according conditions
      * <ul>

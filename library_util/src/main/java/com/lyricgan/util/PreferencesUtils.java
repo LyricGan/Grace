@@ -10,6 +10,9 @@ import android.preference.PreferenceManager;
  */
 public class PreferencesUtils {
 
+    private PreferencesUtils() {
+    }
+
     public static SharedPreferences getPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }

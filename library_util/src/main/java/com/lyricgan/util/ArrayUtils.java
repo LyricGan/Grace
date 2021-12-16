@@ -6,6 +6,9 @@ package com.lyricgan.util;
  */
 public class ArrayUtils {
 
+    private ArrayUtils() {
+    }
+
     public static int[] bubbleSort(int[] array) {
         if (array == null || array.length == 0) {
             return array;

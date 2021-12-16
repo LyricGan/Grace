@@ -58,6 +58,9 @@ public class FileUtils {
         }
     }
 
+    private FileUtils() {
+    }
+
     /**
      * read file
      *

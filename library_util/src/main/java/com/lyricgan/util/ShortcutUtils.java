@@ -14,6 +14,9 @@ import android.net.Uri;
  */
 public class ShortcutUtils {
 
+    private ShortcutUtils() {
+    }
+
     /**
      * 创建快捷方式
      * @param context 上下文对象

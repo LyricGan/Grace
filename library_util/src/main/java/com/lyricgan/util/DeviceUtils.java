@@ -17,17 +17,20 @@ import java.util.UUID;
  */
 public class DeviceUtils {
     private static final String INSTALLATION = "INSTALLATION";
-    private static String mId;
+    private static String sId;
 
-    public static synchronized String getId(Context context) {
-        if (mId == null) {
+    private DeviceUtils() {
+    }
+
+    public static String getId(Context context) {
+        if (sId == null) {
             File installation = new File(context.getFilesDir(), INSTALLATION);
             if (!installation.exists()) {
                 writeInstallationFile(installation);
             }
-            mId = readInstallationFile(installation);
+            sId = readInstallationFile(installation);
         }
-        return mId;
+        return sId;
     }
 
     private static String readInstallationFile(File file) {

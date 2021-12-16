@@ -29,6 +29,9 @@ public class ShellUtils {
     private static final String COMMAND_EXIT = "exit\n";
     private static final String COMMAND_LINE_END = "\n";
 
+    private ShellUtils() {
+    }
+
     /**
      * check whether has root permission
      * @return true or false

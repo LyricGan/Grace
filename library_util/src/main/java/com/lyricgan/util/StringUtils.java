@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
+    private StringUtils() {
+    }
+
     public static boolean isNumber(String str) {
         return Pattern.compile("[0-9]*").matcher(str).matches();
     }

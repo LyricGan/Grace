@@ -23,6 +23,9 @@ public class TimeUtils {
     public static final String PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm";
     public static final String PATTERN_TIME = "HH:mm";
 
+    private TimeUtils() {
+    }
+
     public static DateFormat dateFormat(String pattern, Locale locale) {
         return new SimpleDateFormat(pattern, locale);
     }

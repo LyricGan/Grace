@@ -20,6 +20,9 @@ import java.util.List;
  */
 public class ActivityUtils {
 
+    private ActivityUtils() {
+    }
+
     public static boolean isActivityInvalid(Activity activity) {
         if (activity == null) {
             return true;

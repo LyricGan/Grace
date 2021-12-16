@@ -1,54 +1,41 @@
 package com.lyricgan.util;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 /**
  * 吐司工具类
  * @author Lyric Gan
  */
 public class ToastUtils {
-    private static Toast mToast = null;
-    private static final Object mSynObject = new Object();
+    private static WeakReference<Toast> sToast;
 
     private ToastUtils() {
     }
 
-    public static void show(Context context, CharSequence text) {
-        show(context, text, Toast.LENGTH_SHORT);
+    public static void showToast(Context context, int textId) {
+        Toast toast = sToast != null ? sToast.get() : null;
+        if (toast == null) {
+            toast = Toast.makeText(context, textId, Toast.LENGTH_SHORT);
+            sToast = new WeakReference<>(toast);
+        }
+        toast.setText(textId);
+        toast.show();
     }
 
-    public static void show(Context context, int resId) {
-        show(context, resId, Toast.LENGTH_SHORT);
-    }
-
-    public static void show(Context context, int resId, int duration) {
-        show(context, context.getString(resId), duration);
-    }
-
-    public static void show(final Context context, final CharSequence text, final int duration) {
-        if (context == null) {
+    public static void showToast(Context context, CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
             return;
         }
-        CommonUtils.getMainHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (mSynObject) {
-                    if (mToast != null) {
-                        mToast.setText(text);
-                        mToast.setDuration(duration);
-                    } else {
-                        mToast = Toast.makeText(context, text, duration);
-                    }
-                    mToast.show();
-                }
-            }
-        });
-    }
-
-    public static void cancel() {
-        if (mToast != null) {
-            mToast.cancel();
+        Toast toast = sToast != null ? sToast.get() : null;
+        if (toast == null) {
+            toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            sToast = new WeakReference<>(toast);
         }
+        toast.setText(text);
+        toast.show();
     }
 }

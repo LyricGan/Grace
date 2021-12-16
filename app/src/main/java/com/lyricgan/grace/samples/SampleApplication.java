@@ -1,18 +1,17 @@
 package com.lyricgan.grace.samples;
 
 import android.app.Application;
-import android.content.Context;
+
+import com.lyricgan.util.ApplicationUtils;
+import com.lyricgan.util.LogUtils;
 
 public class SampleApplication extends Application {
-    private static Application sInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = this;
-    }
 
-    public static Context getContext() {
-        return sInstance.getApplicationContext();
+        ApplicationUtils.setApplication(this);
+        LogUtils.setDebug(true);
     }
 }

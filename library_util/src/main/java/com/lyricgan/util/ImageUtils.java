@@ -41,6 +41,9 @@ import java.io.InputStream;
  */
 public class ImageUtils {
 
+    private ImageUtils() {
+    }
+
     /**
      * 从字节数组中获取图片
      * @param bytes 字节数组

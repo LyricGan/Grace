@@ -12,6 +12,9 @@ import java.util.Locale;
  */
 public class IntentUtils {
 
+    private IntentUtils() {
+    }
+
     public static Intent getIntent(String action, String uriString) {
         Intent intent = new Intent(action);
         intent.setData(Uri.parse(uriString));

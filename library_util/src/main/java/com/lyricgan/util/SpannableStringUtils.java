@@ -27,6 +27,9 @@ import java.util.regex.Pattern;
  */
 public class SpannableStringUtils {
 
+    private SpannableStringUtils() {
+    }
+
     /**
      * 获取指定位置缩放后的字符串
      * @param source 源字符串
@@ -142,7 +145,7 @@ public class SpannableStringUtils {
     public static SpannableString matcherText(String text, String[] keywords, int color, CharacterStyle characterStyle) {
         SpannableString s = new SpannableString(text);
         for (String keyword: keywords) {
-            s = matcherIn(s, keyword, color, characterStyle);
+            matcherIn(s, keyword, color, characterStyle);
         }
         return s;
     }

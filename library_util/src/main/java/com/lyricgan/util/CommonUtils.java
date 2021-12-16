@@ -2,8 +2,6 @@ package com.lyricgan.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Process;
 import android.text.TextUtils;
 
@@ -14,26 +12,8 @@ import java.util.List;
  * @author Lyric Gan
  */
 public class CommonUtils {
-    private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 
-    public static Handler getMainHandler() {
-        return MAIN_HANDLER;
-    }
-
-    public static void run(Runnable runnable) {
-        if (isMainThread()) {
-            runnable.run();
-        } else {
-            MAIN_HANDLER.post(runnable);
-        }
-    }
-
-    /**
-     * 判断是否在主线程
-     * @return true or false
-     */
-    public static boolean isMainThread() {
-        return (Looper.myLooper() == Looper.getMainLooper());
+    private CommonUtils() {
     }
 
     /**
@@ -43,8 +23,7 @@ public class CommonUtils {
      * @return true or false
      */
     public static boolean isMainProcess(Context context, String processName) {
-        String packageName = context.getPackageName();
-        return TextUtils.equals(packageName, processName);
+        return TextUtils.equals(context.getPackageName(), processName);
     }
 
     /**

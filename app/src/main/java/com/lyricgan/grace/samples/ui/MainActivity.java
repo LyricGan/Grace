@@ -12,11 +12,12 @@ import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
 import com.lyricgan.grace.samples.R;
-import com.lyricgan.grace.samples.SampleApplication;
 import com.lyricgan.grace.samples.app.BaseActivity;
 import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.util.GifSizeFilter;
 import com.lyricgan.grace.samples.util.JumpHelper;
+import com.lyricgan.util.ApplicationUtils;
+import com.lyricgan.util.LogUtils;
 import com.lyricgan.util.UriUtils;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -26,6 +27,7 @@ import com.zhihu.matisse.filter.Filter;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
+    private static final String TAG = "MainActivity";
     private static final int CODE_SELECT_VIDEO = 0x1001;
 
     private TextView tvContent;
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onCreateData(Bundle savedInstanceState) {
+        LogUtils.d(TAG, "DebugMode:" + ApplicationUtils.isDebugMode(ApplicationUtils.getContext()));
     }
 
     @Override
@@ -85,7 +88,7 @@ public class MainActivity extends BaseActivity {
         tvContent.setText(uriStrings);
 
         Uri uri = selectedList.get(0);
-        String url = UriUtils.getPath(SampleApplication.getContext(), uri);
+        String url = UriUtils.getPath(ApplicationUtils.getContext(), uri);
         tvContent.append(url);
 
         jumpVideoPage(url);

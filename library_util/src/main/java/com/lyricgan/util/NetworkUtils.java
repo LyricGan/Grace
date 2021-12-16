@@ -1,6 +1,5 @@
 package com.lyricgan.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,8 +9,10 @@ import android.telephony.TelephonyManager;
  * 网络工具类
  * @author Lyric Gan
  */
-@SuppressLint("MissingPermission")
 public class NetworkUtils {
+
+    private NetworkUtils() {
+    }
 
     /**
      * 判断是否有网络连接，需要权限：{@link android.Manifest.permission#ACCESS_NETWORK_STATE}

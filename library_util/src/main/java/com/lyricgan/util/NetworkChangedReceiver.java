@@ -1,6 +1,5 @@
 package com.lyricgan.util;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,7 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
     private static final String TAG = NetworkChangedReceiver.class.getSimpleName();
     private static final IntentFilter NETWORK_INTENT_FILTER = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
     private static NetworkChangedReceiver mInstance;
-    private List<NetStateChangedListener> mListeners;
+    private final List<NetStateChangedListener> mListeners;
 
     private NetworkChangedReceiver() {
         mListeners = new ArrayList<>();
@@ -60,13 +59,11 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
         if (listener == null) {
             return;
         }
-        if (mListeners.contains(listener)) {
-            mListeners.remove(listener);
-        }
+        mListeners.remove(listener);
     }
 
     public void clearNetStateChangeListeners() {
-        if (mListeners != null && !mListeners.isEmpty()) {
+        if (!mListeners.isEmpty()) {
             mListeners.clear();
         }
     }
@@ -83,7 +80,6 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
      * @param context 上下文
      * @return 当前网络状态
      */
-    @SuppressLint("MissingPermission")
     public NetState getCurrentNetState(Context context) {
         if (context == null) {
             return NetState.NET_NONE;

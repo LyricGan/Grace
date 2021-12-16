@@ -19,6 +19,9 @@ import java.io.ByteArrayOutputStream;
  */
 public class SnapshotUtils {
 
+    private SnapshotUtils() {
+    }
+
     /**
      * 对页面进行截图
      * @param activity 指定activity

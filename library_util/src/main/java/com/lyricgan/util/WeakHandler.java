@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
  * @author Lyric Gan
  */
 public class WeakHandler<T> extends Handler {
-    private WeakReference<T> mReference;
+    private final WeakReference<T> mReference;
 
     public WeakHandler(T object) {
         this(object, Looper.getMainLooper());

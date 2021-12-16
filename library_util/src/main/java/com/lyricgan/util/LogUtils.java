@@ -12,18 +12,18 @@ public class LogUtils {
     private static final String TAG = LogUtils.class.getSimpleName();
     private static boolean sDebug = false;
     private static int sLevel = Log.VERBOSE;
-    private String mClassName;
-    private static Hashtable<String, LogUtils> mLoggerTable = new Hashtable<>();
+    private final String mClassName;
+    private static final Hashtable<String, LogUtils> CACHE = new Hashtable<>();
 
     private LogUtils(String name) {
         this.mClassName = name;
     }
 
     private static LogUtils getInstance(String className) {
-        LogUtils classLogger = mLoggerTable.get(className);
+        LogUtils classLogger = CACHE.get(className);
         if (classLogger == null) {
             classLogger = new LogUtils(className);
-            mLoggerTable.put(className, classLogger);
+            CACHE.put(className, classLogger);
         }
         return classLogger;
     }
@@ -66,56 +66,31 @@ public class LogUtils {
 
     private void i(Object obj) {
         if (sDebug && sLevel <= Log.INFO) {
-            String stackString = buildStackTrace();
-            if (stackString != null) {
-                Log.i(TAG, stackString + obj);
-            } else {
-                Log.i(TAG, obj.toString());
-            }
+            Log.i(TAG, getLogMessage(obj));
         }
     }
 
     private void d(Object obj) {
         if (sDebug && sLevel <= Log.DEBUG) {
-            String stackString = buildStackTrace();
-            if (stackString != null) {
-                Log.d(TAG, stackString + obj);
-            } else {
-                Log.d(TAG, obj.toString());
-            }
+            Log.d(TAG, getLogMessage(obj));
         }
     }
 
     private void v(Object obj) {
         if (sDebug && sLevel <= Log.VERBOSE) {
-            String stackString = buildStackTrace();
-            if (stackString != null) {
-                Log.v(TAG, stackString + obj);
-            } else {
-                Log.v(TAG, obj.toString());
-            }
+            Log.v(TAG, getLogMessage(obj));
         }
     }
 
     private void w(Object obj) {
         if (sDebug && sLevel <= Log.WARN) {
-            String stackString = buildStackTrace();
-            if (stackString != null) {
-                Log.w(TAG, stackString + obj);
-            } else {
-                Log.w(TAG, obj.toString());
-            }
+            Log.w(TAG, getLogMessage(obj));
         }
     }
 
     private void e(Object obj) {
         if (sDebug && sLevel <= Log.ERROR) {
-            String stackString = buildStackTrace();
-            if (stackString != null) {
-                Log.e(TAG, stackString + obj);
-            } else {
-                Log.e(TAG, obj.toString());
-            }
+            Log.e(TAG, getLogMessage(obj));
         }
     }
 
@@ -141,20 +116,28 @@ public class LogUtils {
         }
     }
 
+    private String getLogMessage(Object obj) {
+        String stackString = buildStackTrace();
+        if (stackString != null) {
+            return stackString + obj;
+        }
+        return obj.toString();
+    }
+
     private String buildStackTrace() {
-        StackTraceElement[] stackTraceElementArray = Thread.currentThread().getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTraceElementArray) {
-            if (stackTraceElement.isNativeMethod()) {
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : elements) {
+            if (element.isNativeMethod()) {
                 continue;
             }
-            if (stackTraceElement.getClassName().equals(Thread.class.getName())) {
+            if (element.getClassName().equals(Thread.class.getName())) {
                 continue;
             }
-            if (stackTraceElement.getClassName().equals(this.getClass().getName())) {
+            if (element.getClassName().equals(this.getClass().getName())) {
                 continue;
             }
-            return mClassName + "." + stackTraceElement.getMethodName() + "()"
-                    + "[Line:" + stackTraceElement.getLineNumber() + "]";
+            return mClassName + "." + element.getMethodName() + "()"
+                    + "[Line:" + element.getLineNumber() + "]";
         }
         return null;
     }

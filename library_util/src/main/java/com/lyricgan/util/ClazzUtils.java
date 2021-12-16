@@ -18,21 +18,21 @@ import java.util.List;
  */
 public class ClazzUtils {
 
-    public static ParameterizedType typeOf(final Type rawType, final Type ownerType, final Type... actualTypeArguments) {
+    private ClazzUtils() {
+    }
+
+    public static ParameterizedType type(final Class<?> raw, final Type... args) {
         return new ParameterizedType() {
-            @Override
-            public Type[] getActualTypeArguments() {
-                return actualTypeArguments;
-            }
-
-            @Override
             public Type getRawType() {
-                return rawType;
+                return raw;
             }
 
-            @Override
+            public Type[] getActualTypeArguments() {
+                return args;
+            }
+
             public Type getOwnerType() {
-                return ownerType;
+                return null;
             }
         };
     }
@@ -57,13 +57,15 @@ public class ClazzUtils {
             return Object.class;
         }
         Type[] types = clazz.getGenericInterfaces();
-        for (Type t : types) {
-            if (t instanceof ParameterizedType) {
-                Class<?> cls = (Class<?>) ((ParameterizedType) t).getRawType();
-                if (declaredClass.isAssignableFrom(cls)) {
-                    try {
-                        return getReallyType(getType(t, declaredClass, paramIndex), typeVariableArray, typeArray);
-                    } catch (Throwable ignored) {
+        if (types != null) {
+            for (Type t : types) {
+                if (t instanceof ParameterizedType) {
+                    Class<?> cls = (Class<?>) ((ParameterizedType) t).getRawType();
+                    if (declaredClass.isAssignableFrom(cls)) {
+                        try {
+                            return getReallyType(getType(t, declaredClass, paramIndex), typeVariableArray, typeArray);
+                        } catch (Throwable ignored) {
+                        }
                     }
                 }
             }
@@ -100,28 +102,26 @@ public class ClazzUtils {
 
     /**
      * 查找接口下的所有实现类
+     *
      * @param clazz 接口
      * @return 接口下的所有实现类
      */
-    public static List<Class> getAllClassByInterface(Class<?> clazz) {
-        List<Class> resultList = new ArrayList<>();
+    public static List<Class<?>> getAllClassByInterface(Class<?> clazz) {
+        List<Class<?>> resultList = new ArrayList<>();
         if (clazz.isInterface()) {
-            Package clsPackage = clazz.getPackage();
-            if (clsPackage == null) {
-                return resultList;
-            }
-            String packageName = clsPackage.getName();
+            String packageName = clazz.getPackage().getName();
             try {
-                List<Class> classList = getClasses(packageName);
+                List<Class<?>> classList = getClasses(packageName);
+                if (classList == null) {
+                    return resultList;
+                }
                 for (int i = 0; i < classList.size(); i++) {
                     Class<?> cls = classList.get(i);
                     if (clazz.isAssignableFrom(cls) && !clazz.equals(cls)) {
                         resultList.add(cls);
                     }
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -130,16 +130,16 @@ public class ClazzUtils {
 
     /**
      * 从一个包中查找出所有的类，在jar包中不能查找
+     *
      * @param packageName 包名
      * @return 当前包下以及子包下的所有类
      * @throws ClassNotFoundException ClassNotFoundException
-     * @throws IOException IOException
+     * @throws IOException            IOException
      */
-    private static List<Class> getClasses(String packageName) throws ClassNotFoundException, IOException {
-        ArrayList<Class> classes = new ArrayList<>();
+    private static List<Class<?>> getClasses(String packageName) throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null) {
-            return classes;
+            return null;
         }
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
@@ -148,19 +148,20 @@ public class ClazzUtils {
             URL resource = resources.nextElement();
             dirs.add(new File(resource.getFile()));
         }
+        ArrayList<Class<?>> classes = new ArrayList<>();
         for (File directory : dirs) {
             classes.addAll(findClasses(directory, packageName));
         }
         return classes;
     }
 
-    private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
-        List<Class> classes = new ArrayList<>();
+    private static List<Class<?>> findClasses(File directory, String packageName) throws ClassNotFoundException {
+        List<Class<?>> classes = new ArrayList<>();
         if (!directory.exists()) {
             return classes;
         }
         File[] files = directory.listFiles();
-        if (files == null || files.length <= 0) {
+        if (files == null) {
             return classes;
         }
         for (File file : files) {

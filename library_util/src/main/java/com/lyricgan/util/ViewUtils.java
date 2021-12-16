@@ -32,6 +32,9 @@ public class ViewUtils {
     private static long sLastOperateTime;
     private static final long[] TIME_ARRAY = new long[2];
 
+    private ViewUtils() {
+    }
+
     public static boolean isFastOperated(long maxDelayTimes) {
         long time = System.currentTimeMillis();
         long dis = time - sLastOperateTime;
