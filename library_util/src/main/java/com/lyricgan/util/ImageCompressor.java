@@ -6,8 +6,6 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.io.BufferedOutputStream;
@@ -22,10 +20,6 @@ import java.io.IOException;
  * @author Lyric Gan
  */
 public class ImageCompressor {
-    private static final int DEFAULT_OUT_WIDTH = 720;
-    private static final int DEFAULT_OUT_HEIGHT = 1080;
-    private static final int DEFAULT_MAX_FILE_SIZE = 1024;// KB
-    private static final String DEFAULT_OUT_FILE_PATH = "compress/images";
 
     private ImageCompressor() {
     }
@@ -36,10 +30,6 @@ public class ImageCompressor {
 
     public static ImageCompressor getInstance() {
         return Holder.INSTANCE;
-    }
-
-    public void compress(String srcImagePath, ImageCompressListener listener) {
-        this.compress(srcImagePath, DEFAULT_OUT_WIDTH, DEFAULT_OUT_HEIGHT, DEFAULT_MAX_FILE_SIZE, DEFAULT_OUT_FILE_PATH, listener);
     }
 
     public void compress(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath, ImageCompressListener listener) {
@@ -195,17 +185,17 @@ public class ImageCompressor {
         return (file.getAbsolutePath() + File.separator + srcFile.getName());
     }
 
-    private static class CompressTask extends AsyncTask<String, Void, ImageCompressResult> {
-        private final ImageCompressor mCompressHelper;
-        private final ImageCompressListener mCompressListener;
+    private static class CompressTask extends AsyncTask<String, Void, String> {
+        private final ImageCompressor mCompressor;
+        private final ImageCompressListener mListener;
 
-        CompressTask(ImageCompressor compressHelper, ImageCompressListener listener) {
-            this.mCompressHelper = compressHelper;
-            this.mCompressListener = listener;
+        CompressTask(ImageCompressor compressor, ImageCompressListener listener) {
+            this.mCompressor = compressor;
+            this.mListener = listener;
         }
 
         @Override
-        protected ImageCompressResult doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             String srcPath = params[0];
             int outWidth = Integer.parseInt(params[1]);
             int outHeight = Integer.parseInt(params[2]);
@@ -213,32 +203,28 @@ public class ImageCompressor {
             String outFilePath = params[4];
             String outPutPath = null;
             try {
-                outPutPath = mCompressHelper.execute(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
+                outPutPath = mCompressor.execute(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            ImageCompressResult compressResult = new ImageCompressResult();
-            compressResult.setSrcPath(srcPath);
-            compressResult.setOutPath(outPutPath);
-            if (outPutPath == null) {
-                compressResult.setStatus(ImageCompressResult.RESULT_ERROR);
-            } else {
-                compressResult.setStatus(ImageCompressResult.RESULT_OK);
-            }
-            return compressResult;
+            return outPutPath;
         }
 
         @Override
         protected void onPreExecute() {
-            if (mCompressListener != null) {
-                mCompressListener.onPreCompress();
+            if (mListener != null) {
+                mListener.onStart();
             }
         }
 
         @Override
-        protected void onPostExecute(ImageCompressResult compressResult) {
-            if (mCompressListener != null) {
-                mCompressListener.onPostCompress(compressResult);
+        protected void onPostExecute(String outPutPath) {
+            if (mListener != null) {
+                if (outPutPath != null) {
+                    mListener.onSuccess(outPutPath);
+                } else {
+                    mListener.onFailed();
+                }
             }
         }
     }
@@ -248,77 +234,10 @@ public class ImageCompressor {
      */
     public interface ImageCompressListener {
 
-        void onPreCompress();
+        void onStart();
 
-        void onPostCompress(ImageCompressResult result);
-    }
+        void onFailed();
 
-    /**
-     * 图片压缩实体类
-     */
-    public static class ImageCompressResult implements Parcelable {
-        public static final int RESULT_OK = 0;
-        public static final int RESULT_ERROR = 1;
-
-        private int status = RESULT_OK;
-        private String srcPath;
-        private String outPath;
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-        public String getSrcPath() {
-            return srcPath;
-        }
-
-        public void setSrcPath(String srcPath) {
-            this.srcPath = srcPath;
-        }
-
-        public String getOutPath() {
-            return outPath;
-        }
-
-        public void setOutPath(String outPath) {
-            this.outPath = outPath;
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.status);
-            dest.writeString(this.srcPath);
-            dest.writeString(this.outPath);
-        }
-
-        public ImageCompressResult() {
-        }
-
-        protected ImageCompressResult(Parcel in) {
-            this.status = in.readInt();
-            this.srcPath = in.readString();
-            this.outPath = in.readString();
-        }
-
-        public static final Creator<ImageCompressResult> CREATOR = new Creator<ImageCompressResult>() {
-            @Override
-            public ImageCompressResult createFromParcel(Parcel source) {
-                return new ImageCompressResult(source);
-            }
-
-            @Override
-            public ImageCompressResult[] newArray(int size) {
-                return new ImageCompressResult[size];
-            }
-        };
+        void onSuccess(String outPath);
     }
 }
