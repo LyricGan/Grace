@@ -30,12 +30,12 @@ public class ImageCompressor {
     private ImageCompressor() {
     }
 
-    private static final class ImageCompressorHolder {
-        private static final ImageCompressor mInstance = new ImageCompressor();
+    private static class Holder {
+        private static final ImageCompressor INSTANCE = new ImageCompressor();
     }
 
     public static ImageCompressor getInstance() {
-        return ImageCompressorHolder.mInstance;
+        return Holder.INSTANCE;
     }
 
     public void compress(String srcImagePath, ImageCompressListener listener) {
@@ -113,7 +113,7 @@ public class ImageCompressor {
         int baosLength = baos.toByteArray().length;
         while (baosLength / 1024 > maxFileSize) {// 循环判断如果压缩后图片是否大于maxMemorySize,大于继续压缩
             baos.reset();// 重置baos即让下一次的写入覆盖之前的内容
-            quality = Math.max(0, quality - 10);// 图片质量每次减少10
+            quality -= 10;// 图片质量每次减少10
             actualOutBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);// 将压缩后的图片保存到baos中
             baosLength = baos.toByteArray().length;
             if (quality == 0) {// 如果图片的质量已降到最低则不再进行压缩
@@ -196,8 +196,8 @@ public class ImageCompressor {
     }
 
     private static class CompressTask extends AsyncTask<String, Void, ImageCompressResult> {
-        private ImageCompressor mCompressHelper;
-        private ImageCompressListener mCompressListener;
+        private final ImageCompressor mCompressHelper;
+        private final ImageCompressListener mCompressListener;
 
         CompressTask(ImageCompressor compressHelper, ImageCompressListener listener) {
             this.mCompressHelper = compressHelper;
