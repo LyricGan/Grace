@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,8 +38,7 @@ public class ImageCompressor {
     }
 
     /**
-     * Can't compress a recycled bitmap
-     *
+     * 执行图片压缩
      * @param srcImagePath 原始图片的路径
      * @param outWidth    期望的输出图片的宽度
      * @param outHeight   期望的输出图片的高度
@@ -128,20 +128,21 @@ public class ImageCompressor {
         } catch (IOException e) {
             return null;
         } finally {
-            try {
-                baos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            close(baos);
+            close(fos);
         }
         return filePath;
+    }
+
+    private void close(Closeable closeable) {
+        if (closeable == null) {
+            return;
+        }
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Bitmap exifProcess(String srcImagePath, Bitmap bitmap) {
