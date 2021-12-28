@@ -21,6 +21,8 @@ import java.io.IOException;
  * @author Lyric Gan
  */
 public class ImageCompressor {
+    private int mOutputWidth, mOutputHeight;
+    private int mMaxFileSize;
 
     private ImageCompressor() {
     }
@@ -33,8 +35,38 @@ public class ImageCompressor {
         return Holder.INSTANCE;
     }
 
-    public void compress(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath, ImageCompressListener listener) {
-        new CompressTask(this, listener).execute(srcImagePath, "" + outWidth, "" + outHeight, "" + maxFileSize, outFilePath);
+    public int getOutputWidth() {
+        return mOutputWidth;
+    }
+
+    public int getOutputHeight() {
+        return mOutputHeight;
+    }
+
+    public void setOutputSize(int outputWidth, int outputHeight) {
+        this.mOutputWidth = outputWidth;
+        this.mOutputHeight = outputHeight;
+    }
+
+    public int getMaxFileSize() {
+        return mMaxFileSize;
+    }
+
+    public void setMaxFileSize(int maxFileSize) {
+        this.mMaxFileSize = maxFileSize;
+    }
+
+    public void compress(String srcImagePath, String outFilePath, ImageCompressListener listener) {
+        int outputWidth = mOutputWidth;
+        int outputHeight = mOutputHeight;
+        int maxFileSize = mMaxFileSize;
+        if (outputWidth <= 0 || outputHeight <= 0) {
+            throw new IllegalArgumentException("Invalid output width or height.");
+        }
+        if (maxFileSize <= 0) {
+            throw new IllegalArgumentException("Invalid max file size.");
+        }
+        new CompressTask(this, listener).execute(srcImagePath, outFilePath);
     }
 
     /**
@@ -198,17 +230,17 @@ public class ImageCompressor {
         @Override
         protected String doInBackground(String... params) {
             String srcPath = params[0];
-            int outWidth = Integer.parseInt(params[1]);
-            int outHeight = Integer.parseInt(params[2]);
-            int maxFileSize = Integer.parseInt(params[3]);
-            String outFilePath = params[4];
-            String outPutPath = null;
+            String outFilePath = params[1];
+            int outWidth = mCompressor.getOutputWidth();
+            int outHeight = mCompressor.getOutputHeight();
+            int maxFileSize = mCompressor.getMaxFileSize();
+            String outputPath = null;
             try {
-                outPutPath = mCompressor.execute(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
+                outputPath = mCompressor.execute(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return outPutPath;
+            return outputPath;
         }
 
         @Override
@@ -219,10 +251,10 @@ public class ImageCompressor {
         }
 
         @Override
-        protected void onPostExecute(String outPutPath) {
+        protected void onPostExecute(String outputPath) {
             if (mListener != null) {
-                if (outPutPath != null) {
-                    mListener.onSuccess(outPutPath);
+                if (outputPath != null) {
+                    mListener.onSuccess(outputPath);
                 } else {
                     mListener.onFailed();
                 }
@@ -239,6 +271,6 @@ public class ImageCompressor {
 
         void onFailed();
 
-        void onSuccess(String outPath);
+        void onSuccess(String outputPath);
     }
 }
