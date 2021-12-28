@@ -78,7 +78,7 @@ public class ImageCompressor {
      * @param outFilePath 图片文件路径
      * @return 压缩后图片文件路径
      */
-    public String execute(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath) {
+    public String compress(String srcImagePath, int outWidth, int outHeight, int maxFileSize, String outFilePath) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(srcImagePath, options);
@@ -96,8 +96,8 @@ public class ImageCompressor {
         // 例如输入比为20:10，输出比是5:100，如果要保证输出图片的宽高比和原始图片的宽高比相同，则最终输出图片的宽为5，高度需要根据输入图片的比率计算获得为5/(20/10)= 2.5，最终输出图片的比率为5:2.5 和原始输入的比率相同
         if (srcWidth > outWidth || srcHeight > outHeight) {
             if (srcRatio < outRatio) {
-                actualOutHeight = outHeight;
                 actualOutWidth = actualOutHeight * srcRatio;
+                actualOutHeight = outHeight;
             } else if (srcRatio > outRatio) {
                 actualOutWidth = outWidth;
                 actualOutHeight = actualOutWidth / srcRatio;
@@ -106,7 +106,7 @@ public class ImageCompressor {
                 actualOutHeight = outHeight;
             }
         }
-        options.inSampleSize = computeSampleSize(options, actualOutWidth, actualOutHeight);
+        options.inSampleSize = calculateSampleSize(options, actualOutWidth, actualOutHeight);
         options.inJustDecodeBounds = false;
         Bitmap scaledBitmap = null;
         try {
@@ -197,13 +197,13 @@ public class ImageCompressor {
         return bitmap;
     }
 
-    private int computeSampleSize(BitmapFactory.Options options, float reqWidth, float reqHeight) {
+    private int calculateSampleSize(BitmapFactory.Options options, float width, float height) {
         float srcWidth = options.outWidth;
         float srcHeight = options.outHeight;
         int sampleSize = 1;
-        if (srcWidth > reqWidth || srcHeight > reqHeight) {
-            int withRatio = Math.round(srcWidth / reqWidth);
-            int heightRatio = Math.round(srcHeight / reqHeight);
+        if (srcWidth > width || srcHeight > height) {
+            int withRatio = Math.round(srcWidth / width);
+            int heightRatio = Math.round(srcHeight / height);
             sampleSize = Math.min(withRatio, heightRatio);
         }
         return sampleSize;
@@ -236,7 +236,7 @@ public class ImageCompressor {
             int maxFileSize = mCompressor.getMaxFileSize();
             String outputPath = null;
             try {
-                outputPath = mCompressor.execute(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
+                outputPath = mCompressor.compress(srcPath, outWidth, outHeight, maxFileSize, outFilePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
