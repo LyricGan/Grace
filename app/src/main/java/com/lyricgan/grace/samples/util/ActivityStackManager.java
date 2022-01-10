@@ -5,18 +5,18 @@ import android.app.Activity;
 import java.util.Stack;
 
 public class ActivityStackManager {
-    private Stack<Activity> mActivityStack;
+    private final Stack<Activity> mActivityStack;
 
     private ActivityStackManager() {
         mActivityStack = new Stack<>();
     }
 
     private static class Holder {
-        private static final ActivityStackManager mInstance = new ActivityStackManager();
+        private static final ActivityStackManager INSTANCE = new ActivityStackManager();
     }
 
     public static ActivityStackManager getInstance() {
-        return Holder.mInstance;
+        return Holder.INSTANCE;
     }
 
     public void add(Activity activity) {
@@ -54,8 +54,7 @@ public class ActivityStackManager {
     }
 
     public Activity find(Class<? extends Activity> cls) {
-        int size = mActivityStack.size();
-        for (int i = size - 1; i >= 0; i++) {
+        for (int i = mActivityStack.size() - 1; i >= 0; i--) {
             Activity activity = mActivityStack.get(i);
             if (activity.getClass().equals(cls)) {
                 return activity;
