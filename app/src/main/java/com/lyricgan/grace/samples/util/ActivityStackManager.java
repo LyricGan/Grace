@@ -7,12 +7,12 @@ import java.util.Stack;
 public class ActivityStackManager {
     private final Stack<Activity> mActivityStack;
 
-    private ActivityStackManager() {
-        mActivityStack = new Stack<>();
-    }
-
     private static class Holder {
         private static final ActivityStackManager INSTANCE = new ActivityStackManager();
+    }
+
+    private ActivityStackManager() {
+        mActivityStack = new Stack<>();
     }
 
     public static ActivityStackManager getInstance() {
@@ -25,6 +25,10 @@ public class ActivityStackManager {
 
     public void remove(Activity activity) {
         mActivityStack.remove(activity);
+    }
+
+    public void clear() {
+        mActivityStack.clear();
     }
 
     public boolean contains(Activity activity) {
@@ -46,13 +50,6 @@ public class ActivityStackManager {
         return null;
     }
 
-    public void clear() {
-        for (Activity activity : mActivityStack) {
-            activity.finish();
-        }
-        mActivityStack.clear();
-    }
-
     public Activity find(Class<? extends Activity> cls) {
         for (int i = mActivityStack.size() - 1; i >= 0; i--) {
             Activity activity = mActivityStack.get(i);
@@ -67,7 +64,8 @@ public class ActivityStackManager {
         Activity activity = find(cls);
         if (activity != null) {
             activity.finish();
-            mActivityStack.remove(activity);
+
+            remove(activity);
         }
     }
 }
