@@ -17,6 +17,9 @@ import android.text.TextUtils;
  * @author Lyric Gan
  */
 public class AppRunningUtils {
+    
+    private AppRunningUtils() {
+    }
 
     public static boolean isIgnoringBatteryOptimizations(Context context) {
         if (context == null) {
@@ -65,12 +68,12 @@ public class AppRunningUtils {
         }
     }
 
-    private static void showActivity(Context context, String packageName) {
+    private static void startActivity(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         context.startActivity(intent);
     }
 
-    private static void showActivity(Context context, String packageName, String activityPath) {
+    private static void startActivity(Context context, String packageName, String activityPath) {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(packageName, activityPath));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,32 +90,32 @@ public class AppRunningUtils {
         }
         if ("huawei".equalsIgnoreCase(brand) || "honor".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.huawei.systemmanager", "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity");
+                startActivity(context, "com.huawei.systemmanager", "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity");
             } catch (Exception e) {
                 try {
-                    showActivity(context, "com.huawei.systemmanager", "com.huawei.systemmanager.optimize.bootstart.BootStartActivity");
+                    startActivity(context, "com.huawei.systemmanager", "com.huawei.systemmanager.optimize.bootstart.BootStartActivity");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         } else if ("xiaomi".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity");
+                startActivity(context, "com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if ("oppo".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.coloros.phonemanager");
+                startActivity(context, "com.coloros.phonemanager");
             } catch (Exception e1) {
                 try {
-                    showActivity(context, "com.oppo.safe");
+                    startActivity(context, "com.oppo.safe");
                 } catch (Exception e2) {
                     try {
-                        showActivity(context, "com.coloros.oppoguardelf");
+                        startActivity(context, "com.coloros.oppoguardelf");
                     } catch (Exception e3) {
                         try {
-                            showActivity(context, "com.coloros.safecenter");
+                            startActivity(context, "com.coloros.safecenter");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -121,23 +124,23 @@ public class AppRunningUtils {
             }
         } else if ("vivo".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.iqoo.secure");
+                startActivity(context, "com.iqoo.secure");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if ("samsung".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.samsung.android.sm_cn");
+                startActivity(context, "com.samsung.android.sm_cn");
             } catch (Exception e) {
                 try {
-                    showActivity(context, "com.samsung.android.sm");
+                    startActivity(context, "com.samsung.android.sm");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         } else if ("meizu".equalsIgnoreCase(brand)) {
             try {
-                showActivity(context, "com.meizu.safe");
+                startActivity(context, "com.meizu.safe");
             } catch (Exception e) {
                 e.printStackTrace();
             }
