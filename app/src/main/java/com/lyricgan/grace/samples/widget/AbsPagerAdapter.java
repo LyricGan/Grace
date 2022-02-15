@@ -19,6 +19,9 @@ public abstract class AbsPagerAdapter<T> extends PagerAdapter {
     private final List<String> mTitles;
 
     public AbsPagerAdapter(List<T> items, List<View> views, List<String> titles) {
+        if (items == null || views == null || items.size() != views.size()) {
+            throw new IllegalArgumentException("Invalid Arguments");
+        }
         this.mItems = items;
         this.mViews = views;
         this.mTitles = titles;
