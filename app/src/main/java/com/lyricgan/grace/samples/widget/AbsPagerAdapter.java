@@ -16,9 +16,13 @@ import java.util.List;
 public abstract class AbsPagerAdapter<T> extends PagerAdapter {
     private final List<T> mItems;
     private final List<View> mViews;
-    private final List<String> mTitles;
+    private final List<CharSequence> mTitles;
 
-    public AbsPagerAdapter(List<T> items, List<View> views, List<String> titles) {
+    public AbsPagerAdapter(List<T> items, List<View> views) {
+        this(items, views, null);
+    }
+
+    public AbsPagerAdapter(List<T> items, List<View> views, List<CharSequence> titles) {
         if (items == null || views == null || items.size() != views.size()) {
             throw new IllegalArgumentException("Invalid Arguments");
         }
@@ -40,13 +44,13 @@ public abstract class AbsPagerAdapter<T> extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View itemView = mViews.get(position);
+        View view = mViews.get(position);
         T item = mItems.get(position);
         if (item != null) {
-            instantiateItem(itemView, container, item, position);
+            instantiateItem(view, container, item, position);
         }
-        container.addView(itemView);
-        return itemView;
+        container.addView(view);
+        return view;
     }
 
     @Override
@@ -63,5 +67,5 @@ public abstract class AbsPagerAdapter<T> extends PagerAdapter {
         return super.getPageTitle(position);
     }
 
-    protected abstract void instantiateItem(View itemView, ViewGroup container, T item, int position);
+    protected abstract void instantiateItem(View view, ViewGroup container, T item, int position);
 }
