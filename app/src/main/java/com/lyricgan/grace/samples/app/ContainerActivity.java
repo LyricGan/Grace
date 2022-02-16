@@ -60,6 +60,10 @@ public class ContainerActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    protected void onInitFailed() {
+        finish();
+    }
+
     private void initFragment(String fragmentName, Bundle args) {
         try {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -77,7 +81,7 @@ public class ContainerActivity extends BaseActivity {
             mFragment = fragment;
         } catch (Exception e) {
             e.printStackTrace();
-            finish();
+            onInitFailed();
         }
     }
 }
