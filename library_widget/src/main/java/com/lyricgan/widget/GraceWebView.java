@@ -65,16 +65,18 @@ public class GraceWebView extends WebView {
     private static final String KEY_FUNCTION_NAME = "func";
     private static final String KEY_ARG_ARRAY = "args";
 
-    private HashMap<String, Object> mJsInterfaceMap = new HashMap<>();
+    private final HashMap<String, Object> mJsInterfaceMap = new HashMap<>();
     private String mJavaScriptString;
-    private LinkedList<String> mOverrideUrls = new LinkedList<>();
+    private final LinkedList<String> mOverrideUrls = new LinkedList<>();
 
     public GraceWebView(Context context) {
-        this(context, null);
+        super(context);
+        initWebSettings();
     }
 
     public GraceWebView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        initWebSettings();
     }
 
     public GraceWebView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -256,7 +258,7 @@ public class GraceWebView extends WebView {
         }
     }
 
-    public static boolean isValidUrl(String url) {
+    public boolean isValidUrl(String url) {
         return URLUtil.isNetworkUrl(url);
     }
 
@@ -328,13 +330,11 @@ public class GraceWebView extends WebView {
             String methodName = jsonObj.getString(KEY_FUNCTION_NAME);
             JSONArray argsArray = jsonObj.getJSONArray(KEY_ARG_ARRAY);
             Object[] args = null;
-            if (null != argsArray) {
-                int count = argsArray.length();
-                if (count > 0) {
-                    args = new Object[count];
-                    for (int i = 0; i < count; ++i) {
-                        args[i] = argsArray.get(i);
-                    }
+            int count = argsArray.length();
+            if (count > 0) {
+                args = new Object[count];
+                for (int i = 0; i < count; ++i) {
+                    args[i] = argsArray.get(i);
                 }
             }
             if (invokeJSInterfaceMethod(result, interfaceName, methodName, args)) {
@@ -376,7 +376,7 @@ public class GraceWebView extends WebView {
         try {
             Method method = obj.getClass().getMethod(methodName, parameterTypes);
             Object returnObj = method.invoke(obj, args);
-            boolean isVoid = returnObj == null || returnObj.getClass() == void.class;
+            boolean isVoid = (returnObj == null);
             String returnValue = isVoid ? "" : returnObj.toString();
             result.confirm(returnValue);
             succeed = true;
@@ -507,7 +507,7 @@ public class GraceWebView extends WebView {
     }
 
     private static class WebChromeClientDelegate extends WebChromeClient {
-        private WebChromeClient mWebChromeClient;
+        private final WebChromeClient mWebChromeClient;
 
         private WebChromeClientDelegate(WebChromeClient client) {
             this.mWebChromeClient = client;
@@ -633,11 +633,6 @@ public class GraceWebView extends WebView {
         }
 
         @Override
-        public void onConsoleMessage(String message, int lineNumber, String sourceID) {
-            mWebChromeClient.onConsoleMessage(message, lineNumber, sourceID);
-        }
-
-        @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
             return mWebChromeClient.onConsoleMessage(consoleMessage);
         }
@@ -673,8 +668,8 @@ public class GraceWebView extends WebView {
     }
 
     private static class WebViewClientDelegate extends WebViewClient {
-        private WebViewClient mWebViewClient;
-        private LinkedList<String> mOverrideUrls;
+        private final WebViewClient mWebViewClient;
+        private final LinkedList<String> mOverrideUrls;
 
         private WebViewClientDelegate(WebViewClient client, LinkedList<String> overrideUrls) {
             this.mWebViewClient = client;
@@ -744,11 +739,6 @@ public class GraceWebView extends WebView {
                 return mWebViewClient.shouldInterceptRequest(view, request);
             }
             return null;
-        }
-
-        @Override
-        public void onTooManyRedirects(WebView view, Message cancelMsg, Message continueMsg) {
-            mWebViewClient.onTooManyRedirects(view, cancelMsg, continueMsg);
         }
 
         @Override
@@ -833,7 +823,11 @@ public class GraceWebView extends WebView {
                 if (headerKey == null || !(headerKey.equalsIgnoreCase("set-cookie2") || headerKey.equalsIgnoreCase("set-cookie"))) {
                     continue;
                 }
-                for (String headerValue : headers.get(headerKey)) {
+                List<String> headerList = headers.get(headerKey);
+                if (headerList == null || headerList.isEmpty()) {
+                    continue;
+                }
+                for (String headerValue : headerList) {
                     CookieManager.getInstance().setCookie(url, headerValue);
                 }
             }
