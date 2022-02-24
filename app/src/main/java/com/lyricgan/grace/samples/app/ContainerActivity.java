@@ -60,7 +60,8 @@ public class ContainerActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    protected void onInitFailed() {
+    protected void onInitFailed(Exception e) {
+        e.printStackTrace();
         finish();
     }
 
@@ -80,8 +81,7 @@ public class ContainerActivity extends BaseActivity {
 
             mFragment = fragment;
         } catch (Exception e) {
-            e.printStackTrace();
-            onInitFailed();
+            onInitFailed(e);
         }
     }
 }
