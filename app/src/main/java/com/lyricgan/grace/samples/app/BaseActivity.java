@@ -9,6 +9,7 @@ import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseActivity extends GraceActivity {
     private TitleBar mTitleBar;
+    private final View.OnClickListener mBackPressedListener = v -> onBackPressed();
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
@@ -24,9 +25,8 @@ public abstract class BaseActivity extends GraceActivity {
         TitleBar titleBar = mTitleBar;
         if (titleBar == null) {
             titleBar = new TitleBar(decorView);
-            titleBar.bindViews();
-            titleBar.setLeftTextOnClickListener(v -> onBackPressed());
-            titleBar.setLeftImageOnClickListener(v -> onBackPressed());
+            titleBar.setLeftTextOnClickListener(mBackPressedListener);
+            titleBar.setLeftImageOnClickListener(mBackPressedListener);
             mTitleBar = titleBar;
         }
     }

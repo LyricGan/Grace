@@ -12,17 +12,18 @@ import com.lyricgan.grace.samples.R;
  * 自定义标题栏
  */
 public class TitleBar {
-    private final View mView;
+    private View mView;
     private ViewGroup titleBarView;
     private TextView tvLeftText, tvCenterText, tvRightText, tvRightSecondText;
     private ImageView ivLeftImage, ivCenterImage, ivRightImage, ivRightSecondImage;
 
     public TitleBar(View view) {
         this.mView = view;
+        bindViews(view);
     }
 
-    public void bindViews() {
-        View view = mView;
+    public void bindViews(View view) {
+        this.mView = view;
         if (view == null) {
             return;
         }
@@ -35,6 +36,10 @@ public class TitleBar {
         tvRightSecondText = view.findViewById(R.id.title_bar_right_second_text);
         ivRightImage = view.findViewById(R.id.title_bar_right_image);
         ivRightSecondImage = view.findViewById(R.id.title_bar_right_second_image);
+    }
+
+    public View getView() {
+        return mView;
     }
 
     public void setBackgroundColor(int color) {
