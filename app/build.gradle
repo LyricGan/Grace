@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.lyricgan.grace.samples"
@@ -118,13 +117,8 @@ android {
         flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
     }
 
-    lintOptions {
+    lint {
         abortOnError false
-    }
-
-    dexOptions {
-        preDexLibraries false
-        javaMaxHeapSize "4g"
     }
 }
 
