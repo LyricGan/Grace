@@ -1,9 +1,9 @@
 package com.lyricgan.grace.samples.app;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.lyricgan.arch.GraceFragment;
-import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseFragment extends GraceFragment {
 
@@ -49,9 +49,10 @@ public abstract class BaseFragment extends GraceFragment {
         return false;
     }
 
-    public TitleBar getActivityTitleBar() {
-        if (getActivity() instanceof BaseActivity) {
-            return ((BaseActivity) getActivity()).getTitleBar();
+    public TitleBar getTitleBar() {
+        Activity activity = getActivity();
+        if (activity instanceof BaseActivity) {
+            return ((BaseActivity) activity).getTitleBar();
         }
         return null;
     }

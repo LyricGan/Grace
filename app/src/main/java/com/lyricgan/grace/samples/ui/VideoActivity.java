@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.app.BaseActivity;
-import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.media.video.VideoPlayerView;
 import com.lyricgan.media.video.model.MediaPlayMode;
 
@@ -25,7 +24,7 @@ public class VideoActivity extends BaseActivity {
     @Override
     public void onCreateContentView(View view, Bundle savedInstanceState) {
         Intent intent = getIntent();
-        String videoUrl = intent.getStringExtra(IExtras.KEY_URL);
+        String videoUrl = intent.getStringExtra("key_url");
         videoPlayerView = findViewById(R.id.video_player_view);
 
         videoPlayerView.setPlayerViewCallback(new VideoPlayerView.PlayerViewCallback() {

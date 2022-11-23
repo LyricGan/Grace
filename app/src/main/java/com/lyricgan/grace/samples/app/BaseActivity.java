@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lyricgan.arch.GraceActivity;
-import com.lyricgan.grace.samples.util.ActivityStackManager;
-import com.lyricgan.grace.samples.widget.TitleBar;
 
 public abstract class BaseActivity extends GraceActivity {
     private TitleBar mTitleBar;
@@ -13,7 +11,6 @@ public abstract class BaseActivity extends GraceActivity {
 
     @Override
     public void onCreatePrepare(Bundle savedInstanceState) {
-        ActivityStackManager.getInstance().add(this);
     }
 
     @Override
@@ -29,12 +26,6 @@ public abstract class BaseActivity extends GraceActivity {
             titleBar.setLeftImageOnClickListener(mBackPressedListener);
             mTitleBar = titleBar;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityStackManager.getInstance().remove(this);
     }
 
     @Override

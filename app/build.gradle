@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'com.lyricgan.grace.samples'
     compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
@@ -128,40 +129,22 @@ def static releaseTime() {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation(junit)
 
-    implementation project(':library_arch')
-    implementation project(':library_util')
-    implementation project(':library_widget')
-    implementation project(':library_gson')
-    implementation project(':library_imageloader')
-    implementation project(':library_network')
-    implementation project(':library_video')
+    implementation project(':arch')
+    implementation project(':util')
+    implementation project(':widget')
+    implementation project(':network')
+    implementation project(':imageloader')
+    implementation project(':video')
+    implementation project(':conn')
 
-    // 图片库，https://github.com/zhihu/Matisse
-    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+    implementation(sdk_kotlin)
 
-    // 下拉刷新，上拉加载组件，https://github.com/scwang90/SmartRefreshLayout
-    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      // 核心必须依赖
-    implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    // 经典刷新头
-    implementation  'com.scwang.smart:refresh-header-radar:2.0.3'       // 雷达刷新头
-    implementation  'com.scwang.smart:refresh-header-falsify:2.0.3'     // 虚拟刷新头
-    implementation  'com.scwang.smart:refresh-header-material:2.0.3'    // 谷歌刷新头
-    implementation  'com.scwang.smart:refresh-header-two-level:2.0.3'   // 二级刷新头
-    implementation  'com.scwang.smart:refresh-footer-ball:2.0.3'        // 球脉冲加载
-    implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    // 经典加载
+    implementation(sdk_matisse)
+    implementation(sdk_shape_view)
+    implementation(sdk_permissions)
 
-    // Shape框架，https://github.com/getActivity/ShapeView
-    implementation 'com.github.getActivity:ShapeView:6.0'
-
-    // 权限请求框架，https://github.com/getActivity/XXPermissions
-    implementation 'com.github.getActivity:XXPermissions:12.5'
-
-    // kotlin
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    // EventBus消息库，https://github.com/greenrobot/EventBus
-    implementation 'org.greenrobot:eventbus:3.2.0'
-    annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.2.0'
+    implementation(sdk_eventbus)
+    annotationProcessor(sdk_eventbus_processor)
 }

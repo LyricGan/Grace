@@ -1,5 +1,7 @@
 package com.lyricgan.grace.samples.app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,26 +10,36 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
 import com.lyricgan.grace.samples.R;
-import com.lyricgan.grace.samples.constants.IExtras;
-import com.lyricgan.grace.samples.widget.TitleBar;
 
 /**
  * Fragment容器Activity
  * @author Lyric Gan
  */
 public class ContainerActivity extends BaseActivity {
+    private static final String KEY_NAME = "key_name";
+    private static final String KEY_TITLE = "key_title";
+    private static final String KEY_PARAMS = "key_params";
+
     private String mFragmentName;
     private String mTitle;
     private Bundle mParams;
 
     private Fragment mFragment;
 
+    public static Intent newIntent(Context context, String name, String title, Bundle params) {
+        Intent intent = new Intent(context, ContainerActivity.class);
+        intent.putExtra(KEY_NAME, name);
+        intent.putExtra(KEY_TITLE, title);
+        intent.putExtra(KEY_PARAMS, params);
+        return intent;
+    }
+
     @Override
     public void onCreateExtras(Bundle savedInstanceState, Bundle args) {
         super.onCreateExtras(savedInstanceState, args);
-        mFragmentName = args.getString(IExtras.KEY_NAME);
-        mTitle = args.getString(IExtras.KEY_TITLE);
-        mParams = args.getBundle(IExtras.KEY_PARAMS);
+        mFragmentName = args.getString(KEY_NAME);
+        mTitle = args.getString(KEY_TITLE);
+        mParams = args.getBundle(KEY_PARAMS);
     }
 
     @Override

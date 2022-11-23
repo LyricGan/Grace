@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.hjq.permissions.XXPermissions;
 import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.app.BaseActivity;
-import com.lyricgan.grace.samples.constants.IExtras;
 import com.lyricgan.grace.samples.util.GifSizeFilter;
-import com.lyricgan.grace.samples.util.JumpHelper;
+import com.lyricgan.grace.samples.app.PageHelper;
 import com.lyricgan.util.ApplicationUtils;
 import com.lyricgan.util.LogUtils;
 import com.lyricgan.util.UriUtils;
@@ -96,7 +95,7 @@ public class MainActivity extends BaseActivity {
 
     private void jumpVideoPage(String url) {
         Bundle extras = new Bundle();
-        extras.putString(IExtras.KEY_URL, url);
-        JumpHelper.jumpActivity(this, VideoActivity.class, extras);
+        extras.putString("key_url", url);
+        PageHelper.jump(this, VideoActivity.class, extras);
     }
 }
