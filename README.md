@@ -1,7 +1,7 @@
 Grace
 ===============
 
-示例项目。
+Android Sample.
 
 License
 -------
