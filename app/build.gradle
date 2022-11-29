@@ -140,6 +140,7 @@ dependencies {
     implementation project(':conn')
 
     implementation(sdk_kotlin)
+    implementation(sdk_androidx_lifecycle)
 
     implementation(sdk_matisse)
     implementation(sdk_shape_view)
