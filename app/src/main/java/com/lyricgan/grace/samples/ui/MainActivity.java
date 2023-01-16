@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -56,7 +58,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void onVideoPlayClick() {
-        XXPermissions.with(this).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).request((permissions, all) -> {
+        List<String> storagePermissions = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            storagePermissions.add(Manifest.permission.MANAGE_EXTERNAL_STORAGE);
+        } else {
+            storagePermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            storagePermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        XXPermissions.with(this).permission(storagePermissions).request((permissions, all) -> {
             if (all) {
                 selectVideo();
             }

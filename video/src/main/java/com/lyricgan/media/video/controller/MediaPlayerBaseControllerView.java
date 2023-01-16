@@ -20,7 +20,7 @@ import com.lyricgan.media.video.model.MediaPlayerMovieRatio;
 import com.lyricgan.media.video.model.MediaQualityBean;
 import com.lyricgan.media.video.model.RelateVideoInfo;
 import com.lyricgan.media.video.ui.MediaPlayerEventActionView;
-import com.lyricgan.media.video.VideoPlayerView;
+import com.lyricgan.media.video.VideoLayout;
 import com.lyricgan.media.video.util.MediaPlayerUtils;
 
 /**
@@ -66,7 +66,7 @@ public abstract class MediaPlayerBaseControllerView extends FrameLayout {
     protected WindowManager.LayoutParams mHostWindowLayoutParams;
     protected MediaPlayerControl mMediaPlayerController;
     protected GestureDetector mGestureDetector;
-    protected VideoPlayerView.PlayerViewCallback mPlayerViewCallback;
+    protected VideoLayout.PlayerViewCallback mPlayerViewCallback;
     protected MediaPlayerEventActionView mediaPlayerEventActionView;
 
     public MediaPlayerBaseControllerView(Context context) {
@@ -176,7 +176,7 @@ public abstract class MediaPlayerBaseControllerView extends FrameLayout {
         mMediaPlayerController = mediaPlayerController;
     }
 
-    public void setPlayerViewCallback(VideoPlayerView.PlayerViewCallback callback) {
+    public void setPlayerViewCallback(VideoLayout.PlayerViewCallback callback) {
         this.mPlayerViewCallback = callback;
     }
 

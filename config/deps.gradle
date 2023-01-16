@@ -141,5 +141,5 @@ ext {
     sdk_shape_view = 'com.github.getActivity:ShapeView:6.0'
 
     // https://github.com/getActivity/XXPermissions
-    sdk_permissions = 'com.github.getActivity:XXPermissions:12.5'
+    sdk_permissions = 'com.github.getActivity:XXPermissions:16.6'
 }

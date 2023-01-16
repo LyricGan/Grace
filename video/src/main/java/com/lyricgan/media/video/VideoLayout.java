@@ -48,7 +48,7 @@ import com.lyricgan.media.video.util.WakeLocker;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-public class VideoPlayerView extends RelativeLayout implements IPowerStateListener {
+public class VideoLayout extends RelativeLayout implements IPowerStateListener {
     private Activity mActivity;
     private Window mWindow;
 
@@ -132,17 +132,17 @@ public class VideoPlayerView extends RelativeLayout implements IPowerStateListen
     private List<RelateVideoInfo> mRelateVideoInfo_list;
     private RelateVideoInfo mRelateVideoInfo;
 
-    public VideoPlayerView(Context context) {
+    public VideoLayout(Context context) {
         super(context);
         init(context, null, -1);
     }
 
-    public VideoPlayerView(Context context, AttributeSet attrs) {
+    public VideoLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, -1);
     }
 
-    public VideoPlayerView(Context context, AttributeSet attrs, int defStyle) {
+    public VideoLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }

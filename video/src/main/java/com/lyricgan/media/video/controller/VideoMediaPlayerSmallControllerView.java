@@ -10,7 +10,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.lyricgan.media.video.R;
-import com.lyricgan.media.video.VideoPlayerView;
+import com.lyricgan.media.video.VideoLayout;
 import com.lyricgan.media.video.model.MediaPlayMode;
 import com.lyricgan.media.video.ui.MediaPlayerVideoSeekBar;
 import com.lyricgan.media.video.util.MediaPlayerUtils;
@@ -29,11 +29,11 @@ public class VideoMediaPlayerSmallControllerView extends MediaPlayerBaseControll
     private ImageView overflowImage;
     private boolean isFirst;
 
-    public void setPlayerViewTitleOptionListener(VideoPlayerView.PlayerViewTitleOption playerViewTitleOptionListener) {
+    public void setPlayerViewTitleOptionListener(VideoLayout.PlayerViewTitleOption playerViewTitleOptionListener) {
         this.playerViewTitleOptionListener = playerViewTitleOptionListener;
     }
 
-    VideoPlayerView.PlayerViewTitleOption playerViewTitleOptionListener;
+    VideoLayout.PlayerViewTitleOption playerViewTitleOptionListener;
 
     public VideoMediaPlayerSmallControllerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

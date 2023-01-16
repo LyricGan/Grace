@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.lyricgan.grace.samples.R;
 import com.lyricgan.grace.samples.app.BaseActivity;
-import com.lyricgan.media.video.VideoPlayerView;
+import com.lyricgan.media.video.VideoLayout;
 import com.lyricgan.media.video.model.MediaPlayMode;
 
 /**
@@ -14,7 +14,7 @@ import com.lyricgan.media.video.model.MediaPlayMode;
  * @author Lyric Gan
  */
 public class VideoActivity extends BaseActivity {
-    private VideoPlayerView videoPlayerView;
+    private VideoLayout videoLayout;
 
     @Override
     public int getContentViewId() {
@@ -25,9 +25,9 @@ public class VideoActivity extends BaseActivity {
     public void onCreateContentView(View view, Bundle savedInstanceState) {
         Intent intent = getIntent();
         String videoUrl = intent.getStringExtra("key_url");
-        videoPlayerView = findViewById(R.id.video_player_view);
+        videoLayout = findViewById(R.id.video_layout);
 
-        videoPlayerView.setPlayerViewCallback(new VideoPlayerView.PlayerViewCallback() {
+        videoLayout.setPlayerViewCallback(new VideoLayout.PlayerViewCallback() {
             @Override
             public void onPrepared() {
             }
@@ -39,7 +39,7 @@ public class VideoActivity extends BaseActivity {
             @Override
             public void onFinish(int playMode) {
                 if (playMode == MediaPlayMode.FULLSCREEN) {
-                    videoPlayerView.requestPlayMode(MediaPlayMode.WINDOW);
+                    videoLayout.requestPlayMode(MediaPlayMode.WINDOW);
                 } else if (playMode == MediaPlayMode.WINDOW) {
                     onBackPressed();
                 }
@@ -49,7 +49,7 @@ public class VideoActivity extends BaseActivity {
             public void onError(int errorCode, String errorMsg) {
             }
         });
-        videoPlayerView.play(videoUrl);
+        videoLayout.play(videoUrl);
     }
 
     @Override
@@ -59,18 +59,18 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        videoPlayerView.onResume();
+        videoLayout.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        videoPlayerView.onPause();
+        videoLayout.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        videoPlayerView.onDestroy();
+        videoLayout.onDestroy();
     }
 }

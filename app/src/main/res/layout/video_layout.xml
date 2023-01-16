@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.lyricgan.media.video.VideoPlayerView
-        android:id="@+id/video_player_view"
+    <com.lyricgan.media.video.VideoLayout
+        android:id="@+id/video_layout"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         app:layout_height="220"
