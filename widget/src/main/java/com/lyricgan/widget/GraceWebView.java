@@ -140,8 +140,6 @@ public class GraceWebView extends WebView {
         settings.setAllowFileAccess(false);
         setAllowAccessFromFileUrls(settings, false);
 
-        settings.setAppCacheEnabled(true);
-        settings.setAppCachePath(context.getCacheDir().getAbsolutePath());
         settings.setDomStorageEnabled(true);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
@@ -596,11 +594,6 @@ public class GraceWebView extends WebView {
         public void onExceededDatabaseQuota(String url, String databaseIdentifier, long quota, long estimatedDatabaseSize,
                                             long totalQuota, WebStorage.QuotaUpdater quotaUpdater) {
             mWebChromeClient.onExceededDatabaseQuota(url, databaseIdentifier, quota, estimatedDatabaseSize, totalQuota, quotaUpdater);
-        }
-
-        @Override
-        public void onReachedMaxAppCacheSize(long requiredStorage, long quota, WebStorage.QuotaUpdater quotaUpdater) {
-            mWebChromeClient.onReachedMaxAppCacheSize(requiredStorage, quota, quotaUpdater);
         }
 
         @Override

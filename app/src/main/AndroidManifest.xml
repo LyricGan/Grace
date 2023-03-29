@@ -52,7 +52,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.ContainerActivity" />
+        <activity
+            android:name=".app.ContainerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".ui.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />

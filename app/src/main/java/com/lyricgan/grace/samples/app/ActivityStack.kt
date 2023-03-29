@@ -21,6 +21,9 @@ class ActivityStack private constructor() {
             } else null
         }
 
+    val resume: Activity?
+        get() = resumeActivity?.get()
+
     companion object {
         val instance = ActivityStack()
     }
@@ -63,13 +66,10 @@ class ActivityStack private constructor() {
         resumeActivity = WeakReference(activity)
     }
 
-    fun resumeActivity(): Activity? {
-        return resumeActivity!!.get()
-    }
-
     fun stop(activity: Activity) {
-        if (resumeActivity != null && resumeActivity!!.get() === activity) {
-            resumeActivity!!.clear()
+        val resume = resumeActivity ?: return
+        if (resume.get() === activity) {
+            resume.clear()
             resumeActivity = null
         }
     }

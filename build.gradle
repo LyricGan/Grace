@@ -3,12 +3,12 @@ apply from: "config/deps.gradle"
 
 buildscript {
     ext {
-        compileSdkVersion = 32
+        compileSdkVersion = 33
         buildToolsVersion = '32.0.0'
         minSdkVersion = 16
-        targetSdkVersion = 32
+        targetSdkVersion = 33
 
-        kotlin_version = '1.7.20'
+        kotlin_version = '1.8.0'
         dokit_version = '3.7.1'
     }
 
